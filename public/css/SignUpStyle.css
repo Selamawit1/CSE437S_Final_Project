@@ -1,0 +1,50 @@
+body{
+  background-image: url("../images/witewall_3.png");
+  background-repeat: repeat;
+}
+#signupForm{
+  background-color: whitesmoke;
+  position: absolute;
+  left: 450px;
+  top: 25px;
+  width: 300px;
+  height: 347px;
+  padding-left: 50px;
+  padding-top: 92px;
+  padding-bottom: 59px;
+}
+#signupLabel{
+  font-weight: bold;
+  font-family: 'Source Serif Pro', serif;
+  position: relative;
+  font-size: 43px;
+  bottom: 33px;
+  left: 46px;
+  color: #990000;
+}
+#email{
+  position: relative;
+  width: 250px;
+  height: 37px;
+  top: 20px;
+}
+#password{
+  position: relative;
+  top: 53px;
+  width: 250px;
+  height: 37px;
+}
+#reenterPassword{
+  position: relative;
+  top: 90px;
+  width: 250px;
+  height: 37px;;
+}
+#signup{
+  position: relative;
+  font-family: 'Source Serif Pro', serif;
+  left: 62px;
+  top: 130px;
+  width: 110px;
+  height: 29px;
+}

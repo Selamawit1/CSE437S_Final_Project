@@ -17,5 +17,5 @@ appEx.use(express.static(__dirname + '/public'));
 
 // Set default served page upon first download
 appEx.get('/', function(req, res){
-    res.sendFile('login.html', { root: __dirname + "/public/login/" } );
+    res.sendFile('LoginPage.html', { root: __dirname + "/public/html" } );
 });
