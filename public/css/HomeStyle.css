@@ -35,6 +35,18 @@ h1 {
     transform: translate(-50%, -50%);
 }
 
+#myListings {
+  display: inline-block;
+}
+
+#addListing {
+   float: right;
+}
+
+#myListingsContainer {
+  width: 250px;
+}
+
 /* Bootstrap overrides, custom Bootstrap css */
 .navbar {
   background-color: #a51417;
