@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Homepage</title>
+  <title>Recent Activity</title>
   <link rel="stylesheet" type="text/css" href="/css/HomeStyle.css">
   <!-- Use Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -34,10 +34,9 @@
     </div>
   </nav>
   <div id="mainContent">
-    <!-- MAIN CONTENT -->
     <div class="row">
+      <!-- SIDEBAR -->
       <div class="col-sm-2">
-
         <br><br>
         <!-- PROFILE INFO -->
         <h5 class="center">
@@ -56,67 +55,18 @@
         </div>
         <!-- CATEGORIES -->
         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-          <a class="nav-link active" id="" data-toggle="pill" role="tab" aria-controls="v-pills-home" aria-selected="true" href="/html/HomePage.html">Home</a>
+          <a class="nav-link" id="" data-toggle="pill" role="tab" aria-controls="v-pills-home" aria-selected="false" href="/html/HomePage.html">Home</a>
           <a class="nav-link" id="" data-toggle="pill" role="tab" aria-controls="v-pills-home" aria-selected="false" href="/html/Textbooks.html">Textbooks</a>
           <a class="nav-link" id="" data-toggle="pill" role="tab" aria-controls="v-pills-profile" aria-selected="false">Classes</a>
-          <a class="nav-link" id="" data-toggle="pill" role="tab" aria-controls="v-pills-profile" aria-selected="false" href="/html/RecentActivity.html">My Activity</a>
+          <a class="nav-link active" id="" data-toggle="pill" role="tab" aria-controls="v-pills-profile" aria-selected="true" href="/html/RecentActivity.html">My Activity</a>
           <a class="nav-link" id="" data-toggle="pill" role="tab" aria-controls="v-pills-profile" aria-selected="false" href="/html/userSettings.html">Settings</a>
         </div>
       </div>
+      <!-- MAIN CONTENT -->
       <div class="col-sm-10">
-        <!-- Header image -->
-        <div class="container">
-          <img src="/images/holmes.jpg" style='width:100%;' border="0" alt="Holmes Lounge" />
-          <div class="centered">
-            <h1>Welcome to WashU <br>Free and For Sale!</h1>
-            <p>
-              <h4>By college students, for college students</h4>
-            </p>
-          </div>
-        </div>
-        <br><br>
-        <!-- SEARCH BAR -->
-        <div id="custom-search-input">
-          <div class="form-group">
-            <h1>Search for Textbooks</h1>
-          </div>
-          <div class="input-group">
-            <input type="text" class="form-control input-lg" placeholder="Search" />
-            &nbsp&nbsp
-            <span class="input-group-btn">
-              <button type="button" class="btn btn-outline-primary">Search</button>
-            </span>
-          </div>
-        </div><br>
-        <hr>
-        <!-- RECENTLY ADDED TEXTBOOKS -->
-        <div>
-          <h2>Recently Added Textbooks</h2>
-          Fresh and organic textbooks ready to be sold
-          <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action active">
-              Cras justo odio
-            </a>
-            <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-            <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-            <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-            <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
-          </div>
-        </div>
-        <!-- RECENT POSTS -->
-        <div><br>
-          <h2>Most Recent Posts</h2>
-          See what people are talking about
-          <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action active">
-              Cras justo odio
-            </a>
-            <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-            <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-            <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-            <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
-          </div>
-        </div> <br><br>
+        <br><br><h1>My Recent Activity</h1><hr><br>
+        <!-- LIST OF RECENT ACTIVITY -->
+
       </div>
     </div>
   </div><br>
