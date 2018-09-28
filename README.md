@@ -18,3 +18,6 @@ Group 3
 - Express.js
 - Firebase
 - Javascript/HTML/CSS
+
+### Additional Notes
+- Search see: https://firebase.google.com/docs/firestore/solutions/search
