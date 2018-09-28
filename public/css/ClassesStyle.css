@@ -1,0 +1,51 @@
+#mainContent {
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+  }
+  
+  .container {
+      position: relative;
+      text-align: center;
+      color: white;
+  }
+  
+  .footer {
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    line-height: 60px;
+    background-color: #c8c8c8;
+  }
+  
+  .centered {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+  
+  /* Bootstrap overrides, custom Bootstrap css */
+  .navbar {
+    background-color: #a51417;
+  }
+  
+  .nav-item {
+    color: white;
+  }
+
+  /*
+  .navbar{
+    position: fixed;
+  }
+  */
