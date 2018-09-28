@@ -17,6 +17,4 @@ Group 3
 - Node.js
 - Express.js
 - Firebase
-- Javascript
-- HTML
-- CSS
+- Javascript/HTML/CSS
