@@ -55,3 +55,7 @@ h1 {
 .nav-item {
   color: white;
 }
+
+.navbar{
+  position: fixed !important;
+}
