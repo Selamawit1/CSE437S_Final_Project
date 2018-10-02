@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang='en'>
 
 <head>
   <meta charset="UTF-8">
@@ -14,7 +14,7 @@
 <body>
   <!-- TOP NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="#TODO" >
       <img src="/images/whiteLogo.png" width="300" height="45" class="d-inline-block align-top" alt="">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,13 +24,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
+          <a class="nav-link" href="#TODO" >About</a>
         </li>
       </ul>
-      <ul class="navbar-nav ml-auto">
+      <span class="navbar-nav ml-auto">
         <!-- Right align -->
         <button type="button" class="btn btn-light"><i class="fas fa-sign-out-alt"></i> Log Out</button>
-      </ul>
+      </span>
     </div>
   </nav>
   <div id="mainContent">
@@ -43,7 +43,7 @@
           Welcome Back, <br>User
         </h5><br>
         <!-- Profile image -->
-        <img src="https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png" class="center" alt="placeholder avatar" height="70px" width="70px">
+        <img src="https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png" class="center" alt="placeholder avatar" height="70" width="70">
         <!-- Text input-->
         <div class="center"><br>
           <!-- Text input-->
@@ -51,15 +51,14 @@
             <div class="col-md-6">fillerEmail@wustl.edu
             </div>
           </div>
-          </form>
         </div>
         <!-- CATEGORIES -->
         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-          <a class="nav-link" id="" data-toggle="pill" role="tab" aria-controls="v-pills-home" aria-selected="false" href="/html/HomePage.html">Home</a>
-          <a class="nav-link active" id="" data-toggle="pill" role="tab" aria-controls="v-pills-home" aria-selected="true" href="/html/Textbooks.html">Textbooks</a>
-          <a class="nav-link" id="" data-toggle="pill" role="tab" aria-controls="v-pills-profile" aria-selected="false">Classes</a>
-          <a class="nav-link" id="" data-toggle="pill" role="tab" aria-controls="v-pills-profile" aria-selected="false" href="/html/RecentActivity.html">My Activity</a>
-          <a class="nav-link" id="" data-toggle="pill" role="tab" aria-controls="v-pills-profile" aria-selected="false" href="/html/userSettings.html">Settings</a>
+          <a class="nav-link" id="category_1" data-toggle="pill" role="tab" aria-controls="v-pills-home" aria-selected="false" href="/html/HomePage.html">Home</a>
+          <a class="nav-link active" id="category_2" data-toggle="pill" role="tab" aria-controls="v-pills-home" aria-selected="true" href="/html/Textbooks.html">Textbooks</a>
+          <a class="nav-link" id="category_3" data-toggle="pill" role="tab" aria-controls="v-pills-profile" aria-selected="false">Classes</a>
+          <a class="nav-link" id="category_4" data-toggle="pill" role="tab" aria-controls="v-pills-profile" aria-selected="false" href="/html/RecentActivity.html">My Activity</a>
+          <a class="nav-link" id="category_5" data-toggle="pill" role="tab" aria-controls="v-pills-profile" aria-selected="false" href="/html/userSettings.html">Settings</a>
         </div>
       </div>
       <!-- MAIN CONTENT -->
@@ -71,7 +70,7 @@
         <h4>Search by name, author, or ISBN</h4>
         <div class="input-group">
           <input type="text" class="form-control input" placeholder="Search" />
-          &nbsp&nbsp
+          &nbsp; &nbsp;
           <span class="input-group-btn">
             <button type="button" class="btn btn-outline-primary">Search</button>
           </span>
@@ -79,14 +78,14 @@
         <br><br>
         <div id="myListingsContainer">
           <h2 id="myListings">My Listings</h2>
-          <button type="button" class="btn btn-light" id="addListing">Add <i class="fas fa-plus-square"></i></button>
+          <button type="button" class="btn btn-light" id="addListing_1">Add <i class="fas fa-plus-square"></i></button>
         </div>
         <!-- PROTOTYPE LISTING, WILL BE REMOVED -->
         <div class="list-group">
-          <a href="#" class="list-group-item list-group-item-action">Test Listing
-            <button type="button" class="btn btn-light" id="addListing">Edit <i class="fas fa-edit"></i></button>
-            <button type="button" class="btn btn-light" id="addListing">Delete <i class="fas fa-minus-square"></i></button>
-          </a>
+          <div class="list-group-item list-group-item-action">Test Listing
+            <button type="button" class="btn btn-light" id="addListing_2">Edit <i class="fas fa-edit"></i></button>
+            <button type="button" class="btn btn-light" id="addListing_3">Delete <i class="fas fa-minus-square"></i></button>
+          </div>
         </div><br><br>
         <h2 id="allListings">All Textbook Listings</h2>
         <div>
