@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
 <body>
     <!-- TOP NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#TODO" >
+        <a class="navbar-brand" href="#TODO">
             <img src="/images/whiteLogo.png" width="300" height="45" class="d-inline-block align-top" alt="">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -27,12 +27,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#TODO" >Home
+                    <a class="nav-link" href="#TODO">Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#TODO" >About</a>
+                    <a class="nav-link" href="#TODO">About</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -56,7 +56,8 @@
                 </h5>
                 <br>
                 <!-- Profile image -->
-                <img src="https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png" class="center" alt="placeholder avatar" height="70" width="70">
+                <img src="https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png" class="center" alt="placeholder avatar"
+                    height="70" width="70">
                 <!-- Text input-->
                 <div class="center">
                     <a class="btn" id="edit_profile_icon" onclick="profile_edit_div();">
@@ -77,45 +78,80 @@
                     <a class="nav-link v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
                         aria-selected="false">My Activity</a>
                     <a class="nav-link v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
-                        aria-selected="false" href="/html/userSettings.html">Settings</a>  <!-- TODO HREF -->
+                        aria-selected="false" href="/html/userSettings.html">Settings</a>
+                    <!-- TODO HREF -->
                 </div>
             </div>
+        </div>
+        <div class="col-sm-10">
+            <!-- Header image -->
+            <div class="container">
+                <img src="/images/holmes.jpg" alt="Holmes Lounge" />
+                <div class="centered">
+                    <h1>Welcome to WashU
+                        <br>Free and For Sale!</h1>
+                    <p>
+                        <h4>By college students, for college students</h4>
+                    </p>
+                </div>
             </div>
-            <div class="col-sm-10">
-                <!-- Header image -->
-                <div class="container">
-                    <img src="/images/holmes.jpg" alt="Holmes Lounge" />
-                    <div class="centered">
-                        <h1>Welcome to WashU
-                            <br>Free and For Sale!</h1>
-                        <p>
-                            <h4>By college students, for college students</h4>
-                        </p>
-                    </div>
+            <br>
+            <br>
+            <!-- SEARCH BAR -->
+            <div id="custom-search-input">
+                <div class="form-group">
+                    <h1>Search for Classes</h1>
                 </div>
-                <br>
-                <br>
-                <!-- SEARCH BAR -->
-                <div id="custom-search-input">
-                    <div class="form-group">
-                        <h1>Search for Classes</h1>
-                    </div>
-                    <div class="input-group">
-                        <input type="text" class="form-control input-lg" placeholder="Search" /> &nbsp; &nbsp;
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-outline-primary">Search</button>
-                        </span>
-                    </div>
+                <div class="input-group">
+                    <input type="text" class="form-control input-lg" placeholder="Search" /> &nbsp; &nbsp;
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-outline-primary">Search</button>
+                    </span>
                 </div>
-                <br>
-                <hr>
-                <!-- YOUR CLASSES (ENROLLED/SUBSCRIBED) -->
-                <div>
-                    <h2>Your Classes</h2>
-                    Classes you are subscribed to
+            </div>
+            <br>
+            <hr>
+            <!-- YOUR CLASSES (ENROLLED/SUBSCRIBED) -->
+            <div>
+                <h2>Your Classes</h2>
+                Classes you are subscribed to
 
-                    <div class="card-deck">
-                        <div class="card your_class" id="your_class_1">
+                <div class="card-deck">
+                    <div class="card your_class" id="your_class_1">
+                        <img class="card-img-top" src="../images/class_backgrounds/psychology.jpg" alt="Card image">
+                        <div class="card-img-overlay">
+                            <div class="card-body text-center">
+                                <h4 class="card-title">Class</h4>
+                                <p class="card-text">Class Description.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card your_class" id="your_class_2">
+                        <img class="card-img-top" src="../images/class_backgrounds/biology.jpg" alt="Card image">
+                        <div class="card-img-overlay">
+                            <div class="card-body text-center">
+                                <h4 class="card-title">Class</h4>
+                                <p class="card-text">Class Description.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card your_class" id="your_class_3">
+                        <img class="card-img-top" src="../images/class_backgrounds/chemistry.jpg" alt="Card image">
+                        <div class="card-img-overlay">
+                            <div class="card-body text-center">
+                                <h4 class="card-title">Class</h4>
+                                <p class="card-text">Class Description.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- MOST POPULAR CLASSES -->
+                <div>
+                    <h2>Most Popular Classes</h2>
+                    Classes with the most activity
+
+                    <div class="card-columns">
+                        <div class="card popular_class" id="popular_class_1">
                             <img class="card-img-top" src="../images/class_backgrounds/psychology.jpg" alt="Card image">
                             <div class="card-img-overlay">
                                 <div class="card-body text-center">
@@ -124,7 +160,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card your_class" id="your_class_2">
+                        <div class="card popular_class" id="popular_class_2">
                             <img class="card-img-top" src="../images/class_backgrounds/biology.jpg" alt="Card image">
                             <div class="card-img-overlay">
                                 <div class="card-body text-center">
@@ -133,7 +169,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card your_class" id="your_class_3">
+                        <div class="card popular_class" id="popular_class_3">
                             <img class="card-img-top" src="../images/class_backgrounds/chemistry.jpg" alt="Card image">
                             <div class="card-img-overlay">
                                 <div class="card-body text-center">
@@ -143,49 +179,15 @@
                             </div>
                         </div>
                     </div>
-                    <!-- MOST POPULAR CLASSES -->
-                    <div>
-                        <h2>Most Popular Classes</h2>
-                        Classes with the most activity
-
-                        <div class="card-columns">
-                            <div class="card popular_class" id="popular_class_1">
-                                <img class="card-img-top" src="../images/class_backgrounds/psychology.jpg" alt="Card image">
-                                <div class="card-img-overlay">
-                                    <div class="card-body text-center">
-                                        <h4 class="card-title">Class</h4>
-                                        <p class="card-text">Class Description.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card popular_class" id="popular_class_2">
-                                <img class="card-img-top" src="../images/class_backgrounds/biology.jpg" alt="Card image">
-                                <div class="card-img-overlay">
-                                    <div class="card-body text-center">
-                                        <h4 class="card-title">Class</h4>
-                                        <p class="card-text">Class Description.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card popular_class" id="popular_class_3">
-                                <img class="card-img-top" src="../images/class_backgrounds/chemistry.jpg" alt="Card image">
-                                <div class="card-img-overlay">
-                                    <div class="card-body text-center">
-                                        <h4 class="card-title">Class</h4>
-                                        <p class="card-text">Class Description.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
+                    <br>
+                </div>
+                <!-- FOOTER -->
+                <footer class="footer">
+                    <div style="text-align: center; font-size:10pt;">
+                        &copy; Copyright 2018 Washington University in St.Louis
                     </div>
-                        <!-- FOOTER -->
-                        <footer class="footer">
-                            <div style="text-align: center; font-size:10pt;">
-                                &copy; Copyright 2018 Washington University in St.Louis
-                            </div>
 
-                        </footer>
+                </footer>
 </body>
 
 </html>
