@@ -10,9 +10,12 @@ Group 3
 4. To install needed packages: `npm install`
 
 ### To start the Node/Firebase Server:
- 1. In terminal, type
- ` npm install -g firebase-tools` then `firebase login --interactive`
- 2. Login in the browser it opens
+ 1. Inside project folder, in terminal: `cd public`
+ 2. Follow instructions given here: https://firebase.google.com/docs/hosting/deploying
+ 3. `firebase deploy`
+
+### Website Link: https://washu-books.firebaseapp.com
+
 
 ### Solution Stack:
 - Node.js
