@@ -9,9 +9,10 @@ Group 3
 3. Inside the folder, instantiate npm packages.json: `npm init`
 4. To install needed packages: `npm install`
 
-### To start the Node Server:
- 1. In terminal, type `node server.js`
- 2. To view, go to http://127.0.0.1:8080
+### To start the Node/Firebase Server:
+ 1. In terminal, type
+ ` npm install -g firebase-tools` then `firebase login --interactive`
+ 2. Login in the browser it opens
 
 ### Solution Stack:
 - Node.js

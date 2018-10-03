@@ -1,25 +1,40 @@
-<!DOCTYPE html>
-<html lang='en'>
+<html>
+  <head>
+    <!-- Firebase App is always required and must be first -->
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-app.js"></script>
 
-<head>
-  <title>Sign Up</title>
-  <link rel="stylesheet" type="text/css" href="/css/SignUpStyle.css" />
-  <link href="https://fonts.googleapis.com/css?family=Exo+2%7CIndie+Flower%7CJosefin+Sans%7CLobster%7CRoboto+Mono%7CShadows+Into+Light%7CSource+Serif+Pro%7CUbuntu"
-    rel="stylesheet">
-</head>
+    <!--Autentication-->
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-auth.js"></script>
 
-<body>
-  <form id="signupForm">
-    <label id="signupLabel"> Sign Up </label>
-    <br>
-    <input type="text" id="email" name="email" placeholder="Email Address" />
-    <br>
-    <input type="password" id="password" name="password" placeholder="Password" />
-    <br>
-    <input type="password" id="reenterPassword" name="reenterPassword" placeholder="Re-enter password" />
-    <br>
-    <input type="submit" id="signup" name="signup" value="Sign Up" />
-  </form>
-</body>
+    <!--Database-->
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-database.js"></script>
 
+    <script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+    apiKey: "AIzaSyBm6NA9yafW64dWpG0nwHpzwA73lTi_EHc",
+    authDomain: "washu-books.firebaseapp.com",
+    databaseURL: "https://washu-books.firebaseio.com",
+    projectId: "washu-books",
+    storageBucket: "washu-books.appspot.com",
+    messagingSenderId: "94731731491"
+    };
+    firebase.initializeApp(config);
+    </script>
+
+    <script src="/js/SignUpScript.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/SignUpStyle.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Exo+2|Indie+Flower|Josefin+Sans|Lobster|Roboto+Mono|Shadows+Into+Light|Source+Serif+Pro|Ubuntu" rel="stylesheet">
+  </head>
+  <body>
+    <div id="signupForm">
+      <label id="signupLabel"> Sign Up </label><br>
+      <input type="text" id="email" name="email" placeholder="Email Address"/><br>
+      <input type="password" id="password" name="password" placeholder="Password"/><br>
+      <input type="password" id="reenterPassword" name="reenterPassword" placeholder="Re-enter password"/><br>
+    <!--  <input type="submit" id="signup" name="signup" value="Sign Up"/> -->
+      <button id="signup"> Sign Up </button>
+    </div>
+  </body>
 </html>
