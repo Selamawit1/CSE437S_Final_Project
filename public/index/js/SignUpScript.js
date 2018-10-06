@@ -3,6 +3,7 @@ window.onload = function() {
   var signup = function() {
     const email = document.getElementById("email").value;
     const pass = document.getElementById("password").value;
+    const username = document.getElementById("username").value;
     /*  firebase.auth().getUserByEmail(email)
       .then(function(userRecord) {
         // See the UserRecord reference doc for the contents of userRecord.
@@ -21,7 +22,12 @@ window.onload = function() {
         var user = firebase.auth().currentUser;
         console.log("user is " + firebase.auth().currentUser);
         if (user != null) {
-          var email_id = user.email;
+          var email_id = user.getEmail();
+          // insert username as well
+          user.updateProfile({
+              displayName: username
+          });
+
           window.location.href = "../homepage.html";
           return false;
         }
@@ -30,10 +36,6 @@ window.onload = function() {
         //    alert("bye");
       }
     });
-
-    /*window.location.href="../homepage.html";
-     return false;*/
-    //return false;
 
   }
   document.getElementById("signup").addEventListener('click', e => {
