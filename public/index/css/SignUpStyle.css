@@ -28,15 +28,24 @@ body{
   height: 37px;
   top: 20px;
 }
-#password{
+
+#username {
   position: relative;
   top: 53px;
   width: 250px;
   height: 37px;
 }
-#reenterPassword{
+
+#password{
   position: relative;
   top: 90px;
+  width: 250px;
+  height: 37px;;
+}
+
+#reenterPassword{
+  position: relative;
+  top: 120px;
   width: 250px;
   height: 37px;;
 }
@@ -44,7 +53,7 @@ body{
   position: relative;
   font-family: 'Source Serif Pro', serif;
   left: 62px;
-  top: 130px;
+  top: 160px;
   width: 110px;
   height: 29px;
 }

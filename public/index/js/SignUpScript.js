@@ -22,13 +22,19 @@ window.onload = function() {
         var user = firebase.auth().currentUser;
         console.log("user is " + firebase.auth().currentUser);
         if (user != null) {
-          var email_id = user.getEmail();
+          var email_id = user.email;
           // insert username as well
           user.updateProfile({
-              displayName: username
+            displayName: username
+          }).then(function() {
+            // Update successful.
+            console.log("Successfully added username");
+          }).catch(function(error) {
+            // An error happened.
+            console.log("Error adding username");
           });
 
-          window.location.href = "../homepage.html";
+          window.location.href = "../index.html";
           return false;
         }
       } else {

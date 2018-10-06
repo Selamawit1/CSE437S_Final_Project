@@ -11,7 +11,8 @@ window.onload = function() {
     var userPass = document.getElementById("password").value;
     console.log("Attempting to sign in...");
     firebase.auth().signInWithEmailAndPassword(userEmail, userPass).then(function(data) {
-
+      var user = firebase.auth().currentUser;
+      console.log("user is " + firebase.auth().currentUser);
       console.log("The user is signed in");
       window.location.href = "/html/homepage.html";
 
@@ -23,23 +24,6 @@ window.onload = function() {
       console.log("Error : " + errorMessage);
 
     });
-
-    // firebase.auth().onAuthStateChanged(function(user) {
-    //   if (user) {
-    //     // User is signed in.
-    //     console.log("The user is signed in");
-    //     var user = firebase.auth().currentUser;
-    //     if (user != null) {
-    //       var email_id = user.email;
-    //       // window.location.href = "/html/homepage.html";
-    //       return false;
-    //     }
-    //
-    //   } else {
-    //     console.log("The user is NOT signed in");
-    //
-    //   }
-    // });
 
   }
 
