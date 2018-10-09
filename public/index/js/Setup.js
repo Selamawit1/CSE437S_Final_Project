@@ -15,7 +15,7 @@ $(window).load(function () {
         let username = user.displayName;
         console.log(email);
         document.getElementById("userEmail").innerHTML = email;
-        document.getElementById("username").innerHTML = username;
+        //document.getElementById("username").innerHTML = username;
       } else {
         console.log("User is not logged in!");
       }
