@@ -1,9 +1,6 @@
 $(window).load(function () {
-  document.getElementById("addBtn").addEventListener("click", function() {
-    console.log("Pressed");
-  });
-  //document.getElementById("newTextbookBtn").addEventListener("click", addTextbook);
-  //renderUserTextbooks();
+  document.getElementById("newTextbookBtn").addEventListener("click", addTextbook);
+  renderUserTextbooks();
 });
 
 
@@ -20,9 +17,10 @@ function renderUserTextbooks() {
   */
 function addTextbook() {
   firebase.auth().onAuthStateChanged(function(user) {
+  let database = firebase.database();
     if (user) {
       console.log("user is " + firebase.auth().currentUser);
-      let owner = firebase.auth().currentUser;
+      let ownerID = firebase.auth().currentUser.uid;
       let author = document.getElementById("author");
       let isbn = document.getElementById("isbn");
       let title = document.getElementById("title");
@@ -34,6 +32,9 @@ function addTextbook() {
         title: title
       };
        database.ref("textbooks/").push(obj);
+
+       // close modal
+       $('#addTextbookModal').modal('toggle');
 
     } else {
       console.log("User is not logged in!");
