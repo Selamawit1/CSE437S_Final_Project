@@ -3,7 +3,7 @@ $(window).load(function() {
   renderUserTextbooks();
 });
 
-
+// renders list-group divs into user submitted textbook listings
 function renderUserTextbooks() {
   // read data in from Firebase and render
   firebase.auth().onAuthStateChanged(function(user) {
