@@ -140,6 +140,9 @@
                     <br>
                     ISBN:<br>
                     <input type="text" value="ISBN" id="isbn">
+                    <br>
+                    Price($):<br>
+                    <input type="number" step='0.01' value="1" id="price">
                     <br><br>
                   </form>
                 </div>
@@ -152,7 +155,7 @@
           </div>
         </div>
         <!-- PROTOTYPE LISTING, WILL BE REMOVED -->
-        <div class="list-group">
+        <div id="userTextbookListings" class="list-group">
           <div class="list-group-item list-group-item-action">Test Listing
             <button type="button" class="btn btn-light" id="editBtn">Edit
               <i class="fas fa-edit"></i>

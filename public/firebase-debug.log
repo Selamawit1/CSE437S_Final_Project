@@ -1,0 +1,73 @@
+[debug] [2018-10-18T04:37:47.547Z] ----------------------------------------------------------------------
+[debug] [2018-10-18T04:37:47.550Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2018-10-18T04:37:47.551Z] CLI Version:   5.1.1
+[debug] [2018-10-18T04:37:47.551Z] Platform:      darwin
+[debug] [2018-10-18T04:37:47.551Z] Node Version:  v6.11.5
+[debug] [2018-10-18T04:37:47.552Z] Time:          Wed Oct 17 2018 23:37:47 GMT-0500 (CDT)
+[debug] [2018-10-18T04:37:47.552Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-10-18T04:37:47.571Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-10-18T04:37:47.572Z] > authorizing via signed-in user
+[debug] [2018-10-18T04:37:47.572Z] [iam] checking project washu-books for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2018-10-18T04:37:47.575Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/washu-books:testIamPermissions  
+
+[debug] [2018-10-18T04:37:47.909Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-18T04:37:47.911Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/washu-books  
+ 
+[debug] [2018-10-18T04:37:48.145Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'washu-books'...
+[info] 
+[info] i  deploying database, storage, firestore, functions, hosting
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[info] ✔  functions: Finished running predeploy script.
+[info] i  database: checking rules syntax...
+[debug] [2018-10-18T04:37:53.777Z] >>> HTTP REQUEST PUT https://washu-books.firebaseio.com/.settings/rules.json?dryRun=true  
+ {
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null"
+  }
+}
+
+[debug] [2018-10-18T04:37:53.949Z] <<< HTTP RESPONSE 200
+[info] ✔  database: rules syntax for database washu-books is valid
+[debug] [2018-10-18T04:37:53.952Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/washu-books  
+ 
+[debug] [2018-10-18T04:37:54.452Z] <<< HTTP RESPONSE 200
+[info] i  storage: checking storage.rules for compilation errors...
+[debug] [2018-10-18T04:37:54.455Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/washu-books:test  
+
+[debug] [2018-10-18T04:37:54.686Z] <<< HTTP RESPONSE 200
+[info] ✔  storage: rules file storage.rules compiled successfully
+[info] i  firestore: checking firestore.rules for compilation errors...
+[debug] [2018-10-18T04:37:54.690Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/washu-books:test  
+
+[debug] [2018-10-18T04:37:54.878Z] <<< HTTP RESPONSE 200
+[info] ✔  firestore: rules file firestore.rules compiled successfully
+[debug] [2018-10-18T04:37:54.880Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "firebase-admin": "~6.0.0",
+    "firebase-functions": "^2.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.12.0",
+    "eslint-plugin-promise": "^3.6.0"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2018-10-18T04:37:54.882Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/washu-books?view=CONSUMER_VIEW  
+ 
+[debug] [2018-10-18T04:37:54.883Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/washu-books?view=CONSUMER_VIEW  
+ 
