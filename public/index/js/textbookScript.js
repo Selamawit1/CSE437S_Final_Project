@@ -1,6 +1,7 @@
 $(window).load(function() {
   document.getElementById("newTextbookBtn").addEventListener("click", addTextbook);
   renderUserTextbooks();
+  renderAllTextbooks();
 });
 
 // renders list-group divs into user submitted textbook listings
@@ -34,7 +35,55 @@ function renderUserTextbooks() {
 
 // renders all inputted textbooks (TODO: pages/api load on scroll)
 function renderAllTextbooks() {
+  let body = document.getElementById("textbookTableBody");
+  // clear body
+  while (body.firstChild) {
+    body.removeChild(body.firstChild);
+  }
+  console.log("Rendering all textbooks");
+  let rootRef = firebase.database().ref();
+  rootRef.child('textbooks').once('value').then(function(snapshot) {
+    snapshot.forEach(function(data) {
+      console.log(data.val())
+      // render each within userTextbookListings div
+      var textbookPost = document.createElement('tr');
+      var textbookTh = document.createElement('th');
+      textbookTh.scope = "row";
 
+      // <th scope="col">ISBN #</th>
+      // <th scope="col">Seller Email</th>
+      // <th scope="col">Title</th>
+      // <th scope="col">Author</th>
+      // <th scope="col">Price</th>
+
+      var isbn = document.createElement('td');
+      isbn.innerHTML = data.val().isbn;
+
+      var sellerEmail = document.createElement('td');
+      // TODO: Get email from uid
+      //sellerEmail.innerHTML = data.val().email
+
+      var title = document.createElement('td');
+      title.innerHTML = data.val().title;
+
+      var author = document.createElement('td');
+      author.innerHTML = data.val().author;
+
+      var price = document.createElement('td');
+      price.innerHTML = "$" + data.val().price;
+
+      textbookPost.appendChild(textbookTh);
+      textbookPost.appendChild(isbn);
+      textbookPost.appendChild(sellerEmail);
+      textbookPost.appendChild(title);
+      textbookPost.appendChild(author);
+      textbookPost.appendChild(price);
+
+      body.appendChild(textbookPost);
+
+    });
+
+  });
 }
 
 /**
@@ -70,8 +119,6 @@ function addTextbook() {
           renderUserTextbooks();
         }
       });
-
-
 
       // close modal
       $('#addTextbookModal').modal('toggle');

@@ -89,7 +89,7 @@
           </div>
         </div>
         <!-- CATEGORIES -->
-        <div class="nav flex-column" >
+        <div class="nav flex-column">
           <a class="nav-link active" href="../html/homepage.html">Home</a>
           <a class="nav-link" href="../html/Textbooks.html">Textbooks</a>
           <a class="nav-link" href="../html/classes.html">Classes</a>
@@ -155,54 +155,44 @@
           </div>
         </div>
         <!-- PROTOTYPE LISTING, WILL BE REMOVED -->
-        <div id="userTextbookListings" class="list-group">
-          <div class="list-group-item list-group-item-action">Test Listing
-            <button type="button" class="btn btn-light" id="editBtn">Edit
-              <i class="fas fa-edit"></i>
-            </button>
-            <button type="button" class="btn btn-light" id="deleteBtn">Delete
-              <i class="fas fa-minus-square"></i>
-            </button>
+        <div data-spy="scroll" data-target="#navbar-example2" data-offset="0">
+          <div id="userTextbookListings" class="list-group">
+            <div class="list-group-item list-group-item-action">Test Listing
+              <button type="button" class="btn btn-light" id="editBtn">Edit
+                <i class="fas fa-edit"></i>
+              </button>
+              <button type="button" class="btn btn-light" id="deleteBtn">Delete
+                <i class="fas fa-minus-square"></i>
+              </button>
+            </div>
           </div>
-        </div>
-        <br>
-        <br>
-        <h2 id="allListings">All Textbook Listings</h2>
-        <div>
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">ISBN #</th>
-                <th scope="col">Seller Email</th>
-                <th scope="col">Title</th>
-                <th scope="col">Author</th>
-                <th scope="col">Class</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Mark</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry the Bird</td>
-                <td>Mark</td>
-                <td>@twitter</td>
-                <td>Mark</td>
-              </tr>
-            </tbody>
-          </table>
+          <br>
+          <br>
+          <h2 id="allListings">All Textbook Listings</h2>
+          <div>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">ISBN #</th>
+                  <th scope="col">Seller Email</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Author</th>
+                  <th scope="col">Price</th>
+                  <!-- <th scope="col">Class</th> -->
+                </tr>
+              </thead>
+              <tbody id="textbookTableBody">
+                <tr>
+                  <th scope="row">1</th>
+                  <td>isbn</td>
+                  <td>seller email</td>
+                  <td>title</td>
+                  <td>author</td>
+                  <td>price</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
