@@ -33,7 +33,7 @@ function renderUserTextbooks() {
   });
 }
 
-// renders all inputted textbooks (TODO: pages/api load on scroll)
+// renders all inputted textbooks
 function renderAllTextbooks() {
   let body = document.getElementById("textbookTableBody");
   // clear body
@@ -47,14 +47,6 @@ function renderAllTextbooks() {
       console.log(data.val())
       // render each within userTextbookListings div
       var textbookPost = document.createElement('tr');
-      var textbookTh = document.createElement('th');
-      textbookTh.scope = "row";
-
-      // <th scope="col">ISBN #</th>
-      // <th scope="col">Seller Email</th>
-      // <th scope="col">Title</th>
-      // <th scope="col">Author</th>
-      // <th scope="col">Price</th>
 
       var isbn = document.createElement('td');
       isbn.innerHTML = data.val().isbn;
@@ -72,7 +64,6 @@ function renderAllTextbooks() {
       var price = document.createElement('td');
       price.innerHTML = "$" + data.val().price;
 
-      textbookPost.appendChild(textbookTh);
       textbookPost.appendChild(isbn);
       textbookPost.appendChild(sellerEmail);
       textbookPost.appendChild(title);
@@ -82,7 +73,6 @@ function renderAllTextbooks() {
       body.appendChild(textbookPost);
 
     });
-
   });
 }
 
@@ -117,6 +107,7 @@ function addTextbook() {
           console.log("User input Success");
           // render new textbook listing
           renderUserTextbooks();
+          renderAllTextbooks();
         }
       });
 
