@@ -2,10 +2,36 @@ $(window).load(function() {
   document.getElementById("newTextbookBtn").addEventListener("click", addTextbook);
   renderUserTextbooks();
   renderAllTextbooks();
+
+  let utitle = document.getElementById("utitle").value;
+  let uauthor = document.getElementById("uauthor").value;
+  let uisbn = document.getElementById("uisbn").value;
+  let uprice = document.getElementById("uprice").value;
+
+  $("#saveBtn").click(function() {
+    // update textbook info in database
+    var postData = {
+      uid: uid,
+      email: email,
+      author: uauthor,
+      isbn: uisbn,
+      title: utitle,
+      price: uprice
+    };
+  });
+
+  $("#contactBtn").click(function() {
+    // send email to seller as inquiry
+     
+
+  });
+
+
 });
 
 // renders list-group divs into user submitted textbook listings
 function renderUserTextbooks() {
+  console.log("Rendering user owned textbook posts");
   // read data in from Firebase and render
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -16,15 +42,33 @@ function renderUserTextbooks() {
       let uid = firebase.auth().currentUser.uid;
       let rootRef = firebase.database().ref();
       rootRef.child('textbooks').orderByChild('uid').equalTo(uid).on("value", function(snapshot) {
-        //console.log(snapshot.val());
+        console.log(snapshot.val());
+        var idNum = 0;
         snapshot.forEach(function(data) {
-          console.log(data.val())
+          //console.log(data.val());
           // render each within userTextbookListings div
           var textbook = document.createElement('div');
+          textbook.id = "upost" + idNum;
           textbook.className = "list-group-item list-group-item-action";
           textbook.innerHTML = data.val().title;
-          document.getElementById("userTextbookListings").appendChild(textbook);
+          aDiv.appendChild(textbook);
 
+          let utitle = document.getElementById("utitle").value;
+          let uauthor = document.getElementById("uauthor").value;
+          let uisbn = document.getElementById("uisbn").value;
+          let uprice = document.getElementById("uprice").value;
+
+          // add click event
+          $("#" + textbook.id).click(function() {
+            console.log(textbook.id + " clicked");
+            utitle.value = data.val().title;
+            uauthor.value = data.val().author;
+            uisbn.value = data.val().isbn;
+            uprice.value = data.val().price;
+
+            $("#userDetailModal").modal('show');
+          });
+          idNum++;
         });
       });
     } else {
@@ -43,24 +87,21 @@ function renderAllTextbooks() {
   console.log("Rendering all textbooks");
   let rootRef = firebase.database().ref();
   rootRef.child('textbooks').once('value').then(function(snapshot) {
+    var idNum = 0;
     snapshot.forEach(function(data) {
-      console.log(data.val())
+      //console.log(data.val());
       // render each within userTextbookListings div
       var textbookPost = document.createElement('tr');
+      textbookPost.id = "post" + idNum;
 
       var isbn = document.createElement('td');
       isbn.innerHTML = data.val().isbn;
-
       var sellerEmail = document.createElement('td');
-      // TODO: Get email from uid
-      //sellerEmail.innerHTML = data.val().email
-
+      sellerEmail.innerHTML = data.val().email
       var title = document.createElement('td');
       title.innerHTML = data.val().title;
-
       var author = document.createElement('td');
       author.innerHTML = data.val().author;
-
       var price = document.createElement('td');
       price.innerHTML = "$" + data.val().price;
 
@@ -71,6 +112,19 @@ function renderAllTextbooks() {
       textbookPost.appendChild(price);
 
       body.appendChild(textbookPost);
+
+      $("#" + textbookPost.id).click(function() {
+        console.log(textbookPost.id + " clicked");
+        // TODO: Append needed information
+        document.getElementById("textbookTitle").innerHTML = data.val().title;
+        document.getElementById("textbookAuthor").innerHTML = "Author: " + data.val().author;
+        document.getElementById("textbookISBN").innerHTML = "ISBN #: " + data.val().isbn;
+        document.getElementById("textbookSeller").innerHTML = "Seller Email: " + data.val().price;
+        document.getElementById("textbookPrice").innerHTML = "Price: $" + " " + data.val().price;
+
+        $("#detailModal").modal('show');
+      });
+      idNum++;
 
     });
   });
@@ -85,7 +139,8 @@ function renderAllTextbooks() {
 function addTextbook() {
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-      let ownerID = firebase.auth().currentUser.uid;
+      let uid = firebase.auth().currentUser.uid;
+      let email = firebase.auth().currentUser.email;
       let author = document.getElementById("author").value;
       let isbn = document.getElementById("isbn").value;
       let title = document.getElementById("title").value;
@@ -95,7 +150,8 @@ function addTextbook() {
       let storesRef = rootRef.child('textbooks');
       let newStoreRef = storesRef.push();
       newStoreRef.set({
-        uid: ownerID,
+        uid: uid,
+        email: email,
         author: author,
         isbn: isbn,
         title: title,

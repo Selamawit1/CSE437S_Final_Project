@@ -75,7 +75,7 @@
         <h5 class="center">
           Welcome Back,
         </h5>
-        <h5 id="username">User</h5>
+        <h5 id="userName">User</h5>
         <br>
         <!-- Profile image -->
         <img src="https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png" class="center" alt="placeholder avatar" height="70" width="70">
@@ -113,6 +113,7 @@
         </div>
         <br>
         <br>
+        <!-- USER OWNED TESTBOOK POSTS -->
         <div id="myListingsContainer">
           <h2 id="myListings">My Listings</h2>
           <!-- ADD LISTING -->
@@ -154,44 +155,93 @@
             </div>
           </div>
         </div>
-        <!-- PROTOTYPE LISTING, WILL BE REMOVED -->
-        <div data-spy="scroll" data-target="#navbar-example2" data-offset="0">
-          <div id="userTextbookListings" class="list-group">
-            <div class="list-group-item list-group-item-action">Test Listing
-              <button type="button" class="btn btn-light" id="editBtn">Edit
-                <i class="fas fa-edit"></i>
-              </button>
-              <button type="button" class="btn btn-light" id="deleteBtn">Delete
-                <i class="fas fa-minus-square"></i>
-              </button>
-            </div>
-          </div>
-          <br>
-          <br>
-          <h2 id="allListings">All Textbook Listings</h2>
-          <div>
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">ISBN #</th>
-                  <th scope="col">Seller Email</th>
-                  <th scope="col">Title</th>
-                  <th scope="col">Author</th>
-                  <th scope="col">Price</th>
-                  <!-- <th scope="col">Class</th> -->
-                </tr>
-              </thead>
-              <tbody id="textbookTableBody">
-                <tr>
-                  <td>isbn</td>
-                  <td>seller email</td>
-                  <td>title</td>
-                  <td>author</td>
-                  <td>price</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <!-- USER LISTINGS -->
+        <div id="userTextbookListings" class="list-group"></div>
+        <br>
+        <br>
+        <h2 id="allListings">All Textbook Listings</h2>
+        <div>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">ISBN #</th>
+                <th scope="col">Seller Email</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Price</th>
+                <!-- <th scope="col">Class</th> -->
+              </tr>
+            </thead>
+            <tbody id="textbookTableBody">
+              <tr>
+                <td>isbn</td>
+                <td>seller email</td>
+                <td>title</td>
+                <td>author</td>
+                <td>price</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEXTBOOK DETAILS MODAL/ CONTACT SELLER -->
+  <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="textbookTitle">Textbook title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- MODAL CONTENT -->
+          <div id="textbookAuthor"></div>
+          <div id="textbookISBN"></div>
+          <div id="textbookSeller"></div>
+          <div id="textbookPrice"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="contactBtn">Contact Seller</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- USER TEXTBOOK EDITING MODAL -->
+  <div class="modal fade" id="userDetailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="utextbookTitle">Textbook title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- MODAL CONTENT -->
+          <h2>Edit Listing</h2>
+          <form>
+            Title:<br>
+            <input type="text" value="Title" id="utitle">
+            <br>
+            Author:<br>
+            <input type="text" value="Author" id="uauthor">
+            <br>
+            ISBN:<br>
+            <input type="text" value="ISBN" id="uisbn">
+            <br>
+            Price($):<br>
+            <input type="number" step='0.01' value="1" id="uprice">
+            <br><br>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
         </div>
       </div>
     </div>
