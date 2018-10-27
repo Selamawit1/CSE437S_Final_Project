@@ -1,33 +1,58 @@
+var textbookKeys = [];
+var clickedListing = "";
+
 $(window).load(function() {
   document.getElementById("newTextbookBtn").addEventListener("click", addTextbook);
   renderUserTextbooks();
   renderAllTextbooks();
 
-  let utitle = document.getElementById("utitle").value;
-  let uauthor = document.getElementById("uauthor").value;
-  let uisbn = document.getElementById("uisbn").value;
-  let uprice = document.getElementById("uprice").value;
+
 
   $("#saveBtn").click(function() {
+    let id = clickedListing; // get id of clicked listing
+    console.log("hi" + id);
+    // parse listing to get key for post to update
+    id = parseInt(id.substr(5)); // upost# --> # = index within array
+
+    let key = textbookKeys[id]; // KEY
+    console.log(key);
+
     // update textbook info in database
-    var postData = {
-      uid: uid,
-      email: email,
-      author: uauthor,
-      isbn: uisbn,
-      title: utitle,
-      price: uprice
-    };
+    let utitle = document.getElementById("utitle").value;
+    let uauthor = document.getElementById("uauthor").value;
+    let uisbn = document.getElementById("uisbn").value;
+    let uprice = document.getElementById("uprice").value;
+
+    if (utitle == "" || uauthor == "" || uisbn == "" || uprice == "") {
+      alert("Please make sure all fields are filled!");
+      return;
+    } else {
+      var textbooksRef = firebase.database().ref().child("textbooks/" + key);
+      textbooksRef.update({
+        author: uauthor,
+        isbn: uisbn,
+        title: utitle,
+        price: uprice
+      });
+      renderUserTextbooks();
+      renderAllTextbooks();
+
+      $('#userDetailModal').modal('toggle');
+    }
+
   });
 
   $("#contactBtn").click(function() {
-    // send email to seller as inquiry
-     
+    // send email or message? to seller as inquiry
+
 
   });
 
 
 });
+
+
+
 
 // renders list-group divs into user submitted textbook listings
 function renderUserTextbooks() {
@@ -42,7 +67,9 @@ function renderUserTextbooks() {
       let uid = firebase.auth().currentUser.uid;
       let rootRef = firebase.database().ref();
       rootRef.child('textbooks').orderByChild('uid').equalTo(uid).on("value", function(snapshot) {
-        console.log(snapshot.val());
+        //console.log(snapshot.val());
+        // pulls all textbook keys associated with current user account
+        textbookKeys = Object.keys(snapshot.val())
         var idNum = 0;
         snapshot.forEach(function(data) {
           //console.log(data.val());
@@ -60,6 +87,7 @@ function renderUserTextbooks() {
 
           // add click event
           $("#" + textbook.id).click(function() {
+            clickedListing = textbook.id;
             console.log(textbook.id + " clicked");
             utitle.value = data.val().title;
             uauthor.value = data.val().author;
@@ -149,6 +177,10 @@ function addTextbook() {
       let rootRef = firebase.database().ref();
       let storesRef = rootRef.child('textbooks');
       let newStoreRef = storesRef.push();
+
+      // store key in case the user wants to edit any posts
+      textbookKeys.push(newStoreRef.getKey());
+
       newStoreRef.set({
         uid: uid,
         email: email,
