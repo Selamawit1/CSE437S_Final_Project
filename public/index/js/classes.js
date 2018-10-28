@@ -185,6 +185,7 @@ function sortTable(n) {
 
 //SRC: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_filter_table
 function searchClass() {
+  console.log('search');
   var input, filter, table, tr, td, i;
   input = document.getElementById("searchClassQuery");
   filter = input.value.toUpperCase();

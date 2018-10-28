@@ -190,14 +190,8 @@
               </div>
               <br>
             </div>
-            <!-- ADD CLASS -->
-            <div class="row">
-              <div class="col">
-                <button type="button" class="col-lg btn btn-light" id="addBtn" data-toggle="modal" data-target="#addClassModal">Add Class
-                  <i class="fas fa-plus-square"></i>
-                </button>
-              </div>
-            </div>
+            <h1>Classes You Moderate</h1>
+
             <!-- NEW CLASS MODAL -->
             <div class="modal fade" id="addClassModal" tabindex="-1" role="dialog" aria-labelledby="addClass" aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -242,29 +236,38 @@
               <div id="userClassListings" class="list-group">
 
               </div>
+              <!-- ADD CLASS -->
+              <div class="row">
+                <div class="col">
+                  <button type="button" class="col-lg btn btn-light" id="addBtn" data-toggle="modal" data-target="#addClassModal">Add Class
+                    <i class="fas fa-plus-square"></i>
+                  </button>
+                </div>
+              </div>
               <br>
               <br>
+              <hr>
               <!-- SEARCH BAR -->
               <div id="custom-search-input">
                 <div class="form-group">
                   <h1>Search for Classes</h1>
                 </div>
                 <div class="input-group">
-                  <input id="searchClassQuery" type="text" class="form-control input-lg" placeholder="Search" /> &nbsp; &nbsp;
+                  <input oninput="searchClass()" id="searchClassQuery" type="text" class="form-control input-lg" placeholder="Search" /> &nbsp; &nbsp;
                   <div class="input-group-btn">
                     <button id='searchClassBtn' type="button" class="btn btn-outline-primary">Search</button>
                   </div>
                 </div>
               </div>
               <br>
-              <hr>
               <!-- /SEARCH BAR -->
-              <h2 id="allListings">All Class Listings</h2>
               <div>
                 <table id="myTable" class="table table-hover">
                   <thead>
                     <tr>
-                      <th onclick="sortTable(0)" scope="col">Class Title</th>
+                      <th onclick="sortTable(0)" scope="col">Class Title
+                        <i> </i>
+                      </th>
                       <th onclick="sortTable(1)" scope="col">Department</th>
                       <th onclick="sortTable(2)" scope="col">Instructor</th>
                       <th onclick="sortTable(3)" scope="col">School</th>
