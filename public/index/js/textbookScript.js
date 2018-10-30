@@ -15,7 +15,6 @@ $(window).load(function() {
     id = parseInt(id.substr(5)); // upost# --> # = index within array
 
     let key = textbookKeys[id]; // KEY
-    console.log(key);
 
     // update textbook info in database
     let utitle = document.getElementById("utitle").value;
@@ -27,8 +26,8 @@ $(window).load(function() {
       alert("Please make sure all fields are filled!");
       return;
     } else {
-      var textbooksRef = firebase.database().ref().child("textbooks/" + key);
-      textbooksRef.update({
+      var textbookRef = firebase.database().ref().child("textbooks/" + key);
+      textbookRef.update({
         author: uauthor,
         isbn: uisbn,
         title: utitle,
@@ -38,6 +37,22 @@ $(window).load(function() {
       renderAllTextbooks();
 
       $('#userDetailModal').modal('toggle');
+    }
+
+  });
+
+  $("#deleteBtn").click(function() {
+    let id = clickedListing; // get id of clicked listing
+    id = parseInt(id.substr(5)); // upost# --> # = index within array
+    let key = textbookKeys[id]; // KEY
+
+    let ask = confirm("Are you sure? This action cannot be undone.");
+
+    if (ask) {
+      var textbookRef = firebase.database().ref().child("textbooks/" + key);
+      textbookRef.remove();
+    } else {
+      // do nothing
     }
 
   });
