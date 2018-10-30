@@ -154,51 +154,13 @@
                 </div>
               </div>
             </div>
-            <!-- MOST POPULAR CLASSES -->
-            <div>
-              <h2>Most Popular Classes</h2>
-              Classes with the most activity
 
-              <div class="card-deck">
-                <div class="card popular_class" id="popular_class_1">
-                  <img class="card-img-top" src="../images/class_backgrounds/psychology.jpg" alt="Card image">
-                  <div class="card-img-overlay">
-                    <div class="card-body text-center">
-                      <h4 class="card-title">Class</h4>
-                      <p class="card-text">Class Description.</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="card popular_class" id="popular_class_1">
-                  <img class="card-img-top" src="../images/class_backgrounds/chemistry.jpg" alt="Card image">
-                  <div class="card-img-overlay">
-                    <div class="card-body text-center">
-                      <h4 class="card-title">Class</h4>
-                      <p class="card-text">Class Description.</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="card popular_class" id="popular_class_1">
-                  <img class="card-img-top" src="../images/class_backgrounds/biology.jpg" alt="Card image">
-                  <div class="card-img-overlay">
-                    <div class="card-body text-center">
-                      <h4 class="card-title">Class</h4>
-                      <p class="card-text">Class Description.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <br>
-            </div>
-            <!-- ADD CLASS -->
-            <div class="row">
-              <div class="col">
-                <button type="button" class="col-lg btn btn-light" id="addBtn" data-toggle="modal" data-target="#addClassModal">Add Class
-                  <i class="fas fa-plus-square"></i>
-                </button>
-              </div>
-            </div>
+
             <!-- NEW CLASS MODAL -->
+            <br>
+            <hr>
+            <h1>Classes You Moderate</h1>
+
             <div class="modal fade" id="addClassModal" tabindex="-1" role="dialog" aria-labelledby="addClass" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -242,33 +204,50 @@
               <div id="userClassListings" class="list-group">
 
               </div>
+              <!-- ADD CLASS -->
+              <div class="row">
+                <div class="col">
+                  <button type="button" class="col-lg btn btn-light" id="addBtn" data-toggle="modal" data-target="#addClassModal">Add Class
+                    <i class="fas fa-plus-square"></i>
+                  </button>
+                </div>
+              </div>
               <br>
               <br>
+              <hr>
               <!-- SEARCH BAR -->
               <div id="custom-search-input">
                 <div class="form-group">
                   <h1>Search for Classes</h1>
                 </div>
                 <div class="input-group">
-                  <input id="searchClassQuery" type="text" class="form-control input-lg" placeholder="Search" /> &nbsp; &nbsp;
+                  <input oninput="searchClass()" id="searchClassQuery" type="text" class="form-control input-lg" placeholder="Search" /> &nbsp; &nbsp;
                   <div class="input-group-btn">
                     <button id='searchClassBtn' type="button" class="btn btn-outline-primary">Search</button>
                   </div>
                 </div>
               </div>
               <br>
-              <hr>
               <!-- /SEARCH BAR -->
-              <h2 id="allListings">All Class Listings</h2>
               <div>
                 <table id="myTable" class="table table-hover">
                   <thead>
                     <tr>
-                      <th onclick="sortTable(0)" scope="col">Class Title</th>
-                      <th onclick="sortTable(1)" scope="col">Department</th>
-                      <th onclick="sortTable(2)" scope="col">Instructor</th>
-                      <th onclick="sortTable(3)" scope="col">School</th>
-                      <th onclick="sortTable(4)" scope="col">Rating</th>
+                      <th onclick="sortTable(0)" scope="col">Class Title
+                        <i class="fa fa-sort"></i>
+                      </th>
+                      <th onclick="sortTable(1)" scope="col">Department
+                        <i class="fa fa-sort"></i>
+                      </th>
+                      <th onclick="sortTable(2)" scope="col">Instructor
+                        <i class="fa fa-sort"></i>
+                      </th>
+                      <th onclick="sortTable(3)" scope="col">School
+                        <i class="fa fa-sort"></i>
+                      </th>
+                      <th onclick="sortTable(4)" scope="col">Rating
+                        <i class="fa fa-sort"></i>
+                      </th>
                     </tr>
                   </thead>
                   <tbody id="classTableBody">
@@ -284,6 +263,48 @@
               </div>
             </div>
           </div>
+
+          <!-- USER CLASS EDITING MODAL -->
+          <div class="modal fade" id="userDetailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="uclassitle">Class title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <!-- MODAL CONTENT -->
+                  <h2>Edit Listing</h2>
+                  <form>
+                    Title:
+                    <br>
+                    <input type="text" value="title" id="utitle">
+                    <br> Department:
+                    <br>
+                    <input type="text" value="department" id="udepartment">
+                    <br> Email of instructor:
+                    <br>
+                    <input type="text" value="email" id="uemail">
+                    <br> Instructor:
+                    <br>
+                    <input type="text" value="instructor" id="uinstructor">
+                    <br> School:
+                    <br>
+                    <input type="text" value="school" id="uschool">
+                    <br>
+                    <br>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
           <!-- FOOTER -->
           <footer class="footer">
             <div style="text-align: center; font-size:10pt;">
