@@ -51,6 +51,8 @@ $(window).load(function() {
     if (ask) {
       var textbookRef = firebase.database().ref().child("textbooks/" + key);
       textbookRef.remove();
+      renderUserTextbooks();
+      renderAllTextbooks();
     } else {
       // do nothing
     }
