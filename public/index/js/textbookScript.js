@@ -103,17 +103,17 @@ function renderUserTextbooks() {
           textbook.innerHTML = data.val().title;
           aDiv.appendChild(textbook);
 
-          let utitle = document.getElementById("utitle").value;
-          let uauthor = document.getElementById("uauthor").value;
-          let uisbn = document.getElementById("uisbn").value;
-          let uclass = document.getElementById("uclass").value;
-          let uprice = document.getElementById("uprice").value;
-
-
           // add click event
           $("#" + textbook.id).click(function() {
+            let utitle = document.getElementById("utitle");
+            let uauthor = document.getElementById("uauthor");
+            let uisbn = document.getElementById("uisbn");
+            let uclass = document.getElementById("uclass");
+            let uprice = document.getElementById("uprice");
+
             clickedListing = textbook.id;
             console.log(textbook.id + " clicked");
+            console.log(utitle.value);
             utitle.value = data.val().title;
             uauthor.value = data.val().author;
             uisbn.value = data.val().isbn;
