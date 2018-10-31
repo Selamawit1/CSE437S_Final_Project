@@ -20,6 +20,7 @@ $(window).load(function() {
     let utitle = document.getElementById("utitle").value;
     let uauthor = document.getElementById("uauthor").value;
     let uisbn = document.getElementById("uisbn").value;
+    let uclass = document.getElementById("uclass").value;
     let uprice = document.getElementById("uprice").value;
 
     if (utitle == "" || uauthor == "" || uisbn == "" || uprice == "") {
@@ -31,6 +32,7 @@ $(window).load(function() {
         author: uauthor,
         isbn: uisbn,
         title: utitle,
+        class: uclass,
         price: uprice
       });
       renderUserTextbooks();
@@ -53,6 +55,8 @@ $(window).load(function() {
       textbookRef.remove();
       renderUserTextbooks();
       renderAllTextbooks();
+      $('#userDetailModal').modal('toggle');
+
     } else {
       // do nothing
     }
@@ -86,7 +90,9 @@ function renderUserTextbooks() {
       rootRef.child('textbooks').orderByChild('uid').equalTo(uid).on("value", function(snapshot) {
         //console.log(snapshot.val());
         // pulls all textbook keys associated with current user account
-        textbookKeys = Object.keys(snapshot.val())
+        if (snapshot.val() != null) {
+          textbookKeys = Object.keys(snapshot.val());
+        }
         var idNum = 0;
         snapshot.forEach(function(data) {
           //console.log(data.val());
@@ -100,7 +106,9 @@ function renderUserTextbooks() {
           let utitle = document.getElementById("utitle").value;
           let uauthor = document.getElementById("uauthor").value;
           let uisbn = document.getElementById("uisbn").value;
+          let uclass = document.getElementById("uclass").value;
           let uprice = document.getElementById("uprice").value;
+
 
           // add click event
           $("#" + textbook.id).click(function() {
@@ -109,6 +117,7 @@ function renderUserTextbooks() {
             utitle.value = data.val().title;
             uauthor.value = data.val().author;
             uisbn.value = data.val().isbn;
+            uclass.value = data.val().class;
             uprice.value = data.val().price;
 
             $("#userDetailModal").modal('show');
@@ -142,11 +151,13 @@ function renderAllTextbooks() {
       var isbn = document.createElement('td');
       isbn.innerHTML = data.val().isbn;
       var sellerEmail = document.createElement('td');
-      sellerEmail.innerHTML = data.val().email
+      sellerEmail.innerHTML = data.val().email;
       var title = document.createElement('td');
       title.innerHTML = data.val().title;
       var author = document.createElement('td');
       author.innerHTML = data.val().author;
+      var aclass = document.createElement('td');
+      aclass.innerHTML = "Class: " + data.val().class;
       var price = document.createElement('td');
       price.innerHTML = "$" + data.val().price;
 
@@ -154,6 +165,7 @@ function renderAllTextbooks() {
       textbookPost.appendChild(sellerEmail);
       textbookPost.appendChild(title);
       textbookPost.appendChild(author);
+      textbookPost.appendChild(aclass);
       textbookPost.appendChild(price);
 
       body.appendChild(textbookPost);
@@ -164,7 +176,7 @@ function renderAllTextbooks() {
         document.getElementById("textbookTitle").innerHTML = data.val().title;
         document.getElementById("textbookAuthor").innerHTML = "Author: " + data.val().author;
         document.getElementById("textbookISBN").innerHTML = "ISBN #: " + data.val().isbn;
-        document.getElementById("textbookSeller").innerHTML = "Seller Email: " + data.val().price;
+        document.getElementById("textbookSeller").innerHTML = "Seller Email: " + data.val().email;
         document.getElementById("textbookPrice").innerHTML = "Price: $" + " " + data.val().price;
 
         $("#detailModal").modal('show');
@@ -189,6 +201,7 @@ function addTextbook() {
       let author = document.getElementById("author").value;
       let isbn = document.getElementById("isbn").value;
       let title = document.getElementById("title").value;
+      let aclass = document.getElementById("class").value;
       let price = document.getElementById("price").value;
 
       let rootRef = firebase.database().ref();
@@ -204,6 +217,7 @@ function addTextbook() {
         author: author,
         isbn: isbn,
         title: title,
+        class: aclass,
         price: price
       }, function(error) {
         if (error) {
@@ -223,4 +237,27 @@ function addTextbook() {
       console.log("User is not logged in!");
     }
   });
+}
+
+function searchTextbooks() {
+  console.log('search');
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("searchTextbookQuery");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  for (i = 0; i < tr.length; i++) {
+    for (j = 0; j < tr.length; j++) {
+      td = tr[i].getElementsByTagName("td")[j];
+      if (td) {
+        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+          break;
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
 }
