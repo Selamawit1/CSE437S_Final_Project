@@ -1,3 +1,6 @@
+
+/* TODO: ? TEXTBOOK COVER IMAGES API: https://openlibrary.org/dev/docs/api/covers*/
+
 var textbookKeys = [];
 var clickedListing = "";
 
@@ -172,6 +175,12 @@ function renderAllTextbooks() {
 
       $("#" + textbookPost.id).click(function() {
         console.log(textbookPost.id + " clicked");
+        // disable button if owner is viewing
+        if (firebase.auth().currentUser.email == data.val().email) {
+          $('#contactBtn').prop('disabled', true);
+        } else {
+          $('#contactBtn').prop('disabled', false);
+        }
         // TODO: Append needed information
         document.getElementById("textbookTitle").innerHTML = data.val().title;
         document.getElementById("textbookAuthor").innerHTML = "Author: " + data.val().author;
