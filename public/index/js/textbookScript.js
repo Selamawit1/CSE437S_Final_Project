@@ -95,6 +95,12 @@ function renderUserTextbooks() {
         // pulls all textbook keys associated with current user account
         if (snapshot.val() != null) {
           textbookKeys = Object.keys(snapshot.val());
+        } else {
+          var empty = document.createElement('div');
+          empty.class = "alert alert-light";
+          empty.role = "alert";
+          empty.innerHTML = "Nothing here so far!"
+          aDiv.appendChild(empty);
         }
         var idNum = 0;
         snapshot.forEach(function(data) {
