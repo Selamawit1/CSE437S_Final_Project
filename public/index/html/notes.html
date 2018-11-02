@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <!-- Firebase App is always required and must be first -->
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-app.js"></script>
+
+    <!--Autentication-->
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-auth.js"></script>
+
+    <!--Database-->
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-database.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+    apiKey: "AIzaSyBm6NA9yafW64dWpG0nwHpzwA73lTi_EHc",
+    authDomain: "washu-books.firebaseapp.com",
+    databaseURL: "https://washu-books.firebaseio.com",
+    projectId: "washu-books",
+    storageBucket: "washu-books.appspot.com",
+    messagingSenderId: "94731731491"
+    };
+    firebase.initializeApp(config);
+    </script>
+    <title> Notes </title>
+  <script src="../js/NotesScript.js"></script>
+  <!-- <script src='../js/test1.js'></script> -->
+    <script src='../js/require.js'></script>
+  <link rel="stylesheet" type="text/css" href="/css/NotesStyle.css">
+  </head>
+  <body>
+    <input id="file" type="file" multiple/>
+    <p id="demo"> </p>
+  <!--  <a id="fileLink"> file </a> -->
+  </body
+</html>

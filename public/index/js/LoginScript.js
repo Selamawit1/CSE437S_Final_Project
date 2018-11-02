@@ -14,7 +14,11 @@ window.onload = function() {
       var user = firebase.auth().currentUser;
       console.log("user is " + firebase.auth().currentUser);
       console.log("The user is signed in");
-      window.location.href = "/html/homepage.html";
+    //  window.alert(user.emailVerified);
+      if(!user.emailVerified)
+        window.alert("Please authenticate your email");
+      if(user.emailVerified)
+        window.location.href = "/html/homepage.html";
 
     }).catch(function(error) {
       // Handle Errors here.

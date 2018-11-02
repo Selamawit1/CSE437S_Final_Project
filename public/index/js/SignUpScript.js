@@ -4,14 +4,6 @@ window.onload = function() {
     const email = document.getElementById("email").value;
     const pass = document.getElementById("password").value;
     const username = document.getElementById("username").value;
-    /*  firebase.auth().getUserByEmail(email)
-      .then(function(userRecord) {
-        // See the UserRecord reference doc for the contents of userRecord.
-        console.log("Successfully fetched user data:", userRecord.toJSON());
-      })
-      .catch(function(error) {
-        window.alert("Already signed up");
-      });*/
     firebase.auth().createUserWithEmailAndPassword(email, pass).catch(function(error) {
       console.log(error.message);
     });
@@ -22,16 +14,29 @@ window.onload = function() {
         var user = firebase.auth().currentUser;
         console.log("user is " + firebase.auth().currentUser);
         if (user != null) {
+        //  window.alert("the user is not null");
+          user.sendEmailVerification().then(function() {
+            // Email sent.
+          //  window.alert("Email sent");
+          }).catch(function(error) {
+            // An error happened.
+          //  window.alert("Error happened"+error.message);
+          });
           var email_id = user.email;
+          var email_verified = user.emailVerified;
+          //window.alert("email_verified: "+email_verified);
           // insert username as well
           user.updateProfile({
             displayName: username
           }).then(function() {
             // Update successful.
-            console.log("Successfully added username");
+            window.alert("Successfully added username");
+            //var user = firebase.auth().currentUser;
+
+
           }).catch(function(error) {
             // An error happened.
-            console.log("Error adding username");
+            //window.alert("Error adding username");
           });
 
           window.location.href = "../index.html";
