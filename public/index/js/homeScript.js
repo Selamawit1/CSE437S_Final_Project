@@ -11,27 +11,28 @@ function renderAllTextbooks() {
     body.removeChild(body.firstChild);
   }
   console.log("Rendering all textbooks");
-  let rootRef = firebase.database().ref();
-  rootRef.child('textbooks').once('value').then(function(snapshot) {
+  let rootRef = firebase.database().ref().child('textbooks').orderByKey();
+  rootRef.limitToFirst(5).once('value').then(function(snapshot) {
+    let idNum = 0;
     snapshot.forEach(function(data) {
-      console.log(data.val())
       // render each within userTextbookListings div
-      var textbookPost = document.createElement('tr');
+      let textbookPost = document.createElement('tr');
+      textbookPost.id = "post" + idNum;
 
-      var isbn = document.createElement('td');
+      let isbn = document.createElement('td');
       isbn.innerHTML = data.val().isbn;
 
-      var sellerEmail = document.createElement('td');
+      let sellerEmail = document.createElement('td');
       // TODO: Get email from uid
       //sellerEmail.innerHTML = data.val().email
 
-      var title = document.createElement('td');
+      let title = document.createElement('td');
       title.innerHTML = data.val().title;
 
-      var author = document.createElement('td');
+      let author = document.createElement('td');
       author.innerHTML = data.val().author;
 
-      var price = document.createElement('td');
+      let price = document.createElement('td');
       price.innerHTML = "$" + data.val().price;
 
       textbookPost.appendChild(isbn);
@@ -41,6 +42,19 @@ function renderAllTextbooks() {
       textbookPost.appendChild(price);
 
       body.appendChild(textbookPost);
+
+      $("#" + textbookPost.id).click(function() {
+        console.log(textbookPost.id + " clicked");
+        // TODO: Append needed information
+        document.getElementById("textbookTitle").innerHTML = data.val().title;
+        document.getElementById("textbookAuthor").innerHTML = "Author: " + data.val().author;
+        document.getElementById("textbookISBN").innerHTML = "ISBN #: " + data.val().isbn;
+        document.getElementById("textbookSeller").innerHTML = "Seller Email: " + data.val().price;
+        document.getElementById("textbookPrice").innerHTML = "Price: $" + " " + data.val().price;
+
+        $("#detailModal").modal('show');
+      });
+      idNum++;
 
     });
   });

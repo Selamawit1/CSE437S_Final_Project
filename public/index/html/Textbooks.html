@@ -106,7 +106,7 @@
         <hr>
         <h4>Search by name, author, or ISBN</h4>
         <div class="input-group">
-          <input type="text" class="form-control input" placeholder="Search" /> &nbsp; &nbsp;
+          <input type="text" oninput="searchTextbooks()" id="searchTextbookQuery" class="form-control input" placeholder="Search" /> &nbsp; &nbsp;
           <span class="input-group-btn">
             <button type="button" class="btn btn-outline-primary">Search</button>
           </span>
@@ -142,6 +142,9 @@
                     ISBN:<br>
                     <input type="text" value="ISBN" id="isbn">
                     <br>
+                    Class:<br>
+                    <input type="text" value="Class" id="class">
+                    <br>
                     Price($):<br>
                     <input type="number" step='0.01' value="1" id="price">
                     <br><br>
@@ -156,12 +159,13 @@
           </div>
         </div>
         <!-- USER LISTINGS -->
-        <div id="userTextbookListings" class="list-group"></div>
+        <div id="userTextbookListings" class="list-group">
+        </div>
         <br>
         <br>
         <h2 id="allListings">All Textbook Listings</h2>
         <div>
-          <table class="table table-hover">
+          <table id="myTable" class="table table-hover">
             <thead>
               <tr>
                 <th scope="col">ISBN #</th>
@@ -169,7 +173,7 @@
                 <th scope="col">Title</th>
                 <th scope="col">Author</th>
                 <th scope="col">Price</th>
-                <!-- <th scope="col">Class</th> -->
+                <th scope="col">Class</th>
               </tr>
             </thead>
             <tbody id="textbookTableBody">
@@ -178,6 +182,7 @@
                 <td>seller email</td>
                 <td>title</td>
                 <td>author</td>
+                <td>class</td>
                 <td>price</td>
               </tr>
             </tbody>
@@ -202,6 +207,7 @@
           <div id="textbookAuthor"></div>
           <div id="textbookISBN"></div>
           <div id="textbookSeller"></div>
+          <div id="textbookClass"></div>
           <div id="textbookPrice"></div>
         </div>
         <div class="modal-footer">
@@ -234,9 +240,13 @@
             ISBN:<br>
             <input type="text" value="ISBN" id="uisbn">
             <br>
+            Class:<br>
+            <input type="text" value="Class" id="uclass">
+            <br>
             Price($):<br>
             <input type="number" step='0.01' value="1" id="uprice">
-            <br><br>
+            <br>
+            <br>
           </form>
         </div>
         <div class="modal-footer">

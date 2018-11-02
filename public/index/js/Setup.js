@@ -2,7 +2,7 @@
  * Loads current user data into side bar
  * Deals with multi-page shared site functionality such as logging out
  */
-
+ 
 $(window).load(function () {
     console.log("Setting up GUI");
 
