@@ -20,7 +20,6 @@ function loadCurrentUserInfo() {
       console.log("User is not logged in!");
     }
   });
-
 }
 
 let update = () => {

@@ -1,6 +1,8 @@
 window.onload = function() {
   renderAllTextbooks();
 
+  $("#contactBtn").click(contactSeller);
+
 }
 
 // renders all inputted textbooks
@@ -58,4 +60,10 @@ function renderAllTextbooks() {
 
     });
   });
+}
+
+function contactSeller() {
+  // For demonstration purposes, opens mail clients on user's desktop
+
+
 }

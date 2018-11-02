@@ -174,9 +174,9 @@ function renderAllTextbooks() {
       textbookPost.appendChild(sellerEmail);
       textbookPost.appendChild(title);
       textbookPost.appendChild(author);
-      textbookPost.appendChild(aclass);
       textbookPost.appendChild(price);
-
+      textbookPost.appendChild(aclass);
+    
       body.appendChild(textbookPost);
 
       $("#" + textbookPost.id).click(function() {
