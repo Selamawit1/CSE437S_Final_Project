@@ -11,11 +11,7 @@ $(window).load(function() {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         // User is signed in.
-        var user = firebase.auth().currentUser;
-        if (user != null) {
-          document.getElementById('profile-pic').src = user.photoURL;
-        }
-        //console.log(user);
+
         //Create a Storage Ref
         var storageRef = firebase.storage().ref(user + '/profilePictures/' + file.name);
         //Upload file
@@ -61,6 +57,7 @@ function showUserAvatar() {
 
   if (user != null) {
     document.getElementById('profileImg').src = user.photoURL;
+    document.getElementById('profile-pic').src = user.photoURL;
   }
 }
 
