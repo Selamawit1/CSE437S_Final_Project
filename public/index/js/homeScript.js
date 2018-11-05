@@ -25,8 +25,7 @@ function renderAllTextbooks() {
       isbn.innerHTML = data.val().isbn;
 
       let sellerEmail = document.createElement('td');
-      // TODO: Get email from uid
-      //sellerEmail.innerHTML = data.val().email
+      sellerEmail.innerHTML = data.val().email
 
       let title = document.createElement('td');
       title.innerHTML = data.val().title;
@@ -51,7 +50,7 @@ function renderAllTextbooks() {
         document.getElementById("textbookTitle").innerHTML = data.val().title;
         document.getElementById("textbookAuthor").innerHTML = "Author: " + data.val().author;
         document.getElementById("textbookISBN").innerHTML = "ISBN #: " + data.val().isbn;
-        document.getElementById("textbookSeller").innerHTML = "Seller Email: " + data.val().price;
+        document.getElementById("textbookSeller").innerHTML = "Seller Email: " + data.val().email;
         document.getElementById("textbookPrice").innerHTML = "Price: $" + " " + data.val().price;
 
         $("#detailModal").modal('show');

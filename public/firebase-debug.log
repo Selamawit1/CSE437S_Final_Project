@@ -1,0 +1,17 @@
+[debug] [2018-11-05T20:03:39.209Z] ----------------------------------------------------------------------
+[debug] [2018-11-05T20:03:39.215Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2018-11-05T20:03:39.216Z] CLI Version:   6.0.1
+[debug] [2018-11-05T20:03:39.216Z] Platform:      darwin
+[debug] [2018-11-05T20:03:39.216Z] Node Version:  v6.11.5
+[debug] [2018-11-05T20:03:39.217Z] Time:          Mon Nov 05 2018 14:03:39 GMT-0600 (CST)
+[debug] [2018-11-05T20:03:39.217Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-11-05T20:03:39.245Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-11-05T20:03:39.246Z] > authorizing via signed-in user
+[debug] [2018-11-05T20:03:39.246Z] [iam] checking project washu-books for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2018-11-05T20:03:39.249Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/washu-books:testIamPermissions  
+
+[debug] [2018-11-05T20:03:39.645Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-05T20:03:39.648Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/washu-books  
+ 
+[debug] [2018-11-05T20:03:39.887Z] <<< HTTP RESPONSE 200

@@ -59,3 +59,15 @@ h1 {
 #userEmail {
   font-size: 12px;
 }
+
+#profile-pic {
+  object-fit: cover;
+  width: 100px;
+  height: 100px;
+  float: left;
+  margin-right: 20px;
+}
+
+.col-sm-10 {
+  padding: 30px;
+}
