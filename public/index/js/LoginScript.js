@@ -25,7 +25,7 @@ window.onload = function() {
       var errorCode = error.code;
       var errorMessage = error.message;
 
-      console.log("Error : " + errorMessage);
+      alert("Error : " + errorMessage);
 
     });
 
