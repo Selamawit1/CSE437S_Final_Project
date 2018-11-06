@@ -1,102 +1,37 @@
-[debug] [2018-11-02T22:02:27.049Z] ----------------------------------------------------------------------
-[debug] [2018-11-02T22:02:27.053Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
-[debug] [2018-11-02T22:02:27.053Z] CLI Version:   6.0.1
-[debug] [2018-11-02T22:02:27.053Z] Platform:      darwin
-[debug] [2018-11-02T22:02:27.053Z] Node Version:  v6.11.5
-[debug] [2018-11-02T22:02:27.054Z] Time:          Fri Nov 02 2018 17:02:27 GMT-0500 (CDT)
-[debug] [2018-11-02T22:02:27.054Z] ----------------------------------------------------------------------
+[debug] [2018-11-05T22:45:43.728Z] ----------------------------------------------------------------------
+[debug] [2018-11-05T22:45:43.731Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-11-05T22:45:43.732Z] CLI Version:   6.0.1
+[debug] [2018-11-05T22:45:43.732Z] Platform:      darwin
+[debug] [2018-11-05T22:45:43.732Z] Node Version:  v6.11.5
+[debug] [2018-11-05T22:45:43.733Z] Time:          Mon Nov 05 2018 16:45:43 GMT-0600 (CST)
+[debug] [2018-11-05T22:45:43.733Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2018-11-02T22:02:27.076Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2018-11-02T22:02:27.076Z] > authorizing via signed-in user
-[debug] [2018-11-02T22:02:27.077Z] [iam] checking project washu-books for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
-[debug] [2018-11-02T22:02:27.080Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/washu-books:testIamPermissions  
+[debug] [2018-11-05T22:45:43.754Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-11-05T22:45:43.754Z] > authorizing via signed-in user
+[debug] [2018-11-05T22:45:43.754Z] [iam] checking project washu-books for permissions ["firebase.projects.get"]
+[debug] [2018-11-05T22:45:43.757Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-11-05T22:45:43.757Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2018-11-05T22:45:44.026Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-05T22:45:44.056Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/washu-books:testIamPermissions  
 
-[debug] [2018-11-02T22:02:27.487Z] <<< HTTP RESPONSE 200
-[debug] [2018-11-02T22:02:27.489Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/washu-books  
+[debug] [2018-11-05T22:45:44.301Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-05T22:45:44.303Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/washu-books  
  
-[debug] [2018-11-02T22:02:27.730Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-05T22:45:44.536Z] <<< HTTP RESPONSE 200
 [info] 
-[info] === Deploying to 'washu-books'...
+[info] === Serving from '/Users/Isabelle/Desktop/Izzy/CS/CSE-437/final_project/public'...
 [info] 
-[info] i  deploying database, storage, firestore, functions, hosting
-[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
-[info] ✔  functions: Finished running predeploy script.
-[info] i  database: checking rules syntax...
-[debug] [2018-11-02T22:02:33.943Z] >>> HTTP REQUEST PUT https://washu-books.firebaseio.com/.settings/rules.json?dryRun=true  
- {
-  "rules": {
-    ".read": "auth != null",
-    ".write": "auth != null"
-  }
-}
-
-[debug] [2018-11-02T22:02:34.099Z] <<< HTTP RESPONSE 200
-[info] ✔  database: rules syntax for database washu-books is valid
-[debug] [2018-11-02T22:02:34.101Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/washu-books  
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-11-05T22:45:46.201Z] Fetching environment
+[debug] [2018-11-05T22:45:46.206Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/94731731491:getServerAppConfig  
  
-[debug] [2018-11-02T22:02:34.507Z] <<< HTTP RESPONSE 200
-[info] i  storage: checking storage.rules for compilation errors...
-[debug] [2018-11-02T22:02:34.519Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/washu-books:test  
-
-[debug] [2018-11-02T22:02:34.742Z] <<< HTTP RESPONSE 200
-[info] ✔  storage: rules file storage.rules compiled successfully
-[info] i  firestore: checking firestore.rules for compilation errors...
-[debug] [2018-11-02T22:02:34.746Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/washu-books:test  
-
-[debug] [2018-11-02T22:02:34.940Z] <<< HTTP RESPONSE 200
-[info] ✔  firestore: rules file firestore.rules compiled successfully
-[debug] [2018-11-02T22:02:34.943Z] > [functions] package.json contents: {
-  "name": "functions",
-  "description": "Cloud Functions for Firebase",
-  "scripts": {
-    "lint": "eslint .",
-    "serve": "firebase serve --only functions",
-    "shell": "firebase functions:shell",
-    "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
-  },
-  "dependencies": {
-    "firebase-admin": "~6.0.0",
-    "firebase-functions": "^2.0.3"
-  },
-  "devDependencies": {
-    "eslint": "^4.12.0",
-    "eslint-plugin-promise": "^3.6.0"
-  },
-  "private": true
-}
-[info] i  functions: ensuring necessary APIs are enabled...
-[debug] [2018-11-02T22:02:34.947Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/washu-books?view=CONSUMER_VIEW  
+[debug] [2018-11-05T22:45:46.207Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/94731731491/clients/_:getWebAppConfig  
  
-[debug] [2018-11-02T22:02:34.948Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/washu-books?view=CONSUMER_VIEW  
- 
-[debug] [2018-11-02T22:02:35.760Z] <<< HTTP RESPONSE 200
-[debug] [2018-11-02T22:02:35.803Z] <<< HTTP RESPONSE 200
-[info] ✔  functions: all necessary APIs are enabled
-[debug] [2018-11-02T22:02:35.805Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/washu-books  
- 
-[debug] [2018-11-02T22:02:36.028Z] <<< HTTP RESPONSE 200
-[debug] [2018-11-02T22:02:36.029Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/94731731491:getServerAppConfig  
- 
-[debug] [2018-11-02T22:02:36.209Z] <<< HTTP RESPONSE 200
-[debug] [2018-11-02T22:02:36.212Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/washu-books/versions  
-
-[debug] [2018-11-02T22:02:37.261Z] <<< HTTP RESPONSE 200
-[info] i  storage: uploading rules storage.rules...
-[debug] [2018-11-02T22:02:37.262Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/washu-books/rulesets  
-
-[debug] [2018-11-02T22:02:37.599Z] <<< HTTP RESPONSE 200
-[debug] [2018-11-02T22:02:37.599Z] [rules] created ruleset projects/washu-books/rulesets/4b7142a0-0988-4420-9ca8-d836a28fa231
-[info] i  firestore: uploading rules firestore.rules...
-[debug] [2018-11-02T22:02:37.602Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/washu-books/rulesets  
-
-[debug] [2018-11-02T22:02:37.604Z] >>> HTTP REQUEST GET https://firestore.googleapis.com/v1beta1/projects/washu-books/databases/(default)/indexes  
- 
-[debug] [2018-11-02T22:02:37.943Z] <<< HTTP RESPONSE 200
-[debug] [2018-11-02T22:02:37.945Z] <<< HTTP RESPONSE 200
-[debug] [2018-11-02T22:02:37.945Z] [rules] created ruleset projects/washu-books/rulesets/2e76c627-f915-441b-9861-9a4a10e07d19
-[info] i  functions: preparing functions directory for uploading...
-[debug] [2018-11-02T22:02:37.949Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/washu-books/configs  
- 
-[debug] [2018-11-02T22:02:38.561Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-05T22:45:46.409Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-05T22:45:46.410Z] Starting @google-cloud/functions-emulator
+[debug] [2018-11-05T22:45:46.481Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: index
+[info] ✔  hosting: Local server: http://localhost:5000
+[debug] [2018-11-05T22:45:49.585Z] Parsing function triggers
+[info] i  functions: No HTTPS functions found. Use firebase functions:shell if you would like to emulate other types of functions.

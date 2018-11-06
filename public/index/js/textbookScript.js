@@ -1,4 +1,3 @@
-
 /* TODO: ? TEXTBOOK COVER IMAGES API: https://openlibrary.org/dev/docs/api/covers*/
 
 var textbookKeys = [];
@@ -169,6 +168,11 @@ function renderAllTextbooks() {
       aclass.innerHTML = "Class: " + data.val().class;
       var price = document.createElement('td');
       price.innerHTML = "$" + data.val().price;
+      var cover = document.createElement('td');
+      var image = document.createElement('img');
+      image.src = "http://covers.openlibrary.org/b/isbn/" + data.val().isbn.replace(/ /g, "") + "-S.jpg";
+      console.log(image.src);
+      cover.appendChild(image);
 
       textbookPost.appendChild(isbn);
       textbookPost.appendChild(sellerEmail);
@@ -176,7 +180,8 @@ function renderAllTextbooks() {
       textbookPost.appendChild(author);
       textbookPost.appendChild(price);
       textbookPost.appendChild(aclass);
-    
+      textbookPost.appendChild(cover);
+
       body.appendChild(textbookPost);
 
       $("#" + textbookPost.id).click(function() {

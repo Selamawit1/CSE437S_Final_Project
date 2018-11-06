@@ -1,7 +1,9 @@
+// Anyone can read or write to the bucket, even non-users of your app.
+// TEMP SETTINGS FOR DEBUGGING
 service firebase.storage {
   match /b/{bucket}/o {
     match /{allPaths=**} {
-      allow read, write: if request.auth!=null;
+      allow read, write;
     }
   }
 }

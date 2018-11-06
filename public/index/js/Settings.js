@@ -4,8 +4,62 @@ $(window).load(function() {
   $("#updateBtn").click(update);
   $("#updatePassBtn").click(updatePass);
 
+  document.getElementById("my-file").onchange = function(e) {
+    //Get File
+    var file = e.target.files[0];
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+
+        //Create a Storage Ref
+        var storageRef = firebase.storage().ref(user + '/profilePictures/' + file.name);
+        //Upload file
+        var task = storageRef.put(file).then(function(snapshot) {
+          console.log("Successly inserted image");
+          snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            console.log("File available at", downloadURL);
+            // update user
+            var user = firebase.auth().currentUser;
+            user.updateProfile({
+              photoURL: downloadURL
+            }).then(function() {
+              // Update successful.
+              console.log("Success updating user profile image");
+            }).catch(function(error) {
+              // An error happened.
+              console.log("Error updating user profile image");
+            });
+            var user = firebase.auth().currentUser;
+
+            if (user != null &&  downloadURL != null) {
+              downloadURL = user.photoURL;
+
+              document.getElementById('profile-pic').src = downloadURL;
+            } else {
+              alert("Error uploading profile image!");
+            }
+            showUserAvatar();
+          });
+        });
+
+      } else {
+        // No user is signed in.
+      }
+    });
+
+
+  };
 });
 
+function showUserAvatar() {
+  var user = firebase.auth().currentUser;
+
+  if (user != null) {
+    document.getElementById('profileImg').src = user.photoURL;
+    document.getElementById('profile-pic').src = user.photoURL;
+  }
+}
 
 function loadCurrentUserInfo() {
   firebase.auth().onAuthStateChanged(function(user) {
@@ -64,19 +118,19 @@ let update = () => {
 };
 
 function updatePass() {
-    var user = firebase.auth().currentUser;
-    let newPass = document.getElementById("newpass").value;
-    let newPassC = document.getElementById("confirm_newpass").value;
+  var user = firebase.auth().currentUser;
+  let newPass = document.getElementById("newpass").value;
+  let newPassC = document.getElementById("confirm_newpass").value;
 
-    // TODO: Check if old password is correct (for security)
-    if (newPass != newPassC || newPass == "" || newPassC == "") {
-      alert("Passwords don't match!");
-    } else {
-      user.updatePassword(newPass).then(() => {
-        console.log("Updating password successful");
-      }, (error) => {
-        // An error happened.
-        alert("Updating password failed. Please try signing in again.");
-      });
-    }
+  // TODO: Check if old password is correct (for security)
+  if (newPass != newPassC || newPass == "" || newPassC == "") {
+    alert("Passwords don't match!");
+  } else {
+    user.updatePassword(newPass).then(() => {
+      console.log("Updating password successful");
+    }, (error) => {
+      // An error happened.
+      alert("Updating password failed. Please try signing in again.");
+    });
+  }
 }

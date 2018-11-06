@@ -2,7 +2,7 @@
  * Loads current user data into side bar
  * Deals with multi-page shared site functionality such as logging out
  */
- 
+
 $(window).load(function () {
     console.log("Setting up GUI");
 
@@ -10,6 +10,7 @@ $(window).load(function () {
       if (user) {
         console.log("user is " + firebase.auth().currentUser);
         var user = firebase.auth().currentUser;
+        showUserAvatar();
         // User is signed in.
         let email = user.email;
         let username = user.displayName;
@@ -33,5 +34,14 @@ $(window).load(function () {
       reset();
     });
 
-
 });
+
+function showUserAvatar() {
+  var user = firebase.auth().currentUser;
+
+  if (user != null) {
+    document.getElementById('profileImg').src = user.photoURL;
+  } else {
+    console.log("Error loading user profile image");
+  }
+}

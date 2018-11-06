@@ -53,11 +53,6 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#TODO">About</a>
-        </li>
-      </ul>
       <span class="navbar-nav ml-auto">
         <!-- Right align -->
         <button type="button" class="btn btn-light" id="logoutBtn">
@@ -79,7 +74,7 @@
         </h5>
         <br>
         <!-- Profile image -->
-        <img src="https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png" class="center" alt="placeholder avatar" height="70" width="70">
+        <img id="profileImg" src="https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png" class="center" alt="placeholder avatar" height="70" width="70">
         <!-- Text input-->
         <div class="center">
           <br>
@@ -94,7 +89,6 @@
           <a class="nav-link active" href="../html/homepage.html">Home</a>
           <a class="nav-link" href="../html/Textbooks.html">Textbooks</a>
           <a class="nav-link" href="../html/classes.html">Classes</a>
-          <a class="nav-link" href="../html/RecentActivity.html">My Activity</a>
           <a class="nav-link" href="../html/userSettings.html">Settings</a>
         </div>
       </div>
@@ -148,7 +142,8 @@
                     <br>
                     Price($):<br>
                     <input type="number" step='0.01' value="1" id="price">
-                    <br><br>
+                    <br>
+                    <br>
                   </form>
                 </div>
                 <div class="modal-footer">
@@ -175,6 +170,7 @@
                 <th scope="col">Author</th>
                 <th scope="col">Price</th>
                 <th scope="col">Class</th>
+                <th scope='col'>Cover</th>
               </tr>
             </thead>
             <tbody id="textbookTableBody">
@@ -185,6 +181,7 @@
                 <td>author</td>
                 <td>class</td>
                 <td>price</td>
+                <td>Cover Image</td>
               </tr>
             </tbody>
           </table>
