@@ -21,10 +21,11 @@
   }
 
   .footer {
-    bottom: 0;
     width: 100%;
     height: auto;
     line-height: 60px;
+    position: absolute;
+    bottom: 0;
     background-color: #c8c8c8;
   }
 
@@ -63,10 +64,75 @@ tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-.notes{
+#file{
   position: relative;
-    bottom: 173px;
-    left: 708px;
-    font-size: 27px;
-    color: blue;
+    top: 40px;
+    left: 46px;
+}
+
+#addFile{
+  position: relative;
+    left: 40px;
+    top: 43px;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.plike{
+  position: relative;
+  top: 94px;
+  left: 121px;
+  width: 20px;
+}
+
+.pdislike{
+  position: relative;
+  top: 56px;
+  left: 236px;
+}
+
+.likeSubmit{
+  position: relative;
+    top: 123px;
+    left: -48px;
+}
+
+.dislikeSubmit{
+  position: relative;
+    top: 123px;
+    left: -4px;
+}
+
+.linkText{
+    position: relative;
+    top: 92px;
+    left: 30px;
+}
+
+.commentText{
+  position: relative;
+    top: 90px;
+    left: 20px;
+    height: 82px;
+    width: 884px;
+}
+
+.commentSubmit{
+  position: relative;
+  top: 68px;
+  left: 30px;
+}
+
+.pcomment{
+  position: relative;
+  top: 91px;
+  left: 60px;
+  background: #e4e2e2;
+  width: 841px;
+  height: 59px;
+
+}
+#hr{
+  position: relative;
+    top: 58px;
 }
