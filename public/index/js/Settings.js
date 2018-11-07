@@ -34,8 +34,8 @@ $(window).load(function() {
 
             if (user != null &&  downloadURL != null) {
               downloadURL = user.photoURL;
-
               document.getElementById('profile-pic').src = downloadURL;
+              location.reload();
             } else {
               alert("Error uploading profile image!");
             }
@@ -56,8 +56,14 @@ function showUserAvatar() {
   var user = firebase.auth().currentUser;
 
   if (user != null) {
-    document.getElementById('profileImg').src = user.photoURL;
-    document.getElementById('profile-pic').src = user.photoURL;
+    if (user.photoURL == null) {
+      document.getElementById('profileImg').src = "../images/placeholder.png";
+      document.getElementById('profile-pic').src = "../images/placeholder.png";
+    } else {
+      document.getElementById('profileImg').src = user.photoURL;
+      document.getElementById('profile-pic').src = user.photoURL;
+    }
+
   }
 }
 

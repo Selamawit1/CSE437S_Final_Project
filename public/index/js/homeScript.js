@@ -1,7 +1,13 @@
 window.onload = function() {
   renderAllTextbooks();
 
-  $("#contactBtn").click(contactSeller);
+  // $("#contactBtn").click(function() {
+  //   let seller = document.getElementById("textbookSeller").value;
+  //   // send email or message? to seller as inquiry
+  //       window.location.assign("'mailto:seller@gmail.com?subject=WashU for You: Interest in your textbook Post!'");
+  //
+  // });
+
 
 }
 
@@ -46,6 +52,7 @@ function renderAllTextbooks() {
 
       $("#" + textbookPost.id).click(function() {
         console.log(textbookPost.id + " clicked");
+        document.getElementById("contactBtn").onclick("window.location.href='mailto:" + data.val().email + "?subject=WashU for You: Interest in your textbook Post!';")
         // TODO: Append needed information
         document.getElementById("textbookTitle").innerHTML = data.val().title;
         document.getElementById("textbookAuthor").innerHTML = "Author: " + data.val().author;

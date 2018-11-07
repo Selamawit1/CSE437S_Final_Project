@@ -40,8 +40,11 @@ function showUserAvatar() {
   var user = firebase.auth().currentUser;
 
   if (user != null) {
-    document.getElementById('profileImg').src = user.photoURL;
-  } else {
-    console.log("Error loading user profile image");
+    if (user.photoURL == null) {
+      document.getElementById('profileImg').src = "../images/placeholder.png";
+    } else {
+      document.getElementById('profileImg').src = user.photoURL;
+    }
+
   }
 }

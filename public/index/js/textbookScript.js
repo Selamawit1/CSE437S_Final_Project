@@ -65,11 +65,12 @@ $(window).load(function() {
 
   });
 
-  $("#contactBtn").click(function() {
-    // send email or message? to seller as inquiry
-
-
-  });
+  // $("#contactBtn").click(function() {
+  //   let seller = document.getElementById("textbookSeller").value;
+  //   console.log(seller);
+  //   // send email or message? to seller as inquiry
+  //   window.location.assign("'mailto:" + seller + "?subject=WashU for You: Interest in your textbook Post!'");
+  // });
 
 
 });
@@ -192,13 +193,14 @@ function renderAllTextbooks() {
         } else {
           $('#contactBtn').prop('disabled', false);
         }
+
         // TODO: Append needed information
         document.getElementById("textbookTitle").innerHTML = data.val().title;
         document.getElementById("textbookAuthor").innerHTML = "Author: " + data.val().author;
         document.getElementById("textbookISBN").innerHTML = "ISBN #: " + data.val().isbn;
         document.getElementById("textbookSeller").innerHTML = "Seller Email: " + data.val().email;
         document.getElementById("textbookPrice").innerHTML = "Price: $" + " " + data.val().price;
-
+        document.getElementById("detailCoverImage").src = "http://covers.openlibrary.org/b/isbn/" + data.val().isbn.replace(/ /g, "") + "-M.jpg";;
         $("#detailModal").modal('show');
       });
       idNum++;
