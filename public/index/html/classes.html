@@ -83,8 +83,8 @@
         </h5>
         <br>
         <!-- Profile image -->
-        <img id="profileImg" src="https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png" class="center" alt="placeholder avatar"
-          height="70" width="70">
+        <img id="profileImg" src="https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png" class="center"
+          alt="placeholder avatar" height="70" width="70">
         <!-- Text input-->
         <div class="center">
           <br>
@@ -118,7 +118,7 @@
           <div>
             <h1>Your Classes</h1>
 
-            <div class="card-deck">
+            <div class="card-deck" id="your-subscription-classes">
               <div class="card your_class" id="your_class_1">
                 <img class="card-img-top" src="../images/class_backgrounds/psychology.jpg" alt="Card image">
                 <div class="card-img-overlay">
@@ -163,24 +163,23 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <div class="modal-body">
+                  <div class="modal-body text-center">
                     <p>Add a new class page!</p>
                     <form>
-                      Title:
                       <br>
-                      <input type="text" value="title" id="title">
-                      <br> Department:
+                      <input type="text" placeholder="Title" value="" id="title">
                       <br>
-                      <input type="text" value="department" id="department">
-                      <br> Email of instructor:
                       <br>
-                      <input type="text" value="email" id="email">
-                      <br> Instructor:
+                      <input placeholder="Department" type="text" value="" id="department">
                       <br>
-                      <input type="text" value="instructor" id="instructor">
-                      <br> School:
                       <br>
-                      <input type="text" value="school" id="school">
+                      <input placeholder="Email of instructor" type="text" value="" id="email">
+                      <br>
+                      <br>
+                      <input placeholder="Instructor" type="text" value="" id="instructor">
+                      <br>
+                      <br>
+                      <input placeholder="School" type="text" value="" id="school">
                       <br>
                       <br>
                     </form>
@@ -263,18 +262,24 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title">New Class</h5>
+                  <h5 class="modal-title" id="modal-title-subscription">Subscribe Class</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <button type="button" class="btn btn-primary" id="subscribeButton">Subscribe</button>
-                  <button type="button" class="btn btn-secondary" id="unsubscribeButton">Unsubscribe</button>
+
+                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary active" onclick="subscribeClass(false)">
+                      <input type="radio" name="options" id="unsubscribeButton" autocomplete="off" checked> Unsubscribe
+                    </label>
+                    <label class="btn btn-secondary" onclick="subscribeClass(true)">
+                      <input type="radio" name="options" id="subscribeButton" autocomplete="off"> Subscribe
+                    </label>
+                  </div>
+
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                </div>
+
               </div>
             </div>
           </div>
@@ -289,25 +294,25 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body text-center">
                   <!-- MODAL CONTENT -->
                   <h2>Edit Listing</h2>
                   <form>
-                    Title:
+
                     <br>
-                    <input type="text" value="title" id="utitle">
-                    <br> Department:
+                    <input type="text" placeholder="Title" value="" id="utitle">
                     <br>
-                    <input type="text" value="department" id="udepartment">
-                    <br> Email of instructor:
                     <br>
-                    <input type="text" value="email" id="uemail">
-                    <br> Instructor:
+                    <input placeholder="Department" type="text" value="" id="udepartment">
                     <br>
-                    <input type="text" value="instructor" id="uinstructor">
-                    <br> School:
                     <br>
-                    <input type="text" value="school" id="uschool">
+                    <input placeholder="Email of instructor" type="text" value="" id="uemail">
+                    <br>
+                    <br>
+                    <input placeholder="Instructor" type="text" value="" id="uinstructor">
+                    <br>
+                    <br>
+                    <input placeholder="School" type="text" value="" id="uschool">
                     <br>
                     <br>
                   </form>
