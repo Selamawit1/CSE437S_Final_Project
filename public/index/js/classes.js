@@ -1,12 +1,16 @@
 var classKeys = [];
 var clickedListing = "";
+var allClassKeys = [];
+var allClassNames = [];
 
-$(window).load(function () {
+$(window).load(function() {
   document.getElementById("newClassBtn").addEventListener("click", addClass);
-  document.getElementById("searchClassBtn").addEventListener("click", searchClass);
+  document
+    .getElementById("searchClassBtn")
+    .addEventListener("click", searchClass);
   renderUserClasses();
   renderAllClasses();
-  $("#saveBtn").click(function () {
+  $("#saveBtn").click(function() {
     let id = clickedListing; // get id of clicked listing
     console.log("hi" + id);
     // parse listing to get key for post to update
@@ -21,11 +25,19 @@ $(window).load(function () {
     let uinstructor = document.getElementById("uinstructor").value;
     let uschool = document.getElementById("uschool").value;
 
-    if (utitle == "" || udepartment == "" || uinstructor == "" || uschool == "") {
+    if (
+      utitle == "" ||
+      udepartment == "" ||
+      uinstructor == "" ||
+      uschool == ""
+    ) {
       alert("Please make sure all fields are filled!");
       return;
     } else {
-      var classesRef = firebase.database().ref().child("classes/" + key);
+      var classesRef = firebase
+        .database()
+        .ref()
+        .child("classes/" + key);
       classesRef.update({
         title: utitle,
         department: udepartment,
@@ -33,20 +45,20 @@ $(window).load(function () {
         school: uschool
         //rating: firebase.database().ref().child("classes/" + key).rating
       });
+
       renderUserClasses();
       renderAllClasses();
 
-      $('#userDetailModal').modal('toggle');
+      $("#userDetailModal").modal("toggle");
     }
-
   });
+  renderSubscriptions();
 });
-
 
 // renders list-group divs into user submitted class listings
 function renderUserClasses() {
   // read data in from Firebase and render
-  firebase.auth().onAuthStateChanged(function (user) {
+  firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       let aDiv = document.getElementById("userClassListings");
       while (aDiv.firstChild) {
@@ -54,42 +66,45 @@ function renderUserClasses() {
       }
       let uid = firebase.auth().currentUser.uid;
       let rootRef = firebase.database().ref();
-      rootRef.child("classes").orderByChild("uid").equalTo(uid).on("value", function (snapshot) {
-        //console.log(snapshot.val());
-        classKeys = Object.keys(snapshot.val())
-        var idNum = 0;
-        snapshot.forEach(function (data) {
-          //console.log(data.val());
-          // render each within userTextbookListings div
-          var Class = document.createElement("div");
-          Class.id = "upost" + idNum;
-          Class.className = "list-group-item list-group-item-action";
-          Class.innerHTML = data.val().title;
-          aDiv.appendChild(Class);
+      rootRef
+        .child("classes")
+        .orderByChild("uid")
+        .equalTo(uid)
+        .on("value", function(snapshot) {
+          //console.log(snapshot.val());
+          classKeys = Object.keys(snapshot.val());
+          var idNum = 0;
+          snapshot.forEach(function(data) {
+            //console.log(data.val());
+            // render each within userTextbookListings div
+            var Class = document.createElement("div");
+            Class.id = "upost" + idNum;
+            Class.className = "list-group-item list-group-item-action";
+            Class.innerHTML = data.val().title;
+            aDiv.appendChild(Class);
 
-          let utitle = document.getElementById("utitle").value;
-          let udepartment = document.getElementById("udepartment").value;
-          let uinstructor = document.getElementById("uinstructor").value;
-          let uschool = document.getElementById("uschool").value;
-          let uemail = document.getElementById("uemail").value;
-          //let urating = document.getElementById("urating").value;
+            let utitle = document.getElementById("utitle").value;
+            let udepartment = document.getElementById("udepartment").value;
+            let uinstructor = document.getElementById("uinstructor").value;
+            let uschool = document.getElementById("uschool").value;
+            let uemail = document.getElementById("uemail").value;
+            //let urating = document.getElementById("urating").value;
 
-          // add click event
-          $("#" + Class.id).click(function () {
-            clickedListing = Class.id;
-            console.log(Class.id + " clicked");
-            utitle.value = data.val().title;
-            udepartment.value = data.val().department;
-            uinstructor.value = data.val().instructor;
-            uschool.value = data.val().school;
-            uemail.value = data.val().email;
+            // add click event
+            $("#" + Class.id).click(function() {
+              clickedListing = Class.id;
+              console.log(Class.id + " clicked");
+              utitle.value = data.val().title;
+              udepartment.value = data.val().department;
+              uinstructor.value = data.val().instructor;
+              uschool.value = data.val().school;
+              uemail.value = data.val().email;
 
-            $("#userDetailModal").modal('show');
+              $("#userDetailModal").modal("show");
+            });
+            idNum++;
           });
-          idNum++;
-
         });
-      });
     } else {
       console.log("User is not logged in!");
     }
@@ -105,48 +120,62 @@ function renderAllClasses() {
   }
   console.log("Rendering all classes");
   let rootRef = firebase.database().ref();
-  rootRef.child("classes").once("value").then(function (snapshot) {
-    snapshot.forEach(function (data) {
-      console.log(data.val())
-      // render each within userTextbookListings div
-      var classPost = document.createElement("tr");
+  rootRef
+    .child("classes")
+    .once("value")
+    .then(function(snapshot) {
+      var idNumAll = 0;
+      allClassKeys = Object.keys(snapshot.val());
+      snapshot.forEach(function(data) {
+        console.log(data.val());
+        // render each within userTextbookListings div
+        var classPost = document.createElement("tr");
 
-      var title = document.createElement("td");
-      title.innerHTML = data.val().title;
+        var title = document.createElement("td");
+        title.innerHTML = data.val().title;
 
-      var department = document.createElement("td");
-      department.innerHTML = data.val().department;
+        var department = document.createElement("td");
+        department.innerHTML = data.val().department;
 
-      var instructor = document.createElement("td");
-      instructor.innerHTML = data.val().instructor;
+        var instructor = document.createElement("td");
+        instructor.innerHTML = data.val().instructor;
 
-      var school = document.createElement("td");
-      school.innerHTML = data.val().school;
+        var school = document.createElement("td");
+        school.innerHTML = data.val().school;
 
-      var rating = document.createElement("td");
-      rating.innerHTML = data.val().rating;
-      if (rating.innerHTML == "undefined") {
-        rating.innerHTML = "N/A";
-      }
+        var rating = document.createElement("td");
+        rating.innerHTML = data.val().rating;
+        if (rating.innerHTML == "-1") {
+          rating.innerHTML = "No Ratings";
+        }
 
-      classPost.appendChild(title);
-      classPost.appendChild(department);
-      classPost.appendChild(instructor);
-      classPost.appendChild(school);
-      classPost.appendChild(rating);
+        classPost.appendChild(title);
+        classPost.appendChild(department);
+        classPost.appendChild(instructor);
+        classPost.appendChild(school);
+        classPost.appendChild(rating);
+        classPost.id = "allpost" + idNumAll;
 
-      body.appendChild(classPost);
+        body.appendChild(classPost);
 
+        // add click event
+        $("#" + classPost.id).click(function() {
+          clickedListing = classPost.id;
+          $("#subscriptionModal").modal("show");
+        });
+
+        idNumAll++;
+        allClassNames.push(data.val().title);
+      });
     });
-  });
 }
 
 /**
  *
- * Adds a new class 
+ * Adds a new class
  */
 function addClass() {
-  firebase.auth().onAuthStateChanged(function (user) {
+  firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       let ownerID = firebase.auth().currentUser.uid;
       let department = document.getElementById("department").value;
@@ -155,32 +184,33 @@ function addClass() {
       let school = document.getElementById("school").value;
       let instructor = document.getElementById("instructor").value;
 
-
       let rootRef = firebase.database().ref();
-      let storesRef = rootRef.child("classes");
-      let newStoreRef = storesRef.push();
-      newStoreRef.set({
-        uid: ownerID,
-        department: department,
-        email: email,
-        title: title,
-        instructor: instructor,
-        school: school,
-        rating: -1
-      }, function (error) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log("User input Success");
-          // render new class listing
-          renderUserClasses();
-          renderAllClasses();
+      let classesRef = rootRef.child("classes");
+      let newClassesRef = classesRef.push();
+      newClassesRef.set(
+        {
+          uid: ownerID,
+          department: department,
+          email: email,
+          title: title,
+          instructor: instructor,
+          school: school,
+          rating: -1
+        },
+        function(error) {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("User input Success");
+            // render new class listing
+            renderUserClasses();
+            renderAllClasses();
+          }
         }
-      });
+      );
 
       // close modal
       $("#addClassModal").modal("toggle");
-
     } else {
       console.log("User is not logged in!");
     }
@@ -189,49 +219,134 @@ function addClass() {
 
 /**
  *
- * Subscribes to a new class 
+ * Subscribes to a new class
  */
-function subscribeClass() {
-  let id = clickedListing; // get id of clicked listing
-  console.log("hi" + id);
-  // parse listing to get key for post to update
-  id = parseInt(id.substr(5)); // upost# --> # = index within array
+function subscribeClass(val) {
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      let id = clickedListing; // get id of clicked listing
+      // parse listing to get key for post to update
+      id = parseInt(id.substr(7)); // upost# --> # = index within array
+      let key = allClassKeys[id]; // KEY
 
-  let key = textbookKeys[id]; // KEY
-  console.log(key);
-
-  // update textbook info in database
-  let utitle = document.getElementById("utitle").value;
-  let uauthor = document.getElementById("uauthor").value;
-  let uisbn = document.getElementById("uisbn").value;
-  let uprice = document.getElementById("uprice").value;
-
-  if (utitle == "" || uauthor == "" || uisbn == "" || uprice == "") {
-    alert("Please make sure all fields are filled!");
-    return;
-  } else {
-    var textbooksRef = firebase.database().ref().child("textbooks/" + key);
-    textbooksRef.update({
-      author: uauthor,
-      isbn: uisbn,
-      title: utitle,
-      price: uprice
-    });
-    renderUserTextbooks();
-    renderAllTextbooks();
-
-    $('#userDetailModal').modal('toggle');
-  }
-
+      // check if already defined subscription
+      let exists = false;
+      let uid = firebase.auth().currentUser.uid;
+      let rootRef = firebase.database().ref();
+      rootRef
+        .child("subscriptions")
+        .orderByChild("uid")
+        .equalTo(uid)
+        .on("value", function(snapshot) {
+          snapshot.forEach(function(data) {
+            if (data.val().classid == key) {
+              exists = true;
+            }
+          });
+        });
+      if (!exists && val) {
+        console.log("sub doesnt exists");
+        let subscriptionsRef = rootRef.child("subscriptions");
+        let newSubscriptionsRef = subscriptionsRef.push();
+        newSubscriptionsRef.set(
+          {
+            uid: uid,
+            classid: key,
+            subscription: val,
+            classname: allClassNames[id]
+          },
+          function(error) {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log("User input Success");
+              // render new class listing
+              renderSubscriptions();
+            }
+          }
+        );
+      } else {
+        let newSubscriptionsRef = firebase
+          .database()
+          .ref()
+          .child("subscriptions/" + key);
+        newSubscriptionsRef.remove();
+        (function(error) {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("User input Success");
+            // render new class listing
+            renderSubscriptions();
+          }
+        });
+      }
+    } else {
+      console.log("User is not logged in!");
+    }
+  });
 }
 
+function renderSubscriptions() {
+  // read data in from Firebase and render
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      let aDiv = document.getElementById("your-subscription-classes");
+      while (aDiv.firstChild) {
+        aDiv.removeChild(aDiv.firstChild);
+      }
+      let uid = firebase.auth().currentUser.uid;
+      let rootRef = firebase.database().ref();
+      rootRef
+        .child("subscriptions")
+        .orderByChild("uid")
+        .equalTo(uid)
+        .on("value", function(snapshot) {
+          //console.log(snapshot.val());
+          allClassKeys = Object.keys(snapshot.val());
+          var idNumAll = 0;
+          snapshot.forEach(function(data) {
+            if (idNumAll < 3) {
+              var subscription = document.createElement("div");
+              subscription.classList.add("card");
+
+              var title = document.createElement("div");
+              title.classList.add("card-body", "text-center");
+              var title_header = document.createElement("h4");
+              title_header.classList.add("card-title");
+              title_header.innerHTML = data.val().classname;
+              title.appendChild(title_header);
+
+              subscription.appendChild(title);
+
+              document
+                .getElementById("your-subscription-classes")
+                .appendChild(subscription);
+
+              idNumAll++;
+            }
+          });
+        });
+    } else {
+      console.log("User is not logged in!");
+    }
+  });
+}
 
 /**
  * Sorts table on header click. Resorts asc/dec on each click
  * SRC: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_sort_table_desc
  */
 function sortTable(n) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  var table,
+    rows,
+    switching,
+    i,
+    x,
+    y,
+    shouldSwitch,
+    dir,
+    switchcount = 0;
   table = document.getElementById("myTable");
   switching = true;
   //Set the sorting direction to ascending:
@@ -244,7 +359,7 @@ function sortTable(n) {
     rows = table.rows;
     /*Loop through all table rows (except the
     first, which contains table headers):*/
-    for (i = 1; i < (rows.length - 1); i++) {
+    for (i = 1; i < rows.length - 1; i++) {
       //start by saying there should be no switching:
       shouldSwitch = false;
       /*Get the two elements you want to compare,
@@ -285,13 +400,12 @@ function sortTable(n) {
   }
 }
 
-
 /*
 * Search when typing all rows for input
 * Adapted from: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_filter_table
 */
 function searchClass() {
-  console.log('search');
+  console.log("search");
   var input, filter, table, tr, td, i;
   input = document.getElementById("searchClassQuery");
   filter = input.value.toUpperCase();
