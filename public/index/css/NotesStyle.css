@@ -78,7 +78,7 @@ tr:nth-child(even) {
     font-weight: bold;
 }
 
-.plike{
+/* .plike{
   position: relative;
   top: 94px;
   left: 98px;
@@ -89,9 +89,9 @@ tr:nth-child(even) {
   position: relative;
   top: 56px;
   left: 236px;
-}
+} */
 
-.likeSubmit{
+/* .likeSubmit{
   position: relative;
     top: 123px;
     left: -48px;
@@ -101,7 +101,7 @@ tr:nth-child(even) {
   position: relative;
     top: 123px;
     left: 35px;
-}
+} */
 
 .linkText{
     position: relative;

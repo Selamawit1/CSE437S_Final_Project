@@ -1,0 +1,33 @@
+[debug] [2018-11-11T03:25:08.888Z] ----------------------------------------------------------------------
+[debug] [2018-11-11T03:25:08.891Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-11-11T03:25:08.892Z] CLI Version:   6.0.1
+[debug] [2018-11-11T03:25:08.892Z] Platform:      darwin
+[debug] [2018-11-11T03:25:08.892Z] Node Version:  v6.11.5
+[debug] [2018-11-11T03:25:08.892Z] Time:          Sat Nov 10 2018 21:25:08 GMT-0600 (CST)
+[debug] [2018-11-11T03:25:08.892Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-11-11T03:25:08.909Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-11-11T03:25:08.909Z] > authorizing via signed-in user
+[debug] [2018-11-11T03:25:08.910Z] [iam] checking project washu-books for permissions ["firebase.projects.get"]
+[debug] [2018-11-11T03:25:08.912Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/washu-books:testIamPermissions  
+
+[debug] [2018-11-11T03:25:09.202Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-11T03:25:09.204Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/washu-books  
+ 
+[debug] [2018-11-11T03:25:09.428Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/Isabelle/Desktop/Izzy/CS/CSE437/final_project/public'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-11-11T03:25:10.353Z] Fetching environment
+[debug] [2018-11-11T03:25:10.356Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/94731731491:getServerAppConfig  
+ 
+[debug] [2018-11-11T03:25:10.357Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/94731731491/clients/_:getWebAppConfig  
+ 
+[debug] [2018-11-11T03:25:10.530Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-11T03:25:10.531Z] Starting @google-cloud/functions-emulator
+[debug] [2018-11-11T03:25:10.594Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: index
+[info] ✔  hosting: Local server: http://localhost:5000
+[debug] [2018-11-11T03:25:12.637Z] Parsing function triggers
+[info] i  functions: No HTTPS functions found. Use firebase functions:shell if you would like to emulate other types of functions.
