@@ -25,3 +25,11 @@ Group 3
 
 ### Additional Notes
 - Search see: https://firebase.google.com/docs/firestore/solutions/search
+- jquery upvote/downvote plugin:
+@version         1.0.2
+@since           2013.06.19
+@author          Janos Gyerik
+@homepage        https://janosgyerik.github.io/jquery-upvote
+@twitter         twitter.com/janosgyerik
+@see             https://creativecommons.org/licenses/by/3.0/
+Modifications made to css to integrate into current file structure

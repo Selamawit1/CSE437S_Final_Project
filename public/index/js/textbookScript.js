@@ -1,5 +1,3 @@
-/* TODO: ? TEXTBOOK COVER IMAGES API: https://openlibrary.org/dev/docs/api/covers*/
-
 var textbookKeys = [];
 var clickedListing = "";
 
