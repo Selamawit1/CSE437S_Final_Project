@@ -1,37 +1,37 @@
-[debug] [2018-11-21T05:07:22.608Z] ----------------------------------------------------------------------
-[debug] [2018-11-21T05:07:22.611Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
-[debug] [2018-11-21T05:07:22.611Z] CLI Version:   6.0.1
-[debug] [2018-11-21T05:07:22.611Z] Platform:      darwin
-[debug] [2018-11-21T05:07:22.612Z] Node Version:  v6.11.5
-[debug] [2018-11-21T05:07:22.612Z] Time:          Tue Nov 20 2018 23:07:22 GMT-0600 (CST)
-[debug] [2018-11-21T05:07:22.612Z] ----------------------------------------------------------------------
+[debug] [2018-11-23T05:02:08.997Z] ----------------------------------------------------------------------
+[debug] [2018-11-23T05:02:09.000Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-11-23T05:02:09.001Z] CLI Version:   6.0.1
+[debug] [2018-11-23T05:02:09.001Z] Platform:      darwin
+[debug] [2018-11-23T05:02:09.001Z] Node Version:  v6.11.5
+[debug] [2018-11-23T05:02:09.002Z] Time:          Fri Nov 23 2018 00:02:09 GMT-0500 (EST)
+[debug] [2018-11-23T05:02:09.002Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2018-11-21T05:07:22.638Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2018-11-21T05:07:22.639Z] > authorizing via signed-in user
-[debug] [2018-11-21T05:07:22.639Z] [iam] checking project washu-books for permissions ["firebase.projects.get"]
-[debug] [2018-11-21T05:07:22.642Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2018-11-21T05:07:22.642Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+[debug] [2018-11-23T05:02:09.025Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-11-23T05:02:09.026Z] > authorizing via signed-in user
+[debug] [2018-11-23T05:02:09.026Z] [iam] checking project washu-books for permissions ["firebase.projects.get"]
+[debug] [2018-11-23T05:02:09.028Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-11-23T05:02:09.028Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
  <request body omitted>
-[debug] [2018-11-21T05:07:23.704Z] <<< HTTP RESPONSE 200
-[debug] [2018-11-21T05:07:23.728Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/washu-books:testIamPermissions  
+[debug] [2018-11-23T05:02:09.392Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-23T05:02:09.398Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/washu-books:testIamPermissions  
 
-[debug] [2018-11-21T05:07:24.038Z] <<< HTTP RESPONSE 200
-[debug] [2018-11-21T05:07:24.039Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/washu-books  
+[debug] [2018-11-23T05:02:09.777Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-23T05:02:09.779Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/washu-books  
  
-[debug] [2018-11-21T05:07:24.261Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-23T05:02:10.031Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from '/Users/Isabelle/Desktop/Izzy/CS/CSE437/final_project/public'...
 [info] 
 [info] i  functions: Preparing to emulate functions.
-[debug] [2018-11-21T05:07:25.432Z] Fetching environment
-[debug] [2018-11-21T05:07:25.436Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/94731731491:getServerAppConfig  
+[debug] [2018-11-23T05:02:11.075Z] Fetching environment
+[debug] [2018-11-23T05:02:11.092Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/94731731491:getServerAppConfig  
  
-[debug] [2018-11-21T05:07:25.437Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/94731731491/clients/_:getWebAppConfig  
+[debug] [2018-11-23T05:02:11.093Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/94731731491/clients/_:getWebAppConfig  
  
-[debug] [2018-11-21T05:07:25.707Z] <<< HTTP RESPONSE 200
-[debug] [2018-11-21T05:07:25.708Z] Starting @google-cloud/functions-emulator
-[debug] [2018-11-21T05:07:26.079Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-23T05:02:11.379Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-23T05:02:11.379Z] Starting @google-cloud/functions-emulator
+[debug] [2018-11-23T05:02:11.675Z] <<< HTTP RESPONSE 200
 [info] i  hosting: Serving hosting files from: index
 [info] ✔  hosting: Local server: http://localhost:5000
-[debug] [2018-11-21T05:07:27.788Z] Parsing function triggers
+[debug] [2018-11-23T05:02:13.492Z] Parsing function triggers
 [info] i  functions: No HTTPS functions found. Use firebase functions:shell if you would like to emulate other types of functions.
