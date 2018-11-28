@@ -126,7 +126,7 @@ function renderAllClasses() {
     idNumAll = 0;
     allClassKeys = Object.keys(snapshot.val());
     snapshot.forEach(function(data) {
-      console.log(data.val());
+      //console.log(data.val());
       // render each within userTextbookListings div
       var classPost = document.createElement("tr");
 
@@ -319,9 +319,11 @@ function renderSubscriptions() {
         .equalTo(uid)
         .on("value", function(snapshot) {
           //console.log(snapshot.val());
+          let i = 0;
           snapshot.forEach(function(data) {
             var subscription = document.createElement("a");
             subscription.classList.add("card");
+            subscription.id = i;
 
             var title = document.createElement("div");
             title.classList.add("card-body", "text-center");
@@ -331,11 +333,27 @@ function renderSubscriptions() {
             title.appendChild(title_header);
 
             subscription.appendChild(title);
-            subscription.setAttribute("href", "notes.html");
+
+            // subscription.href = "../html/notes.html";
+            // NOTE: since notes is going to be universal anyways, maybe we
+            // should just make it part of the sidebar
 
             document
               .getElementById("your-subscription-classes")
               .appendChild(subscription);
+
+            // jquery click event to unique class posts page
+            $("#" + i).click(function(){
+              console.log("class " + i + " clicked");
+              // pass selected class key as cookie then go to posts page
+              let currentClassKey = allClassKeys[i-1];
+              console.log("currentClassKey : " + currentClassKey);
+              document.cookie="currentClassKey=" + currentClassKey;
+              document.cookie="currentClass=" + data.val().classname;
+              window.location.href = "../html/reddit.html";
+
+            });
+            i++;
           });
         });
     } else {

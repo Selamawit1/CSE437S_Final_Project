@@ -1,8 +1,12 @@
 var postKeys = [];
 var clickedListing = "";
 var scores = [];
+var currentClassKey = "";
 
 document.addEventListener('DOMContentLoaded', function() {
+  // retrieve current class from cookie
+  console.log(currentClassKey);
+  document.getElementById("className").innerHTML = getCookie("currentClass");
 
   $(".editor").jqte(); // see http://jqueryte.com/documentation
   loadPostListings();
@@ -12,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("up0").addEventListener('click', function() {
     $('#topic').upvote('upvote');
     console.log("upvoting");
-    let ref = firebase.database().ref('posts/' + clickedListing + "/score");
+    let ref = firebase.database().ref('classes/' + currentClassKey + '/posts/' + clickedListing + "/score");
     ref.transaction(function(score) {
       return (score) + 1; // increment score
     });
@@ -21,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("down0").addEventListener('click', function() {
     $('#topic').upvote('downvote');
     console.log("downvoting");
-    let ref = firebase.database().ref('posts/' + clickedListing + "/score");
+    let ref = firebase.database().ref('classes/' + currentClassKey + '/posts/' + clickedListing + "/score");
     ref.transaction(function(score) {
       return (score) - 1; // decrement score
     });
@@ -30,6 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // grab all posts from firebase then render
 function loadPostListings() {
+  currentClassKey = getCookie("currentClassKey");
+  console.log("currentClassKey : " + currentClassKey);
   postKeys = []; // reset post keys
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -42,19 +48,21 @@ function loadPostListings() {
       let rootRef = firebase.database().ref();
 
       // get all keys
-      rootRef.child('posts').once('value').then(function(snapshot) {
-        let total = Object.keys(snapshot.val()).length;
-        let i = 0;
-        while (i < total) {
-          postKeys.push(Object.keys(snapshot.val())[i]);
-          i++;
+      rootRef.child('classes/' + currentClassKey +'/posts').once('value').then(function(snapshot) {
+        if (snapshot.val()) {
+          let total = Object.keys(snapshot.val()).length;
+          let i = 0;
+          while (i < total) {
+            postKeys.push(Object.keys(snapshot.val())[i]);
+            i++;
+          }
         }
 
       });
 
       // pull all posts from firebase
       // TODO: Pull posts associated to current class
-      rootRef.child('posts').once('value').then(function(snapshot) {
+      rootRef.child('classes/' + currentClassKey + '/posts').once('value').then(function(snapshot) {
         var idNum = 0;
 
         snapshot.forEach(function(data) {
@@ -116,7 +124,7 @@ function newPost() {
       let title = document.getElementById("postTitle").value;
       let content = document.getElementById("postContent").value;
       let rootRef = firebase.database().ref();
-      let storesRef = rootRef.child('posts');
+      let storesRef = rootRef.child('classes/' + currentClassKey + '/posts');
       let newStoreRef = storesRef.push();
       let timestamp = new Date();
 
@@ -195,7 +203,7 @@ function renderComments() {
       let rootRef = firebase.database().ref();
 
       // Render comments for current post key
-      rootRef.child('posts/' + clickedListing + "/comments/").once('value').then(function(snapshot) {
+      rootRef.child('classes/' + currentClassKey + '/posts/' + clickedListing + "/comments/").once('value').then(function(snapshot) {
         snapshot.forEach(function(data) {
           $("#postComments").append(
             `<div class="row">
@@ -241,7 +249,7 @@ function newComment() {
       // store underneath current post (get key)
       console.log(clickedListing);
 
-      let storesRef = rootRef.child("posts/" + clickedListing + "/comments/");
+      let storesRef = rootRef.child('classes/' + currentClassKey + "/posts/" + clickedListing + "/comments/");
       let newStoreRef = storesRef.push();
 
       newStoreRef.set({
@@ -270,13 +278,27 @@ function getScores(callback) {
   console.log("Getting scores");
   scores = [];
   let rootRef = firebase.database().ref();
-  rootRef.child('posts/').once('value').then(function(snapshot) {
+  rootRef.child('classes/' + currentClassKey + '/posts/').once('value').then(function(snapshot) {
     snapshot.forEach(function(data) {
       scores.push(data.val().score);
 
     });
       callback();
   });
+}
 
-
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }
