@@ -320,7 +320,7 @@ function renderSubscriptions() {
         .on("value", function(snapshot) {
           //console.log(snapshot.val());
           snapshot.forEach(function(data) {
-            var subscription = document.createElement("div");
+            var subscription = document.createElement("a");
             subscription.classList.add("card");
 
             var title = document.createElement("div");
@@ -331,6 +331,7 @@ function renderSubscriptions() {
             title.appendChild(title_header);
 
             subscription.appendChild(title);
+            subscription.setAttribute("href", "notes.html");
 
             document
               .getElementById("your-subscription-classes")
