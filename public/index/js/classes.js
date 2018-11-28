@@ -343,10 +343,11 @@ function renderSubscriptions() {
               .appendChild(subscription);
 
             // jquery click event to unique class posts page
-            $("#" + i).click(function(){
-              console.log("class " + i + " clicked");
+            console.log(i);
+            $("#" + subscription.id).click(function(){
+              console.log("class " + parseInt(subscription.id) + " clicked");
               // pass selected class key as cookie then go to posts page
-              let currentClassKey = allClassKeys[i-1];
+              let currentClassKey = allClassKeys[parseInt(subscription.id)];
               console.log("currentClassKey : " + currentClassKey);
               document.cookie="currentClassKey=" + currentClassKey;
               document.cookie="currentClass=" + data.val().classname;
