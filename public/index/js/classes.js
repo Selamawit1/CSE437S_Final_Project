@@ -119,55 +119,54 @@ function renderAllClasses() {
     body.removeChild(body.firstChild);
   }
   console.log("Rendering all classes");
+
   let rootRef = firebase.database().ref();
-  rootRef
-    .child("classes")
-    .once("value")
-    .then(function(snapshot) {
-      var idNumAll = 0;
-      allClassKeys = Object.keys(snapshot.val());
-      snapshot.forEach(function(data) {
-        console.log(data.val());
-        // render each within userTextbookListings div
-        var classPost = document.createElement("tr");
+  rootRef.child("classes").on("value", function(snapshot) {
+    //console.log(snapshot.val());
+    idNumAll = 0;
+    allClassKeys = Object.keys(snapshot.val());
+    snapshot.forEach(function(data) {
+      console.log(data.val());
+      // render each within userTextbookListings div
+      var classPost = document.createElement("tr");
 
-        var title = document.createElement("td");
-        title.innerHTML = data.val().title;
+      var title = document.createElement("td");
+      title.innerHTML = data.val().title;
 
-        var department = document.createElement("td");
-        department.innerHTML = data.val().department;
+      var department = document.createElement("td");
+      department.innerHTML = data.val().department;
 
-        var instructor = document.createElement("td");
-        instructor.innerHTML = data.val().instructor;
+      var instructor = document.createElement("td");
+      instructor.innerHTML = data.val().instructor;
 
-        var school = document.createElement("td");
-        school.innerHTML = data.val().school;
+      var school = document.createElement("td");
+      school.innerHTML = data.val().school;
 
-        var rating = document.createElement("td");
-        rating.innerHTML = data.val().rating;
-        if (rating.innerHTML == "-1") {
-          rating.innerHTML = "No Ratings";
-        }
+      var rating = document.createElement("td");
+      rating.innerHTML = data.val().rating;
+      if (rating.innerHTML == "-1") {
+        rating.innerHTML = "No Ratings";
+      }
 
-        classPost.appendChild(title);
-        classPost.appendChild(department);
-        classPost.appendChild(instructor);
-        classPost.appendChild(school);
-        classPost.appendChild(rating);
-        classPost.id = "allpost" + idNumAll;
+      classPost.appendChild(title);
+      classPost.appendChild(department);
+      classPost.appendChild(instructor);
+      classPost.appendChild(school);
+      classPost.appendChild(rating);
+      classPost.id = "allpost" + idNumAll;
 
-        body.appendChild(classPost);
+      body.appendChild(classPost);
 
-        // add click event
-        $("#" + classPost.id).click(function() {
-          clickedListing = classPost.id;
-          $("#subscriptionModal").modal("show");
-        });
-
-        idNumAll++;
-        allClassNames.push(data.val().title);
+      // add click event
+      $("#" + classPost.id).click(function() {
+        clickedListing = classPost.id;
+        $("#subscriptionModal").modal("show");
       });
+
+      idNumAll++;
+      allClassNames.push(data.val().title);
     });
+  });
 }
 
 /**
@@ -232,6 +231,8 @@ function subscribeClass(val) {
       // check if already defined subscription
       let exists = false;
       let uid = firebase.auth().currentUser.uid;
+      console.log("key: " + key);
+      console.log("uid:" + uid);
       let rootRef = firebase.database().ref();
       rootRef
         .child("subscriptions")
@@ -266,11 +267,25 @@ function subscribeClass(val) {
           }
         );
       } else {
-        let newSubscriptionsRef = firebase
+        var foundSub,
+          index = 0;
+        rootRef
+          .child("subscriptions")
+          .orderByChild("uid")
+          .equalTo(uid)
+          .on("value", function(snapshot) {
+            snapshot.forEach(function(data) {
+              if (data.val().classid == key) {
+                foundSub = Object.keys(snapshot.val())[index];
+              }
+              index++;
+            });
+          });
+        let removeSubscriptionsRef = firebase
           .database()
           .ref()
-          .child("subscriptions/" + key);
-        newSubscriptionsRef.remove();
+          .child("subscriptions/" + foundSub);
+        removeSubscriptionsRef.remove();
         (function(error) {
           if (error) {
             console.log(error);
@@ -285,6 +300,7 @@ function subscribeClass(val) {
       console.log("User is not logged in!");
     }
   });
+  renderSubscriptions();
 }
 
 function renderSubscriptions() {
@@ -303,28 +319,23 @@ function renderSubscriptions() {
         .equalTo(uid)
         .on("value", function(snapshot) {
           //console.log(snapshot.val());
-          allClassKeys = Object.keys(snapshot.val());
-          var idNumAll = 0;
           snapshot.forEach(function(data) {
-            if (idNumAll < 3) {
-              var subscription = document.createElement("div");
-              subscription.classList.add("card");
+            var subscription = document.createElement("a");
+            subscription.classList.add("card");
 
-              var title = document.createElement("div");
-              title.classList.add("card-body", "text-center");
-              var title_header = document.createElement("h4");
-              title_header.classList.add("card-title");
-              title_header.innerHTML = data.val().classname;
-              title.appendChild(title_header);
+            var title = document.createElement("div");
+            title.classList.add("card-body", "text-center");
+            var title_header = document.createElement("h4");
+            title_header.classList.add("card-title");
+            title_header.innerHTML = data.val().classname;
+            title.appendChild(title_header);
 
-              subscription.appendChild(title);
+            subscription.appendChild(title);
+            subscription.setAttribute("href", "notes.html");
 
-              document
-                .getElementById("your-subscription-classes")
-                .appendChild(subscription);
-
-              idNumAll++;
-            }
+            document
+              .getElementById("your-subscription-classes")
+              .appendChild(subscription);
           });
         });
     } else {
@@ -401,9 +412,9 @@ function sortTable(n) {
 }
 
 /*
-* Search when typing all rows for input
-* Adapted from: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_filter_table
-*/
+ * Search when typing all rows for input
+ * Adapted from: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_filter_table
+ */
 function searchClass() {
   console.log("search");
   var input, filter, table, tr, td, i;

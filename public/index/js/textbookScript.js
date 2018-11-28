@@ -1,12 +1,13 @@
 var textbookKeys = [];
 var clickedListing = "";
+var emails = [];
 
 $(window).load(function() {
-  document.getElementById("newTextbookBtn").addEventListener("click", addTextbook);
+  document
+    .getElementById("newTextbookBtn")
+    .addEventListener("click", addTextbook);
   renderUserTextbooks();
   renderAllTextbooks();
-
-
 
   $("#saveBtn").click(function() {
     let id = clickedListing; // get id of clicked listing
@@ -27,7 +28,10 @@ $(window).load(function() {
       alert("Please make sure all fields are filled!");
       return;
     } else {
-      var textbookRef = firebase.database().ref().child("textbooks/" + key);
+      var textbookRef = firebase
+        .database()
+        .ref()
+        .child("textbooks/" + key);
       textbookRef.update({
         author: uauthor,
         isbn: uisbn,
@@ -38,9 +42,8 @@ $(window).load(function() {
       renderUserTextbooks();
       renderAllTextbooks();
 
-      $('#userDetailModal').modal('toggle');
+      $("#userDetailModal").modal("toggle");
     }
-
   });
 
   $("#deleteBtn").click(function() {
@@ -51,16 +54,17 @@ $(window).load(function() {
     let ask = confirm("Are you sure? This action cannot be undone.");
 
     if (ask) {
-      var textbookRef = firebase.database().ref().child("textbooks/" + key);
+      var textbookRef = firebase
+        .database()
+        .ref()
+        .child("textbooks/" + key);
       textbookRef.remove();
       renderUserTextbooks();
       renderAllTextbooks();
-      $('#userDetailModal').modal('toggle');
-
+      $("#userDetailModal").modal("toggle");
     } else {
       // do nothing
     }
-
   });
 
   // $("#contactBtn").click(function() {
@@ -69,12 +73,7 @@ $(window).load(function() {
   //   // send email or message? to seller as inquiry
   //   window.location.assign("'mailto:" + seller + "?subject=WashU for You: Interest in your textbook Post!'");
   // });
-
-
 });
-
-
-
 
 // renders list-group divs into user submitted textbook listings
 function renderUserTextbooks() {
@@ -88,50 +87,54 @@ function renderUserTextbooks() {
       }
       let uid = firebase.auth().currentUser.uid;
       let rootRef = firebase.database().ref();
-      rootRef.child('textbooks').orderByChild('uid').equalTo(uid).on("value", function(snapshot) {
-        //console.log(snapshot.val());
-        // pulls all textbook keys associated with current user account
-        if (snapshot.val() != null) {
-          textbookKeys = Object.keys(snapshot.val());
-        } else {
-          var empty = document.createElement('div');
-          empty.class = "alert alert-light";
-          empty.role = "alert";
-          empty.innerHTML = "Nothing here so far!"
-          aDiv.appendChild(empty);
-        }
-        var idNum = 0;
-        snapshot.forEach(function(data) {
-          //console.log(data.val());
-          // render each within userTextbookListings div
-          var textbook = document.createElement('div');
-          textbook.id = "upost" + idNum;
-          textbook.className = "list-group-item list-group-item-action";
-          textbook.innerHTML = data.val().title;
-          aDiv.appendChild(textbook);
+      rootRef
+        .child("textbooks")
+        .orderByChild("uid")
+        .equalTo(uid)
+        .on("value", function(snapshot) {
+          //console.log(snapshot.val());
+          // pulls all textbook keys associated with current user account
+          if (snapshot.val() != null) {
+            textbookKeys = Object.keys(snapshot.val());
+          } else {
+            var empty = document.createElement("div");
+            empty.class = "alert alert-light";
+            empty.role = "alert";
+            empty.innerHTML = "Nothing here so far!";
+            aDiv.appendChild(empty);
+          }
+          var idNum = 0;
+          snapshot.forEach(function(data) {
+            //console.log(data.val());
+            // render each within userTextbookListings div
+            var textbook = document.createElement("div");
+            textbook.id = "upost" + idNum;
+            textbook.className = "list-group-item list-group-item-action";
+            textbook.innerHTML = data.val().title;
+            aDiv.appendChild(textbook);
 
-          // add click event
-          $("#" + textbook.id).click(function() {
-            let utitle = document.getElementById("utitle");
-            let uauthor = document.getElementById("uauthor");
-            let uisbn = document.getElementById("uisbn");
-            let uclass = document.getElementById("uclass");
-            let uprice = document.getElementById("uprice");
+            // add click event
+            $("#" + textbook.id).click(function() {
+              let utitle = document.getElementById("utitle");
+              let uauthor = document.getElementById("uauthor");
+              let uisbn = document.getElementById("uisbn");
+              let uclass = document.getElementById("uclass");
+              let uprice = document.getElementById("uprice");
 
-            clickedListing = textbook.id;
-            console.log(textbook.id + " clicked");
-            console.log(utitle.value);
-            utitle.value = data.val().title;
-            uauthor.value = data.val().author;
-            uisbn.value = data.val().isbn;
-            uclass.value = data.val().class;
-            uprice.value = data.val().price;
+              clickedListing = textbook.id;
+              console.log(textbook.id + " clicked");
+              console.log(utitle.value);
+              utitle.value = data.val().title;
+              uauthor.value = data.val().author;
+              uisbn.value = data.val().isbn;
+              uclass.value = data.val().class;
+              uprice.value = data.val().price;
 
-            $("#userDetailModal").modal('show');
+              $("#userDetailModal").modal("show");
+            });
+            idNum++;
           });
-          idNum++;
         });
-      });
     } else {
       console.log("User is not logged in!");
     }
@@ -147,64 +150,78 @@ function renderAllTextbooks() {
   }
   console.log("Rendering all textbooks");
   let rootRef = firebase.database().ref();
-  rootRef.child('textbooks').once('value').then(function(snapshot) {
-    var idNum = 0;
-    snapshot.forEach(function(data) {
-      //console.log(data.val());
-      // render each within userTextbookListings div
-      var textbookPost = document.createElement('tr');
-      textbookPost.id = "post" + idNum;
+  rootRef
+    .child("textbooks")
+    .once("value")
+    .then(function(snapshot) {
+      var idNum = 0;
+      snapshot.forEach(function(data) {
+        //console.log(data.val());
+        // render each within userTextbookListings div
+        var textbookPost = document.createElement("tr");
+        textbookPost.id = "post" + idNum;
 
-      var isbn = document.createElement('td');
-      isbn.innerHTML = data.val().isbn;
-      var sellerEmail = document.createElement('td');
-      sellerEmail.innerHTML = data.val().email;
-      var title = document.createElement('td');
-      title.innerHTML = data.val().title;
-      var author = document.createElement('td');
-      author.innerHTML = data.val().author;
-      var aclass = document.createElement('td');
-      aclass.innerHTML = "Class: " + data.val().class;
-      var price = document.createElement('td');
-      price.innerHTML = "$" + data.val().price;
-      var cover = document.createElement('td');
-      var image = document.createElement('img');
-      image.src = "http://covers.openlibrary.org/b/isbn/" + data.val().isbn.replace(/ /g, "") + "-S.jpg";
-      console.log(image.src);
-      cover.appendChild(image);
+        var isbn = document.createElement("td");
+        isbn.innerHTML = data.val().isbn;
+        var sellerEmail = document.createElement("td");
+        sellerEmail.innerHTML = data.val().email;
+        var title = document.createElement("td");
+        title.innerHTML = data.val().title;
+        var author = document.createElement("td");
+        author.innerHTML = data.val().author;
+        var aclass = document.createElement("td");
+        aclass.innerHTML = data.val().class;
+        var price = document.createElement("td");
+        price.innerHTML = "$" + data.val().price;
+        var cover = document.createElement("td");
+        var image = document.createElement("img");
+        image.src =
+          "http://covers.openlibrary.org/b/isbn/" +
+          data.val().isbn.replace(/ /g, "") +
+          "-S.jpg";
+        console.log(image.src);
+        cover.appendChild(image);
 
-      textbookPost.appendChild(isbn);
-      textbookPost.appendChild(sellerEmail);
-      textbookPost.appendChild(title);
-      textbookPost.appendChild(author);
-      textbookPost.appendChild(price);
-      textbookPost.appendChild(aclass);
-      textbookPost.appendChild(cover);
+        textbookPost.appendChild(isbn);
+        textbookPost.appendChild(sellerEmail);
+        textbookPost.appendChild(title);
+        textbookPost.appendChild(author);
+        textbookPost.appendChild(price);
+        textbookPost.appendChild(aclass);
+        textbookPost.appendChild(cover);
 
-      body.appendChild(textbookPost);
+        body.appendChild(textbookPost);
+        emails.push(data.val().email);
 
-      $("#" + textbookPost.id).click(function() {
-        console.log(textbookPost.id + " clicked");
-        // disable button if owner is viewing
-        if (firebase.auth().currentUser.email == data.val().email) {
-          $('#contactBtn').prop('disabled', true);
-        } else {
-          $('#contactBtn').prop('disabled', false);
-        }
+        $("#" + textbookPost.id).click(function() {
+          clickedEmail = emails[textbookPost.id.substring(4)];
+          console.log(textbookPost.id + " clicked" + clickedEmail);
+          // disable button if owner is viewing
+          if (firebase.auth().currentUser.email == data.val().email) {
+            $("#contactBtn").prop("disabled", true);
+          } else {
+            $("#contactBtn").prop("disabled", false);
+          }
 
-        // TODO: Append needed information
-        document.getElementById("textbookTitle").innerHTML = data.val().title;
-        document.getElementById("textbookAuthor").innerHTML = "Author: " + data.val().author;
-        document.getElementById("textbookISBN").innerHTML = "ISBN #: " + data.val().isbn;
-        document.getElementById("textbookSeller").innerHTML = "Seller Email: " + data.val().email;
-        document.getElementById("textbookPrice").innerHTML = "Price: $" + " " + data.val().price;
-        document.getElementById("detailCoverImage").src = "http://covers.openlibrary.org/b/isbn/" + data.val().isbn.replace(/ /g, "") + "-M.jpg";;
-        $("#detailModal").modal('show');
+          // TODO: Append needed information
+          document.getElementById("textbookTitle").innerHTML = data.val().title;
+          document.getElementById("textbookAuthor").innerHTML =
+            "Author: " + data.val().author;
+          document.getElementById("textbookISBN").innerHTML =
+            "ISBN #: " + data.val().isbn;
+          document.getElementById("textbookSeller").innerHTML =
+            "Seller Email: " + data.val().email;
+          document.getElementById("textbookPrice").innerHTML =
+            "Price: $" + " " + data.val().price;
+          document.getElementById("detailCoverImage").src =
+            "http://covers.openlibrary.org/b/isbn/" +
+            data.val().isbn.replace(/ /g, "") +
+            "-M.jpg";
+          $("#detailModal").modal("show");
+        });
+        idNum++;
       });
-      idNum++;
-
     });
-  });
 }
 
 /**
@@ -225,34 +242,36 @@ function addTextbook() {
       let price = document.getElementById("price").value;
 
       let rootRef = firebase.database().ref();
-      let storesRef = rootRef.child('textbooks');
+      let storesRef = rootRef.child("textbooks");
       let newStoreRef = storesRef.push();
 
       // store key in case the user wants to edit any posts
       textbookKeys.push(newStoreRef.getKey());
 
-      newStoreRef.set({
-        uid: uid,
-        email: email,
-        author: author,
-        isbn: isbn,
-        title: title,
-        class: aclass,
-        price: price
-      }, function(error) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log("User input Success");
-          // render new textbook listing
-          renderUserTextbooks();
-          renderAllTextbooks();
+      newStoreRef.set(
+        {
+          uid: uid,
+          email: email,
+          author: author,
+          isbn: isbn,
+          title: title,
+          class: aclass,
+          price: price
+        },
+        function(error) {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("User input Success");
+            // render new textbook listing
+            renderUserTextbooks();
+            renderAllTextbooks();
+          }
         }
-      });
+      );
 
       // close modal
-      $('#addTextbookModal').modal('toggle');
-
+      $("#addTextbookModal").modal("toggle");
     } else {
       console.log("User is not logged in!");
     }
@@ -260,7 +279,7 @@ function addTextbook() {
 }
 
 function searchTextbooks() {
-  console.log('search');
+  console.log("search");
   var input, filter, table, tr, td, i;
   input = document.getElementById("searchTextbookQuery");
   filter = input.value.toUpperCase();
@@ -280,4 +299,18 @@ function searchTextbooks() {
       }
     }
   }
+}
+
+function sendEmail() {
+  var link =
+    "mailto:" +
+    clickedEmail +
+    "?" +
+    "&subject=" +
+    escape("Interest in Your Item") +
+    "&body=" +
+    escape(
+      "Hi! \n\n I am interested in your listing for sale available on WashU for U! If it is still available, let me know! \n\n Thanks! "
+    );
+  window.location.href = link;
 }
