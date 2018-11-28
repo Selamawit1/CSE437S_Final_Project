@@ -67,12 +67,6 @@ $(window).load(function() {
     }
   });
 
-  // $("#contactBtn").click(function() {
-  //   let seller = document.getElementById("textbookSeller").value;
-  //   console.log(seller);
-  //   // send email or message? to seller as inquiry
-  //   window.location.assign("'mailto:" + seller + "?subject=WashU for You: Interest in your textbook Post!'");
-  // });
 });
 
 // renders list-group divs into user submitted textbook listings

@@ -1,21 +1,30 @@
 var postKeys = [];
 var clickedListing = "";
+var scores = [];
 
 document.addEventListener('DOMContentLoaded', function() {
+
   $(".editor").jqte(); // see http://jqueryte.com/documentation
   loadPostListings();
   document.getElementById("submitBtn").addEventListener('click', newPost);
 
-  $('#topic').upvote({
-    count: 0,
-    upvoted: 0
-  });
   $('#topic').upvote();
   document.getElementById("up0").addEventListener('click', function() {
     $('#topic').upvote('upvote');
+    console.log("upvoting");
+    let ref = firebase.database().ref('posts/' + clickedListing + "/score");
+    ref.transaction(function(score) {
+      return (score) + 1; // increment score
+    });
+
   });
   document.getElementById("down0").addEventListener('click', function() {
     $('#topic').upvote('downvote');
+    console.log("downvoting");
+    let ref = firebase.database().ref('posts/' + clickedListing + "/score");
+    ref.transaction(function(score) {
+      return (score) - 1; // decrement score
+    });
   });
 });
 
@@ -64,10 +73,23 @@ function loadPostListings() {
 
           // add click event
           $("#" + post.id).click(function() {
+            // get most recent score from listing
+            getScores(function() {
+              let newScore = scores[parseInt(post.id.replace("post", ""))];
+              $('#topic').upvote({
+                count: newScore,
+                upvoted: 0
+              });
+              console.log()
+              document.getElementById("score").innerHTML = newScore;
+            });
+
+            document.getElementById("scorer").style.display = "block";
             // Append information to details view
-            clickedListing = postKeys[parseInt(post.id.replace("post",""))];
-            console.log("clicked Listing for " + post.id + " = " + clickedListing);
+            clickedListing = postKeys[parseInt(post.id.replace("post", ""))];
+            //console.log("clicked Listing for " + post.id + " = " + clickedListing);
             console.log(post.id + " clicked");
+            document.getElementById("score").innerHTML = data.val().score;
             document.getElementById("profileImgSmall").src = data.val().profileUrl;
             document.getElementById("postDetailsTitle").innerHTML = data.val().title;
             document.getElementById("postDetailsContent").innerHTML = data.val().content;
@@ -106,6 +128,8 @@ function newPost() {
         title: title,
         content: content,
         score: 0
+        // upvoted: [],
+        // downvoted: []
 
       }, function(error) {
         if (error) {
@@ -138,7 +162,7 @@ function loadComments() {
   h.innerHTML = "Comment";
   let inputBox = document.createElement("textarea");
   inputBox.id = "inputBox";
-  inputBox.class="form-control";
+  inputBox.class = "form-control";
   inputBox.rows = 2;
   inputBox.cols = 70;
   let submitBtn = document.createElement("button");
@@ -240,4 +264,19 @@ function newComment() {
     }
 
   });
+}
+
+function getScores(callback) {
+  console.log("Getting scores");
+  scores = [];
+  let rootRef = firebase.database().ref();
+  rootRef.child('posts/').once('value').then(function(snapshot) {
+    snapshot.forEach(function(data) {
+      scores.push(data.val().score);
+
+    });
+      callback();
+  });
+
+
 }
