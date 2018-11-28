@@ -58,10 +58,10 @@ function loadPostListings() {
           $("#" + post.id).click(function() {
             // Append information to details view
             console.log(post.id + " clicked");
-            document.getElementById("profileImg").src = data.val().photoURL;
+            document.getElementById("profileImgSmall").src = data.val().profileUrl;
             document.getElementById("postDetailsTitle").innerHTML = data.val().title;
             document.getElementById("postDetailsContent").innerHTML = data.val().content;
-            document.getElementById("poster").innerHTML= data.val().username + " posted on " + data.val().timestamp;
+            document.getElementById("poster").innerHTML= "Post by " + data.val().username + " on " + data.val().timestamp;
           });
           idNum++;
         });
@@ -85,6 +85,7 @@ function newPost() {
       let rootRef = firebase.database().ref();
       let storesRef = rootRef.child('posts');
       let newStoreRef = storesRef.push();
+      let timestamp = new Date();
 
       // store key in case the user wants to edit any posts
       postKeys.push(newStoreRef.getKey());
@@ -92,7 +93,7 @@ function newPost() {
         username: username, // original post username
         email: email,
         profileUrl: profileUrl,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        timestamp: timestamp.toString(),
         title: title,
         content: content,
         score: 0
