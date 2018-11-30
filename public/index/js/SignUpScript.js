@@ -21,7 +21,7 @@ window.onload = function() {
             .sendEmailVerification()
             .then(function() {
               // Email sent.
-              window.alert("Email sent");
+              window.alert("Please verify your email before proceeding.");
             })
             .catch(function(error) {
               // An error happened.
