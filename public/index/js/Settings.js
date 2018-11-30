@@ -25,19 +25,19 @@ $(window).load(function() {
               photoURL: downloadURL
             }).then(function() {
               // Update successful.
-              console.log("Success updating user profile image");
+              alert("Successfully updated user profile image.");
             }).catch(function(error) {
               // An error happened.
-              console.log("Error updating user profile image");
+              alert("Error encountered updating user profile image.");
             });
             var user = firebase.auth().currentUser;
 
-            if (user != null &&  downloadURL != null) {
+            if (user != null && downloadURL != null) {
               downloadURL = user.photoURL;
               document.getElementById('profile-pic').src = downloadURL;
               location.reload();
             } else {
-              alert("Error uploading profile image!");
+              alert("Error uploading profile image.");
             }
             showUserAvatar();
           });
@@ -91,34 +91,64 @@ let update = () => {
   if (newName != "" && newEmail != "") {
     user.updateProfile({
       displayName: newName,
-      email: newEmail
     }).then(function() {
       // Update successful.
-      location.reload();
+      if (validateEmail(newEmail)) {
+        user.updateEmail(newEmail)
+          .then(() => {
+            clearAlert();
+            $("#alert").append(`<div class="alert alert-success" role="alert">
+  Succesfully updated user information. Reload the page to see the changes made.
+</div>`);
+            //location.reload();
+          })
+          .catch(function(error) {
+            clearAlert();
+            $("#alert").append(`<div class="alert alert-danger" role="alert">
+    Error updating user information. Error message: ${error.message}
+    </div>`);
+          });
+      } else {
+        alert("Please enter a valid email address.");
+      }
+
+
     }).catch(function(error) {
       // An error happened.
-      alert("Error updating user information. Please try again.");
+      clearAlert();
+      $("#alert").append(`<div class="alert alert-danger" role="alert">
+Error updating user information. Error message: ${error.message}
+</div>`);
     });
   } else if (newName != "") {
     user.updateProfile({
       displayName: newName
     }).then(function() {
       // Update successful.
-      location.reload();
+      clearAlert();
+      $("#alert").append(`<div class="alert alert-success" role="alert">
+Succesfully updated user information. Reload the page to see the changes made.
+</div>`);
+      // location.reload();
     }).catch(function(error) {
       // An error happened.
-      alert("Error updating user information. Please try again.");
+      clearAlert();
+      $("#alert").append(`<div class="alert alert-danger" role="alert">
+Error updating user information. Error message: ${error.message}
+</div>`);
     });
   } else if (newEmail != "") {
-    user.updateProfile({
-      email: newEmail
-    }).then(function() {
-      // Update successful.
-      location.reload();
-    }).catch(function(error) {
-      // An error happened.
-      alert("Error updating user information. Please try again.");
-    });
+    if (validateEmail(newEmail)) {
+      user.updateEmail(newEmail).then(() => {
+        clearAlert();
+        $("#alert").append(`<div class="alert alert-success" role="alert">
+Succesfully updated user information. Reload the page to see the changes made.
+</div>`);
+        // location.reload();
+      });
+    } else {
+      alert("Please enter a valid email address.");
+    }
   }
 
 };
@@ -139,4 +169,17 @@ function updatePass() {
       alert("Updating password failed. Please try signing in again.");
     });
   }
+}
+
+function validateEmail(email) {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
+function clearAlert() {
+  var myNode = document.getElementById("alert");
+  while (myNode.firstChild) {
+      myNode.removeChild(myNode.firstChild);
+  }
+
 }
