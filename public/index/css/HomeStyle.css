@@ -71,3 +71,8 @@ h1 {
 .col-sm-10 {
   padding: 50px;
 }
+
+#otherReason{
+  position: relative;
+  left: 35px;
+}

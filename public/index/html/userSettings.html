@@ -161,7 +161,119 @@
               <button id="updatePassBtn" type="button" class="btn btn-primary">Update Password</button>
             </div>
           </div>
+          <div class="form-group row">
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="moderateBtn">Request to be a moderator</button>
+            </div>
+          </div>
         </form>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <!-- TEXTBOOK DETAILS MODAL/ CONTACT SELLER -->
+  <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="textbookTitle">Textbook title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col">
+                <!-- MODAL CONTENT -->
+                <div id="name">
+                  <form>
+                    <div class='form-group row'>
+                       <label for='nameVal' class='col-3 col-form-label'>Name  </label>
+                       <div class='col-15'>
+                            <input id='nameVal' name='nameVal' placeholder='Enter your name...' class='form-control here' type='text'>
+                       </div>
+                    </div>
+                  </form>
+                </div>
+
+                <div id="emailAddress">
+                  <form>
+                    <div class='form-group row'>
+                       <label for='emailVal' class='col-3 col-form-label'>Email  </label>
+                       <div class='col-20'>
+                         <input id='emailVal' name='emailVal' placeholder='Enter your email...' class='form-control here' type='text'>
+                       </div>
+                    </div>
+                    <div class='form-group row'>
+
+                    </div>
+                  </form>
+                </div>
+
+                <div id="classValue">
+                  <form>
+                    <div class='form-group row'>
+                       <label for='classVal' class='col-3 col-form-label'>Class  </label>
+                       <div class='col-20'>
+                         <input id='classVal' name='classVal' placeholder='Class...' class='form-control here' type='text'>
+                       </div>
+                    </div>
+                    <div class='form-group row'>
+
+                    </div>
+                  </form>
+                </div>
+
+                <div id="reason">
+                  <div class='form-group row'>
+                    <label for='reason' class='col-5 col-form-label'>Are you...  </label>
+                    <div class='col-10'>
+                        <p> &nbsp &nbsp &nbsp &nbsp </p>
+                        <input id='reason' name='reason' value='a TA' type='radio'> A TA <br/>
+                        <p> &nbsp &nbsp &nbsp &nbsp </p>
+                        <input id='reason' name='reason' value='a professor' type='radio'> A Professor <br/>
+                        <p> &nbsp &nbsp &nbsp &nbsp </p>
+                        <input id='reason' name='reason' value='a TA' type='radio'> Other <br/>
+                  <div class='col-15'>
+                    <input id='otherReason' name='otherReason'  class='form-control here' type='text'>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+                <div class="col">
+                  <div ><img id="detailCoverImage" src=""/></div>
+                </div>
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="contactBtn">Send an Email to Administrator</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="userDetailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="utextbookTitle">Textbooka title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- MODAL CONTENT -->
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" id="deleteBtn">Delete Post</button>
+          <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
+        </div>
       </div>
     </div>
   </div>

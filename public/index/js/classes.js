@@ -72,9 +72,11 @@ function renderUserClasses() {
         .equalTo(uid)
         .on("value", function(snapshot) {
           //console.log(snapshot.val());
+
           classKeys = Object.keys(snapshot.val());
           var idNum = 0;
           snapshot.forEach(function(data) {
+
             //console.log(data.val());
             // render each within userTextbookListings div
             var Class = document.createElement("div");
@@ -194,7 +196,13 @@ function addClass() {
           title: title,
           instructor: instructor,
           school: school,
-          rating: -1
+          rating: -1,
+          posts: {},
+          Moderators: {
+            "1" : "isabelle.xu88@gmail.com",
+            "2" : "jeremy.goldstein@wustl.edu",
+            "3": "sntegegn13@ole.augie.edu",
+       },
         },
         function(error) {
           if (error) {
@@ -321,6 +329,7 @@ function renderSubscriptions() {
           //console.log(snapshot.val());
           let i = 0;
           snapshot.forEach(function(data) {
+
             var subscription = document.createElement("a");
             subscription.classList.add("card");
             subscription.id = i;
@@ -344,16 +353,25 @@ function renderSubscriptions() {
 
             // jquery click event to unique class posts page
             console.log(i);
-            $("#" + subscription.id).click(function(){
-              console.log("class " + parseInt(subscription.id) + " clicked");
-              // pass selected class key as cookie then go to posts page
-              let currentClassKey = allClassKeys[parseInt(subscription.id)];
-              console.log("currentClassKey : " + currentClassKey);
-              document.cookie="currentClassKey=" + currentClassKey;
-              document.cookie="currentClass=" + data.val().classname;
-              window.location.href = "../html/reddit.html";
-
-            });
+            var posts = function()
+            {
+                  let currentClassKey = allClassKeys[parseInt(data.val().classid)];
+                  console.log(data.val().classid);
+                  document.cookie="currentClassKey=" + data.val().classid ;
+                  document.cookie="currentClass=" + data.val().classname;
+                  window.location.href = "../html/reddit.html";
+            }
+            document.getElementById(i).addEventListener("click",posts);
+            // $("#" + subscription.id).click(function(){
+            //   console.log("class " + parseInt(subscription.id) + " clicked");
+            //   // pass selected class key as cookie then go to posts page
+            //   let currentClassKey = allClassKeys[parseInt(subscription.id)];
+            //   console.log("currentClassKey : " + currentClassKey);
+            //   document.cookie="currentClassKey=" + currentClassKey ;
+            //   document.cookie="currentClass=" + data.val().classname;
+            //   window.location.href = "../html/reddit.html";
+            //
+            // });
             i++;
           });
         });

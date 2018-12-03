@@ -10,13 +10,11 @@ window.onload = function() {
         console.log(error.message);
       });
     firebase.auth().onAuthStateChanged(function(user) {
-      //window.alert("on auth state changed");
       if (user) {
         //User is signed in.
         var user = firebase.auth().currentUser;
         console.log("user is " + firebase.auth().currentUser);
         if (user != null) {
-          //  window.alert("the user is not null");
           user
             .sendEmailVerification()
             .then(function() {

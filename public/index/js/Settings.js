@@ -3,7 +3,12 @@ $(window).load(function() {
 
   $("#updateBtn").click(update);
   $("#updatePassBtn").click(updatePass);
+  //  $("#moderateBtn").click(sendEmail);
+  $("#moderateBtn").click(moderatorForm);
 
+
+
+//document.getElementById("moderateBtn").addEventListener("click",moderatorForm);
   document.getElementById("my-file").onchange = function(e) {
     //Get File
     var file = e.target.files[0];
@@ -11,7 +16,6 @@ $(window).load(function() {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         // User is signed in.
-
         //Create a Storage Ref
         var storageRef = firebase.storage().ref(user + '/profilePictures/' + file.name);
         //Upload file
@@ -40,6 +44,7 @@ $(window).load(function() {
               alert("Error uploading profile image.");
             }
             showUserAvatar();
+
           });
         });
 
@@ -51,6 +56,10 @@ $(window).load(function() {
 
   };
 });
+
+
+
+
 
 function showUserAvatar() {
   var user = firebase.auth().currentUser;
@@ -152,6 +161,57 @@ Succesfully updated user information. Reload the page to see the changes made.
   }
 
 };
+
+function moderatorForm(){
+  console.log("moderator form");
+
+  $("#detailModal").modal("show");
+
+
+    var sendEmail = function() {
+      adminEmail = "sntegegn13@ole.augie.edu"
+      console.log(adminEmail);
+      var emailVar = document.getElementById("emailVal").value;
+      var nameVar = document.getElementById("nameVal").value;
+      var radios = document.getElementsByName("reason");
+      var classVar = document.getElementById("classVal").value;
+
+      console.log(nameVar);
+      console.log(emailVar);
+      console.log(classVar);
+
+      for (var i = 0, length = radios.length; i < length; i++)
+      {
+          if (radios[i].checked)
+          {
+            var reasonVar = radios[i].value;
+            console.log(reasonVar);
+          }
+      }
+      console.log(reasonVar);
+      adminEmail = "sntegegn13@ole.augie.edu; isabelle.xu88@gmail.com; jeremy.goldstein@wustl.edu";
+      var link =
+        "mailto:" +
+        adminEmail +
+        "&subject=" +
+        escape("Moderator access") +
+        "&body=" +
+        escape(
+          "Hi! \n\n " +
+          "My name is " + nameVar + ". My email address is "+ emailVar
+          + ". I am " + reasonVar + " for " + classVar + ". I was wondering "+
+          " if I can get a moderator access."
+          + "\n\n Thanks! "
+        );
+      window.location.href = link;
+      console.log(emailVar);
+
+
+    }
+    $("#contactBtn").click(sendEmail);
+}
+
+
 
 function updatePass() {
   var user = firebase.auth().currentUser;
