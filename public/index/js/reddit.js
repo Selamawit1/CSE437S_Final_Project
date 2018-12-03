@@ -12,30 +12,54 @@ document.addEventListener("DOMContentLoaded", function() {
   loadPostListings();
   document.getElementById("submitBtn").addEventListener("click", newPost);
 
+  // UPVOTE
   $("#topic").upvote();
   document.getElementById("up0").addEventListener("click", function() {
-    $("#topic").upvote("upvote");
-    console.log("upvoting");
     let ref = firebase
       .database()
       .ref(
         "classes/" + currentClassKey + "/posts/" + clickedListing + "/score"
       );
-    ref.transaction(function(score) {
-      return score + 1; // increment score
-    });
+    if (checkIfVoted("upvoted",false,false, 0)) {
+      console.log("upvoting");
+      ref.transaction(function(score) {
+        return score - 1; // increment score
+      });
+      //remove
+      removeVote("upvoted");
+    } else {
+      checkIfVoted("upvoted",true,false,0);
+      $("#topic").upvote("upvote");
+      console.log("upvoting");
+      ref.transaction(function(score) {
+        return score + 1; // increment score
+      });
+
+    }
+
   });
+
+  // DOWNVOTE
   document.getElementById("down0").addEventListener("click", function() {
-    $("#topic").upvote("downvote");
-    console.log("downvoting");
     let ref = firebase
       .database()
       .ref(
         "classes/" + currentClassKey + "/posts/" + clickedListing + "/score"
       );
-    ref.transaction(function(score) {
-      return score - 1; // decrement score
-    });
+    if (checkIfVoted("downvoted",false,false,0)) {
+      console.log("downvoting");
+      ref.transaction(function(score) {
+        return score + 1;
+      });
+      removeVote("downvoted");
+    } else {
+      $("#topic").upvote("downvote");
+      console.log("downvoting");
+      ref.transaction(function(score) {
+        return score - 1;
+      });
+      checkIfVoted("downvoted",true,false,0);
+    }
   });
 });
 
@@ -97,10 +121,20 @@ function loadPostListings() {
               // get most recent score from listing
               getScores(function() {
                 let newScore = scores[parseInt(post.id.replace("post", ""))];
-                $("#topic").upvote({
-                  count: newScore,
-                  upvoted: 0
-                });
+                // DISPLAY CURRENT STATE OF VOTES
+                // CHECK IF UPVOTED yet
+                if (checkIfVoted("upvoted",false,true,newScore)) {
+                } else if (checkIfVoted("downvoted",false,true,newScore)) {
+                } else {
+                  console.log("Displaying none");
+                  $("#topic").upvote({
+                    count: newScore,
+                    upvoted: 0,
+                    downvoted: 0
+                  });
+                }
+
+
                 console.log();
                 document.getElementById("score").innerHTML = newScore;
               });
@@ -164,8 +198,7 @@ function newPost() {
       let newStoreRef = storesRef.push();
       let timestamp = new Date();
 
-      newStoreRef.set(
-        {
+      newStoreRef.set({
           username: username, // original post username
           email: email,
           profileUrl: profileUrl,
@@ -173,8 +206,8 @@ function newPost() {
           title: title,
           content: content,
           score: 0
-          // upvoted: [],
-          // downvoted: []
+          // upvoted: new Array(),
+          // downvoted: new Array()
         },
         function(error) {
           if (error) {
@@ -244,10 +277,10 @@ function renderComments() {
       rootRef
         .child(
           "classes/" +
-            currentClassKey +
-            "/posts/" +
-            clickedListing +
-            "/comments/"
+          currentClassKey +
+          "/posts/" +
+          clickedListing +
+          "/comments/"
         )
         .once("value")
         .then(function(snapshot) {
@@ -288,8 +321,7 @@ function newComment() {
       let username = firebase.auth().currentUser.displayName;
       let profileUrl = firebase.auth().currentUser.photoURL;
       let comment = document.getElementById("inputBox").value;
-      if (comment != "") {
-      } else {
+      if (comment != "") {} else {
         alert("Please input a valid comment.");
         return;
       }
@@ -303,8 +335,7 @@ function newComment() {
       );
       let newStoreRef = storesRef.push();
 
-      newStoreRef.set(
-        {
+      newStoreRef.set({
           username: username,
           profileUrl: profileUrl,
           comment: comment
@@ -354,4 +385,94 @@ function getCookie(cname) {
     }
   }
   return "";
+}
+
+function setVote(type) {
+    let rootRef = firebase.database().ref();
+    // store underneath current post (get key)
+    console.log(clickedListing);
+
+    let storesRef = rootRef.child(
+      "classes/" + currentClassKey + "/posts/" + clickedListing + "/" + type + "/"
+    );
+
+    let newStoreRef = storesRef.push();
+
+    newStoreRef.set({
+        username: firebase.auth().currentUser.displayName,
+      },
+      function(error) {
+        if (error) {
+          console.log(error);
+        } else {}
+      }
+    );
+}
+
+// remove current user from upvoted or downvoted list
+function removeVote(type) {
+  console.log("removing vote");
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      var ref = firebase.database().ref().child("classes/" + currentClassKey + "/posts/" + clickedListing + "/" + type + "/")
+      ref.once("value")
+        .then(function(snapshot) {
+          data = snapshot.val();
+          for (var i = 0; i < Object.keys(data).length; i++) {
+            Object.keys(data)[i].forEach(function(childSnapshot) {
+              if (childSnapshot.val() == firebase.auth().currentUser.displayName) {
+                childSnapshot.ref.remove();
+                return;
+              }
+            });
+          }
+        }).catch(function(error) {
+          alert("Data could not be deleted." + error);
+        });
+    }
+  });
+}
+
+// Takes in either "upvoted" or "downvoted", then if user should vote
+function checkIfVoted(type, vote, isDisplay,newScore) {
+  console.log("checkifvoted");
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      let rootRef = firebase.database().ref();
+      rootRef.child("classes/" + currentClassKey + "/posts/" + clickedListing+ "/" + type + "/")
+        .orderByChild("username").equalTo(firebase.auth().currentUser.displayName)
+        .once("value", snapshot => {
+          if (snapshot.exists()) {
+            const userData = snapshot.val();
+            console.log("exists!", userData);
+
+            if (isDisplay == true && type == "upvoted") {
+              console.log("Displaying upvoted");
+              $("#topic").upvote({
+                count: newScore,
+                upvoted: 1,
+                downvoted: 0
+              });
+            } else if (isDisplay == true && type == "downvoted"){
+              console.log("Displaying downvoted");
+              $("#topic").upvote({
+                count: newScore,
+                upvoted: 0,
+                downvoted: 1
+              });
+            }
+
+            return true;
+          } else {
+            console.log("userdata does not exist");
+            if (vote == true) {
+              setVote(type);
+            }
+            return false;
+          }
+        });
+    }
+  });
+  return false;
+
 }
