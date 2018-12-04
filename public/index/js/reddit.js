@@ -492,6 +492,7 @@ function newPost() {
       console.log("User is not logged in!");
     }
   });
+  location.reload();
 }
 
 function writeUserData(username,email,profileUrl,timestamp,title,content,fileName,fileURL,currentClassKey){
@@ -590,12 +591,17 @@ function renderComments() {
         .once("value")
         .then(function(snapshot) {
           snapshot.forEach(function(data) {
+            profileImg = data.val().profileUrl;
+            if(profileImg == null)
+            {
+              profileImg = "../images/placeholder.png";
+            }
             $("#postComments").append(
               `<div class="row">
               <div class="col-sm-1">
                 <div class="thumbnail">
                   <img class="img-responsive user-photo" src='${
-                    data.val().profileUrl
+                    profileImg
                   }' height="50" width="50">
                 </div>
               </div>
