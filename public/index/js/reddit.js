@@ -3,6 +3,8 @@ var clickedListing = "";
 var scores = [];
 var currentClassKey = "";
 var mailList = [];
+// var count = 0;
+// var counting = true;
 
 document.addEventListener("DOMContentLoaded", function() {
   // retrieve current class from cookie
@@ -80,12 +82,13 @@ function sendEmail(mailList,id)
       console.log(mailList[i]);
       adminEmail+= ";" + mailList[i];
   }
+  var name = getCookie("currentClass");
   var link =
     "mailto:" +
     adminEmail +
 
     "&subject=" +
-    escape("classkey"+currentClassKey+" postkey"+id) +
+    escape("classname-"+name+" postnumber-"+id) +
     "&body=" +
     escape(
       "Hi! \n\n " +
@@ -110,9 +113,11 @@ function flagPost(e) {
       snapshot.forEach(function(data) {
            console.log(data.val());
             adminEmail+= data.val();
+            console.log(data.key);
             mailList.push(data.val());
       });
       console.log(mailList.length);
+      console.log(id);
       sendEmail(mailList,id);
 
     });
@@ -329,6 +334,8 @@ function loadPostListings() {
                   " on " +
                   data.val().timestamp;
                 loadComments();
+
+                let rootRef = firebase.database().ref();
                 rootRef
                   .child("classes/" + currentClassKey + "/Moderators")
                   .once("value")
@@ -351,13 +358,58 @@ function loadPostListings() {
                     });
                   });
                   document.getElementById("flagDelete").append(flagBtn);
-                  flagBtn.id = data.key;
+
+                  flagBtnId = data.key;
                   flagBtn.style.marginRight="20px";
                   flagBtn.style.width="100px";
-                  console.log(data.key);
-                  document
-                     .getElementById(data.key)
-                     .addEventListener("click", flagPost);
+
+
+
+                  rootRef
+                    .child("classes/" + currentClassKey)
+                    .once("value")
+                    .then(function(snapshot) {
+                      var idNum = 0;
+
+                      snapshot.forEach(function(data) {
+                         var i = 0
+                      keyVal=flagBtnId;
+                      var count = 0;
+                      var counting = true;
+                        for(i=0; i<4;i++)
+                        {
+                          var keyVal = flagBtnId;
+
+                          var id = 0;
+                          if(Object.keys(data.val())[i] != keyVal && counting==true){
+                            count = count + 1;
+                          }
+                          else if(Object.keys(data.val())[i] == keyVal){
+                            id = count+1;
+                            flagBtn.id = id;
+                            document
+                               .getElementById(id)
+                               .addEventListener("click", flagPost);
+                            counting = false;
+                          }
+                        }
+                        // var keyVal = data.key;
+                        // var id = 0;
+                        // if(data.key != keyVal && counting==true){
+                        //   console.log("counting..");
+                        //   count = count + 1;
+                        // }
+                        // else if(data.key == keyVal){
+                        //   console.log("found data key");
+                        //   id = count;
+                        //   counting = false;
+                        // }
+                        // console.log(id);
+
+                      });
+
+                    });
+
                   flagBtn.type="button";
                   flagBtn.className="btn btn-primary";
               } else {
