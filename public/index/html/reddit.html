@@ -98,7 +98,7 @@
         <h1 id='className'>Class Name</h1><br>
         <!-- SEARCH POSTS -->
         <div class="input-group">
-          <input type="text" oninput="" id="searchPostsQuery" class="form-control input" placeholder="Search posts" /> &nbsp; &nbsp;
+          <input type="text" oninput="searchPosts()" id="searchPostsQuery" class="form-control input" placeholder="Search posts" /> &nbsp; &nbsp;
           <span class="input-group-btn">
             <button type="button" class="btn btn-outline-primary">Search Posts</button>
             <button id="newPostBtn" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#postModal">New Post</button>
@@ -112,14 +112,14 @@
             <div id="postListings" class="list-group">
               <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
-                  <h6 class="mb-1">List group item heading</h6>
+                  <h6 class="mb-1">No Posts In This Class Yet</h6>
                 </div>
               </a>
             </div>
           </div>
           <div class="col-sm-9" id="postDetails">
             <!-- DETAILED VIEW -->
-            <div class="row">
+            <div class="row" id="detailedView">
               <div id="scorer" style="display: none;" class="col-2 col-sm-1">
                 <div id="topic" class="upvote">
                   <a id="up0" class="upvote"></a>
