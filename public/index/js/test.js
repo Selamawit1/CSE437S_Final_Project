@@ -11,62 +11,59 @@ document.addEventListener("DOMContentLoaded", function() {
 
   var fileInput = document.getElementById("fileId");
 
-  // UPVOTE
+
   $(".editor").jqte(); // see http://jqueryte.com/documentation
   loadPostListings();
   document.getElementById("submitBtn").addEventListener("click", newPost);
 
+  // UPVOTE
   $("#topic").upvote();
   document.getElementById("up0").addEventListener("click", function() {
-    $("#topic").upvote("upvote");
-    console.log("upvoting");
     let ref = firebase
       .database()
       .ref(
         "classes/" + currentClassKey + "/posts/" + clickedListing + "/score"
       );
-      if (checkIfVoted("upvoted",false,false, 0)) {
-        console.log("upvoting");
-        ref.transaction(function(score) {
-          return score - 1; // increment score
-        });
-        //remove
-        removeVote("upvoted");
-      } else {
-        checkIfVoted("upvoted",true,false,0);
-        console.log("aleady voted");
-        $("#topic").upvote("upvote");
-        console.log("upvoting");
-        ref.transaction(function(score) {
-          return score + 1; // increment score
-        });
+    if (checkIfVoted("upvoted",false,false, 0)) {
+      console.log("upvoting");
+      ref.transaction(function(score) {
+        return score - 1; // increment score
+      });
+      //remove
+      removeVote("upvoted");
+    } else {
+      checkIfVoted("upvoted",true,false,0);
+      $("#topic").upvote("upvote");
+      console.log("upvoting");
+      ref.transaction(function(score) {
+        return score + 1; // increment score
+      });
 
-      }
+    }
+
   });
 
   // DOWNVOTE
   document.getElementById("down0").addEventListener("click", function() {
-    $("#topic").upvote("downvote");
-    console.log("downvoting");
     let ref = firebase
       .database()
       .ref(
         "classes/" + currentClassKey + "/posts/" + clickedListing + "/score"
       );
-      if (checkIfVoted("downvoted",false,false,0)) {
-        console.log("downvoting");
-        ref.transaction(function(score) {
-          return score + 1;
-        });
-        removeVote("downvoted");
-      } else {
-        $("#topic").upvote("downvote");
-        console.log("downvoting");
-        ref.transaction(function(score) {
-          return score - 1;
-        });
-        checkIfVoted("downvoted",true,false,0);
-      }
+    if (checkIfVoted("downvoted",false,false,0)) {
+      console.log("downvoting");
+      ref.transaction(function(score) {
+        return score + 1;
+      });
+      removeVote("downvoted");
+    } else {
+      $("#topic").upvote("downvote");
+      console.log("downvoting");
+      ref.transaction(function(score) {
+        return score - 1;
+      });
+      checkIfVoted("downvoted",true,false,0);
+    }
   });
 });
 
@@ -291,6 +288,8 @@ function loadPostListings() {
                     downvoted: 0
                   });
                 }
+
+
                 console.log();
                 document.getElementById("score").innerHTML = newScore;
               });
@@ -410,6 +409,25 @@ function newPost() {
           console.log(name);
           const metadata = {
             contentType: file.type
+
+      newStoreRef.set({
+          username: username, // original post username
+          email: email,
+          profileUrl: profileUrl,
+          timestamp: timestamp.toString(),
+          title: title,
+          content: content,
+          score: 0
+          // upvoted: new Array(),
+          // downvoted: new Array()
+        },
+        function(error) {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("User input Success");
+            // render post
+            loadPostListings();
           }
           const task = ref.child(name).put(file,metadata);
           fileName = file.name;
@@ -530,10 +548,10 @@ function renderComments() {
       rootRef
         .child(
           "classes/" +
-            currentClassKey +
-            "/posts/" +
-            clickedListing +
-            "/comments/"
+          currentClassKey +
+          "/posts/" +
+          clickedListing +
+          "/comments/"
         )
         .once("value")
         .then(function(snapshot) {
@@ -574,8 +592,7 @@ function newComment() {
       let username = firebase.auth().currentUser.displayName;
       let profileUrl = firebase.auth().currentUser.photoURL;
       let comment = document.getElementById("inputBox").value;
-      if (comment != "") {
-      } else {
+      if (comment != "") {} else {
         alert("Please input a valid comment.");
         return;
       }
@@ -589,8 +606,7 @@ function newComment() {
       );
       let newStoreRef = storesRef.push();
 
-      newStoreRef.set(
-        {
+      newStoreRef.set({
           username: username,
           profileUrl: profileUrl,
           comment: comment
