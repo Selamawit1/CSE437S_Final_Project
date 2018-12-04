@@ -1,3 +1,7 @@
+/*
+ * Reddit.js - handles all functions associated with the posts page
+ */
+
 var postKeys = [];
 var clickedListing = "";
 var scores = [];
@@ -18,32 +22,20 @@ document.addEventListener("DOMContentLoaded", function() {
   loadPostListings();
   document.getElementById("submitBtn").addEventListener("click", newPost);
 
-  $("#topic").upvote();
+  $("#topic").upvote(); // initialize jquery upvote library
+
+  // If Upvote button pressed
   document.getElementById("up0").addEventListener("click", function() {
     $("#topic").upvote("upvote");
-    console.log("upvoting");
+    console.log("in Upvote function");
     let ref = firebase
       .database()
-      .ref(
-        "classes/" + currentClassKey + "/posts/" + clickedListing + "/score"
-      );
-      if (checkIfVoted("upvoted",false,false, 0)) {
-        console.log("upvoting");
-        ref.transaction(function(score) {
-          return score - 1; // increment score
-        });
-        //remove
-        removeVote("upvoted");
-      } else {
-        checkIfVoted("upvoted",true,false,0);
-        console.log("aleady voted");
-        $("#topic").upvote("upvote");
-        console.log("upvoting");
-        ref.transaction(function(score) {
-          return score + 1; // increment score
-        });
+      .ref("classes/" + currentClassKey + "/posts/" + clickedListing );
 
-      }
+      //$('#topic').upvote('count');
+      ref.update({
+        score:$('#topic').upvote('count')
+      });
   });
 
   // DOWNVOTE
@@ -55,32 +47,23 @@ document.addEventListener("DOMContentLoaded", function() {
       .ref(
         "classes/" + currentClassKey + "/posts/" + clickedListing + "/score"
       );
-      if (checkIfVoted("downvoted",false,false,0)) {
-        console.log("downvoting");
-        ref.transaction(function(score) {
-          return score + 1;
+      let downref = firebase
+        .database()
+        .ref("classes/" + currentClassKey + "/posts/" + clickedListing );
+
+        downref.update({
+          score:$('#topic').upvote('count')
         });
-        removeVote("downvoted");
-      } else {
-        $("#topic").upvote("downvote");
-        console.log("downvoting");
-        ref.transaction(function(score) {
-          return score - 1;
-        });
-        checkIfVoted("downvoted",true,false,0);
-      }
   });
 });
 
-function sendEmail(mailList,id)
-{
+function sendEmail(mailList, id) {
   console.log(sendEmail);
-  var i =0;
+  var i = 0;
   var adminEmail = "";
-  for(i=0; i<mailList.length;i++)
-  {
-      console.log(mailList[i]);
-      adminEmail+= ";" + mailList[i];
+  for (i = 0; i < mailList.length; i++) {
+    console.log(mailList[i]);
+    adminEmail += ";" + mailList[i];
   }
   var name = getCookie("currentClass");
   var link =
@@ -88,12 +71,12 @@ function sendEmail(mailList,id)
     adminEmail +
 
     "&subject=" +
-    escape("classname-"+name+" postnumber-"+id) +
+    escape("classname-" + name + " postnumber-" + id) +
     "&body=" +
     escape(
       "Hi! \n\n " +
-      "I wanted to report inappropriate content "
-      + "\n\n Thanks! "
+      "I wanted to report inappropriate content " +
+      "\n\n Thanks! "
     );
   window.location.href = link;
 }
@@ -111,64 +94,64 @@ function flagPost(e) {
       var idNum = 0;
 
       snapshot.forEach(function(data) {
-           console.log(data.val());
-            adminEmail+= data.val();
-            console.log(data.key);
-            mailList.push(data.val());
+        console.log(data.val());
+        adminEmail += data.val();
+        console.log(data.key);
+        mailList.push(data.val());
       });
       console.log(mailList.length);
       console.log(id);
-      sendEmail(mailList,id);
+      sendEmail(mailList, id);
 
     });
-    console.log(mailList);
+  console.log(mailList);
 
 }
 
-function deletePost(e){
+function deletePost(e) {
   console.log("timestamp");
   timestamp = e.target.id;
   console.log(timestamp.toString());
   var date = new Date(timestamp.toString());
-var seconds = date.getTime()/1000;
+  var seconds = date.getTime() / 1000;
 
-console.log(seconds);
+  console.log(seconds);
   let rootRef = firebase.database().ref();
 
   // get all keys
   rootRef
-  .child("classes/" + currentClassKey + "/posts")
-  .once("value")
-  .then(function(snapshot) {
+    .child("classes/" + currentClassKey + "/posts")
+    .once("value")
+    .then(function(snapshot) {
 
-    snapshot.forEach(function(data) {
+      snapshot.forEach(function(data) {
 
-      if (data.val().timestamp == timestamp) {
+        if (data.val().timestamp == timestamp) {
           console.log("match");
           console.log(timestamp);
           console.log(data.val());
-          if(data.val().fileName != ""){
-              console.log(data.val().fileName)
-              const name = (+seconds) + '-' + data.val().fileName;
-              const storageRef= firebase.storage().ref();
-              var desertRef = storageRef.child(name)
+          if (data.val().fileName != "") {
+            console.log(data.val().fileName)
+            const name = (+seconds) + '-' + data.val().fileName;
+            const storageRef = firebase.storage().ref();
+            var desertRef = storageRef.child(name)
 
-              // Delete the file
-              desertRef.delete().then(function() {
-                console.log("File deleted successfully")
-              }).catch(function(error) {
-                console.log("Uh-oh, an error occurred!")
-              });
-         }
-         rootRef.child("classes/" + currentClassKey + "/posts/"+data.key).remove().then(function() {
-             console.log("item deleted successfully")
-         }).catch(function(error) {
-           console.log("Uh-oh, an error occurred!")
-         });
+            // Delete the file
+            desertRef.delete().then(function() {
+              console.log("File deleted successfully")
+            }).catch(function(error) {
+              console.log("Uh-oh, an error occurred!")
+            });
+          }
+          rootRef.child("classes/" + currentClassKey + "/posts/" + data.key).remove().then(function() {
+            console.log("item deleted successfully")
+          }).catch(function(error) {
+            console.log("Uh-oh, an error occurred!")
+          });
 
-      }
+        }
+      });
     });
-  });
   location.reload();
 }
 
@@ -191,9 +174,9 @@ function loadPostListings() {
 
 
 
-//  document
-//      .getElementById("flagBtn");
-//      .addEventListener("click", flagPost);
+  //  document
+  //      .getElementById("flagBtn");
+  //      .addEventListener("click", flagPost);
 
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -269,14 +252,14 @@ function loadPostListings() {
 
             listing.appendChild(post);
 
-              var timestamp = data.val().timestamp;
-              var moderateRef = data.val().Moderators;
+            var timestamp = data.val().timestamp;
+            var moderateRef = data.val().Moderators;
             //  console.log(moderateRef.val());
-              console.log(currentClassKey);
+            console.log(currentClassKey);
 
 
 
-              var i = 0;
+            var i = 0;
 
 
             // add click event
@@ -286,8 +269,8 @@ function loadPostListings() {
                 let newScore = scores[parseInt(post.id.replace("post", ""))];
                 // DISPLAY CURRENT STATE OF VOTES
                 // CHECK IF UPVOTED yet
-                if (checkIfVoted("upvoted",false,true,newScore)) {
-                } else if (checkIfVoted("downvoted",false,true,newScore)) {
+                if (checkIfVoted("upvoted", false, true, newScore)) {
+                } else if (checkIfVoted("downvoted", false, true, newScore)) {
                 } else {
                   console.log("Displaying none");
                   $("#topic").upvote({
@@ -317,7 +300,7 @@ function loadPostListings() {
                 document.getElementById(
                   "postDetailsContent"
                 ).innerHTML = data.val().content;
-                if(data.val().fileName != null){
+                if (data.val().fileName != null) {
                   console.log("fileURL is ");
                   console.log(data.val().fileURL);
                   document.getElementById(
@@ -343,75 +326,60 @@ function loadPostListings() {
                     var idNum = 0;
 
                     snapshot.forEach(function(data) {
-                         console.log(data.val());
-                         if(data.val() == user.email)
-                        {
-                            document.getElementById("flagDelete").append(deleteBtn);
-                            deleteBtn.id = timestamp;
-                            deleteBtn.type="button";
-                            deleteBtn.className="btn btn-primary";
-                            deleteBtn.style.width="100px";
-                            document
-                               .getElementById(timestamp)
-                               .addEventListener("click", deletePost);
-                        }
+                      console.log(data.val());
+                      if (data.val() == user.email) {
+                        document.getElementById("flagDelete").append(deleteBtn);
+                        deleteBtn.id = timestamp;
+                        deleteBtn.type = "button";
+                        deleteBtn.className = "btn btn-primary";
+                        deleteBtn.style.width = "100px";
+                        document
+                          .getElementById(timestamp)
+                          .addEventListener("click", deletePost);
+                      }
                     });
                   });
-                  document.getElementById("flagDelete").append(flagBtn);
+                document.getElementById("flagDelete").append(flagBtn);
 
-                  flagBtnId = data.key;
-                  flagBtn.style.marginRight="20px";
-                  flagBtn.style.width="100px";
+                flagBtnId = data.key;
+                flagBtn.style.marginRight = "20px";
+                flagBtn.style.width = "100px";
 
 
 
-                  rootRef
-                    .child("classes/" + currentClassKey)
-                    .once("value")
-                    .then(function(snapshot) {
-                      var idNum = 0;
+                rootRef
+                  .child("classes/" + currentClassKey)
+                  .once("value")
+                  .then(function(snapshot) {
+                    var idNum = 0;
 
-                      snapshot.forEach(function(data) {
-                         var i = 0
-                      keyVal=flagBtnId;
+                    snapshot.forEach(function(data) {
+                      var i = 0
+                      keyVal = flagBtnId;
                       var count = 0;
                       var counting = true;
-                        for(i=0; i<4;i++)
-                        {
-                          var keyVal = flagBtnId;
+                      for (i = 0; i < 4; i++) {
+                        var keyVal = flagBtnId;
 
-                          var id = 0;
-                          if(Object.keys(data.val())[i] != keyVal && counting==true){
-                            count = count + 1;
-                          }
-                          else if(Object.keys(data.val())[i] == keyVal){
-                            id = count+1;
-                            flagBtn.id = id;
-                            document
-                               .getElementById(id)
-                               .addEventListener("click", flagPost);
-                            counting = false;
-                          }
+                        var id = 0;
+                        if (Object.keys(data.val())[i] != keyVal && counting == true) {
+                          count = count + 1;
+                        } else if (Object.keys(data.val())[i] == keyVal) {
+                          id = count + 1;
+                          flagBtn.id = id;
+                          document
+                            .getElementById(id)
+                            .addEventListener("click", flagPost);
+                          counting = false;
                         }
-                        // var keyVal = data.key;
-                        // var id = 0;
-                        // if(data.key != keyVal && counting==true){
-                        //   console.log("counting..");
-                        //   count = count + 1;
-                        // }
-                        // else if(data.key == keyVal){
-                        //   console.log("found data key");
-                        //   id = count;
-                        //   counting = false;
-                        // }
-                        // console.log(id);
-
-                      });
+                      }
 
                     });
 
-                  flagBtn.type="button";
-                  flagBtn.className="btn btn-primary";
+                  });
+
+                flagBtn.type = "button";
+                flagBtn.className = "btn btn-primary";
               } else {
                 document.getElementById("profileImgSmall").src = "";
                 document.getElementById("postDetailsContent").innerHTML = "";
@@ -449,35 +417,33 @@ function newPost() {
       let fileLen = fileInput.files.length;
       let rootRef = firebase.database().ref();
       let storesRef = rootRef.child("classes/" + currentClassKey + "/posts");
-      const ref= firebase.storage().ref();
+      const ref = firebase.storage().ref();
       let timestamp = new Date();
       console.log(timestamp.getTime());
       var fileName = null;
       var url = "";
-      if(fileLen!=0)
-      {
-        for(var i=0; i<fileLen; i++){
+      if (fileLen != 0) {
+        for (var i = 0; i < fileLen; i++) {
           var file = fileInput.files[i];
-          const name = (+(parseInt(timestamp.getTime()/1000))) + '-' + file.name;
+          const name = (+(parseInt(timestamp.getTime() / 1000))) + '-' + file.name;
           console.log(name);
           const metadata = {
             contentType: file.type
           }
-          const task = ref.child(name).put(file,metadata);
+          const task = ref.child(name).put(file, metadata);
           fileName = file.name;
 
           var fileURL = task.then(snapshot => snapshot.ref.getDownloadURL()).then(function(url) {
-            writeUserData(username,email,profileUrl,timestamp,title,content,fileName,url);
+            writeUserData(username, email, profileUrl, timestamp, title, content, fileName, url);
             return;
-        });
-    //
+          });
+          //
           console.log(fileURL);
         }
 
 
-      }
-      else{
-        writeUserData(username,email,profileUrl,timestamp,title,content," "," ",currentClassKey)
+      } else {
+        writeUserData(username, email, profileUrl, timestamp, title, content, " ", " ", currentClassKey)
       }
 
 
@@ -495,15 +461,14 @@ function newPost() {
   location.reload();
 }
 
-function writeUserData(username,email,profileUrl,timestamp,title,content,fileName,fileURL,currentClassKey){
+function writeUserData(username, email, profileUrl, timestamp, title, content, fileName, fileURL, currentClassKey) {
 
   let rootRef = firebase.database().ref();
   let storesRef = rootRef.child("classes/" + currentClassKey + "/posts");
   console.log(currentClassKey);
-    let newStoreRef = storesRef.push();
-    Moderators = "sntegegn@wustl.edu" + " "
-  newStoreRef.set(
-    {
+  let newStoreRef = storesRef.push();
+  Moderators = "sntegegn@wustl.edu" + " "
+  newStoreRef.set({
       username: username, // original post username
       email: email,
       profileUrl: profileUrl,
@@ -529,11 +494,12 @@ function writeUserData(username,email,profileUrl,timestamp,title,content,fileNam
     }
   );
 
-//  document
+  //  document
   //  .getElementById("flagBtn");
   //  .addEventListener("click", newComment);
 
 }
+
 function loadComments() {
   let body = document.getElementById("postComments");
   // clear comments section to prepare for fresh load
@@ -583,17 +549,16 @@ function renderComments() {
       rootRef
         .child(
           "classes/" +
-            currentClassKey +
-            "/posts/" +
-            clickedListing +
-            "/comments/"
+          currentClassKey +
+          "/posts/" +
+          clickedListing +
+          "/comments/"
         )
         .once("value")
         .then(function(snapshot) {
           snapshot.forEach(function(data) {
             profileImg = data.val().profileUrl;
-            if(profileImg == null)
-            {
+            if (profileImg == null) {
               profileImg = "../images/placeholder.png";
             }
             $("#postComments").append(
@@ -632,8 +597,7 @@ function newComment() {
       let username = firebase.auth().currentUser.displayName;
       let profileUrl = firebase.auth().currentUser.photoURL;
       let comment = document.getElementById("inputBox").value;
-      if (comment != "") {
-      } else {
+      if (comment != "") {} else {
         alert("Please input a valid comment.");
         return;
       }
@@ -647,8 +611,7 @@ function newComment() {
       );
       let newStoreRef = storesRef.push();
 
-      newStoreRef.set(
-        {
+      newStoreRef.set({
           username: username,
           profileUrl: profileUrl,
           comment: comment
@@ -702,25 +665,25 @@ function getCookie(cname) {
 }
 
 function setVote(type) {
-    let rootRef = firebase.database().ref();
-    // store underneath current post (get key)
-    console.log(clickedListing);
+  let rootRef = firebase.database().ref();
+  // store underneath current post (get key)
+  console.log(clickedListing);
 
-    let storesRef = rootRef.child(
-      "classes/" + currentClassKey + "/posts/" + clickedListing + "/" + type + "/"
-    );
+  let storesRef = rootRef.child(
+    "classes/" + currentClassKey + "/posts/" + clickedListing + "/" + type + "/"
+  );
 
-    let newStoreRef = storesRef.push();
+  let newStoreRef = storesRef.push();
 
-    newStoreRef.set({
-        username: firebase.auth().currentUser.displayName,
-      },
-      function(error) {
-        if (error) {
-          console.log(error);
-        } else {}
-      }
-    );
+  newStoreRef.set({
+      username: firebase.auth().currentUser.displayName,
+    },
+    function(error) {
+      if (error) {
+        console.log(error);
+      } else {}
+    }
+  );
 }
 
 // remove current user from upvoted or downvoted list
@@ -748,12 +711,12 @@ function removeVote(type) {
 }
 
 // Takes in either "upvoted" or "downvoted", then if user should vote
-function checkIfVoted(type, vote, isDisplay,newScore) {
+function checkIfVoted(type, vote, isDisplay, newScore) {
   console.log("checkifvoted");
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       let rootRef = firebase.database().ref();
-      rootRef.child("classes/" + currentClassKey + "/posts/" + clickedListing+ "/" + type + "/")
+      rootRef.child("classes/" + currentClassKey + "/posts/" + clickedListing + "/" + type + "/")
         .orderByChild("username").equalTo(firebase.auth().currentUser.displayName)
         .once("value", snapshot => {
           if (snapshot.exists()) {
@@ -767,7 +730,7 @@ function checkIfVoted(type, vote, isDisplay,newScore) {
                 upvoted: 1,
                 downvoted: 0
               });
-            } else if (isDisplay == true && type == "downvoted"){
+            } else if (isDisplay == true && type == "downvoted") {
               console.log("Displaying downvoted");
               $("#topic").upvote({
                 count: newScore,
