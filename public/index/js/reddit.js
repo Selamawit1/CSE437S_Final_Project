@@ -7,6 +7,7 @@ var clickedListing = "";
 var scores = [];
 var currentClassKey = "";
 var mailList = [];
+var numPosts = 0;
 // var count = 0;
 // var counting = true;
 
@@ -69,7 +70,6 @@ function sendEmail(mailList, id) {
   var link =
     "mailto:" +
     adminEmail +
-
     "&subject=" +
     escape("classname-" + name + " postnumber-" + id) +
     "&body=" +
@@ -180,6 +180,7 @@ function loadPostListings() {
 
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
+      numPosts = 0;
       let body = document.getElementById("postListings");
       console.log(body);
       // clear prev listings
@@ -214,21 +215,22 @@ function loadPostListings() {
           var idNum = 0;
 
           snapshot.forEach(function(data) {
+            numPosts += 1;
             console.log(data.val());
-            var p = document.createElement('p');
+            var p = document.createElement("p");
             var addFileVal = "Add Files...";
             var addFile = document.createTextNode(addFileVal);
             p.id = "addFile";
             p.appendChild(addFile);
 
-            val = document.createElement('input');
+            val = document.createElement("input");
             val.type = "file";
             val.id = "file";
-            var br = document.createElement('br');
-            var h = document.createElement('hr');
+            var br = document.createElement("br");
+            var h = document.createElement("hr");
             h.id = "hr";
 
-            var fileDiv = document.createElement('div');
+            var fileDiv = document.createElement("div");
 
             fileDiv.appendChild(p);
             fileDiv.appendChild(val);
@@ -249,7 +251,6 @@ function loadPostListings() {
             postDiv.appendChild(postH);
             post.appendChild(postDiv);
 
-
             listing.appendChild(post);
 
             var timestamp = data.val().timestamp;
@@ -261,6 +262,7 @@ function loadPostListings() {
 
             var i = 0;
 
+            var i = 0;
 
             // add click event
             $("#" + post.id).click(function() {
@@ -309,7 +311,6 @@ function loadPostListings() {
                   document.getElementById(
                     "postDetailsFile"
                   ).href = data.val().fileURL;
-
                 }
                 document.getElementById("poster").innerHTML =
                   "Post by " +
@@ -346,6 +347,9 @@ function loadPostListings() {
                 flagBtn.style.width = "100px";
 
 
+                flagBtnId = data.key;
+                flagBtn.style.marginRight = "20px";
+                flagBtn.style.width = "100px";
 
                 rootRef
                   .child("classes/" + currentClassKey)
@@ -354,7 +358,7 @@ function loadPostListings() {
                     var idNum = 0;
 
                     snapshot.forEach(function(data) {
-                      var i = 0
+                      var i = 0;
                       keyVal = flagBtnId;
                       var count = 0;
                       var counting = true;
@@ -362,7 +366,10 @@ function loadPostListings() {
                         var keyVal = flagBtnId;
 
                         var id = 0;
-                        if (Object.keys(data.val())[i] != keyVal && counting == true) {
+                        if (
+                          Object.keys(data.val())[i] != keyVal &&
+                          counting == true
+                        ) {
                           count = count + 1;
                         } else if (Object.keys(data.val())[i] == keyVal) {
                           id = count + 1;
@@ -375,6 +382,7 @@ function loadPostListings() {
                       }
 
                     });
+                  });
 
                   });
 
@@ -400,7 +408,6 @@ function loadPostListings() {
       console.log("User is not logged in!");
     }
   });
-
 }
 
 function newPost() {
@@ -446,14 +453,10 @@ function newPost() {
         writeUserData(username, email, profileUrl, timestamp, title, content, " ", " ", currentClassKey)
       }
 
-
-
-
       // close modal
       $("#postModal").modal("toggle");
       //clear file name
       fileInput.value = "";
-
     } else {
       console.log("User is not logged in!");
     }
@@ -461,8 +464,17 @@ function newPost() {
   location.reload();
 }
 
-function writeUserData(username, email, profileUrl, timestamp, title, content, fileName, fileURL, currentClassKey) {
-
+function writeUserData(
+  username,
+  email,
+  profileUrl,
+  timestamp,
+  title,
+  content,
+  fileName,
+  fileURL,
+  currentClassKey
+) {
   let rootRef = firebase.database().ref();
   let storesRef = rootRef.child("classes/" + currentClassKey + "/posts");
   console.log(currentClassKey);
@@ -477,7 +489,7 @@ function writeUserData(username, email, profileUrl, timestamp, title, content, f
       content: content,
       score: 0,
       fileName: fileName,
-      fileURL: fileURL,
+      fileURL: fileURL
 
       // upvoted: [],
       // downvoted: []
@@ -497,7 +509,6 @@ function writeUserData(username, email, profileUrl, timestamp, title, content, f
   //  document
   //  .getElementById("flagBtn");
   //  .addEventListener("click", newComment);
-
 }
 
 function loadComments() {
@@ -540,6 +551,7 @@ function loadComments() {
 }
 
 function renderComments() {
+  document.getElementById("detailedView").style.display = "";
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       let uid = firebase.auth().currentUser.uid;
@@ -565,9 +577,7 @@ function renderComments() {
               `<div class="row">
               <div class="col-sm-1">
                 <div class="thumbnail">
-                  <img class="img-responsive user-photo" src='${
-                    profileImg
-                  }' height="50" width="50">
+                  <img class="img-responsive user-photo" src='${profileImg}' height="50" width="50">
                 </div>
               </div>
               <div class="col-sm-5">
@@ -591,6 +601,7 @@ function renderComments() {
 }
 
 function newComment() {
+  document.getElementById("detailedView").style.display = "";
   // add comment to database
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -633,6 +644,7 @@ function newComment() {
 }
 
 function getScores(callback) {
+  document.getElementById("detailedView").style.display = "";
   console.log("Getting scores");
   scores = [];
   let rootRef = firebase.database().ref();
@@ -648,6 +660,7 @@ function getScores(callback) {
 }
 
 function getCookie(cname) {
+  document.getElementById("detailedView").style.display = "";
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
   console.log(document.cookie);
@@ -665,6 +678,8 @@ function getCookie(cname) {
 }
 
 function setVote(type) {
+  document.getElementById("detailedView").style.display = "";
+  bcbfe309d787326119a8563b746d9f65de
   let rootRef = firebase.database().ref();
   // store underneath current post (get key)
   console.log(clickedListing);
@@ -677,10 +692,13 @@ function setVote(type) {
 
   newStoreRef.set({
       username: firebase.auth().currentUser.displayName,
+  newStoreRef.set(
+    {
+      username: firebase.auth().currentUser.displayName939833bcbfe309d787326119a8563b746d9f65de
     },
     function(error) {
       if (error) {
-        console.log(error);
+        console.log(error); HEAD
       } else {}
     }
   );
@@ -688,22 +706,38 @@ function setVote(type) {
 
 // remove current user from upvoted or downvoted list
 function removeVote(type) {
+  document.getElementById("detailedView").style.display = "";
   console.log("removing vote");
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-      var ref = firebase.database().ref().child("classes/" + currentClassKey + "/posts/" + clickedListing + "/" + type + "/")
-      ref.once("value")
+      var ref = firebase
+        .database()
+        .ref()
+        .child(
+          "classes/" +
+            currentClassKey +
+            "/posts/" +
+            clickedListing +
+            "/" +
+            type +
+            "/"
+        );
+      ref
+        .once("value")
         .then(function(snapshot) {
           data = snapshot.val();
           for (var i = 0; i < Object.keys(data).length; i++) {
             Object.keys(data)[i].forEach(function(childSnapshot) {
-              if (childSnapshot.val() == firebase.auth().currentUser.displayName) {
+              if (
+                childSnapshot.val() == firebase.auth().currentUser.displayName
+              ) {
                 childSnapshot.ref.remove();
                 return;
               }
             });
           }
-        }).catch(function(error) {
+        })
+        .catch(function(error) {
           alert("Data could not be deleted." + error);
         });
     }
@@ -712,12 +746,24 @@ function removeVote(type) {
 
 // Takes in either "upvoted" or "downvoted", then if user should vote
 function checkIfVoted(type, vote, isDisplay, newScore) {
+  document.getElementById("detailedView").style.display = "";
   console.log("checkifvoted");
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       let rootRef = firebase.database().ref();
       rootRef.child("classes/" + currentClassKey + "/posts/" + clickedListing + "/" + type + "/")
-        .orderByChild("username").equalTo(firebase.auth().currentUser.displayName)
+      rootRef
+        .child(
+          "classes/" +
+            currentClassKey +
+            "/posts/" +
+            clickedListing +
+            "/" +
+            type +
+            "/"
+        )
+        .orderByChild("username")
+        .equalTo(firebase.auth().currentUser.displayName)
         .once("value", snapshot => {
           if (snapshot.exists()) {
             const userData = snapshot.val();
@@ -751,5 +797,18 @@ function checkIfVoted(type, vote, isDisplay, newScore) {
     }
   });
   return false;
+}
 
+function searchPosts() {
+  document.getElementById("detailedView").style.display = "none";
+  let searchQuery = document.getElementById("searchPostsQuery").value;
+  for (let i = 0; i < numPosts; i++) {
+    let post = document.getElementById("post" + i).firstElementChild
+      .firstElementChild.innerText;
+    if (!post.includes(searchQuery)) {
+      document.getElementById("post" + i).style.display = "none";
+    } else {
+      document.getElementById("post" + i).style.display = "";
+    }
+  }
 }
