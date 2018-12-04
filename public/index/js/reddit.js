@@ -398,7 +398,6 @@ function newPost() {
       let storesRef = rootRef.child("classes/" + currentClassKey + "/posts");
       const ref= firebase.storage().ref();
       let timestamp = new Date();
-<<<<<<< HEAD
       console.log(timestamp.getTime());
       var fileName = null;
       var url = "";
@@ -410,7 +409,6 @@ function newPost() {
           console.log(name);
           const metadata = {
             contentType: file.type
-=======
 
       newStoreRef.set({
           username: username, // original post username
@@ -430,7 +428,6 @@ function newPost() {
             console.log("User input Success");
             // render post
             loadPostListings();
->>>>>>> 1391f579efc539d9a34040312aa493a1301d3ef6
           }
           const task = ref.child(name).put(file,metadata);
           fileName = file.name;
