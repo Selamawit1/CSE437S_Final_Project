@@ -21,6 +21,10 @@ window.onload = function() {
         if (error.message == "Password should be at least 6 characters") {
           alert("Password should be at least 6 characters.");
         }
+        if(error.message=="The email address is already in use by another account.")
+        {
+          alert("The email address is already in use by another account")
+        }
         return false;
       });
     firebase.auth().onAuthStateChanged(function(user) {
