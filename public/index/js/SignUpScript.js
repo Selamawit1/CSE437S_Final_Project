@@ -2,12 +2,26 @@ window.onload = function() {
   var signup = function() {
     const email = document.getElementById("email").value;
     const pass = document.getElementById("password").value;
+    const reenterPassword = document.getElementById("reenterPassword").value;
     const username = document.getElementById("username").value;
+    if (email.length < 4 || username.length == 0 || pass != reenterPassword) {
+      alert(
+        "Account not created: Please ensure that all inputs are correctly filled and that passwords match, and then try again."
+      );
+      return false;
+    }
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, pass)
       .catch(function(error) {
         console.log(error.message);
+        if (error.message == "The email address is badly formatted.") {
+          alert("The email address is badly formatted.");
+        }
+        if (error.message == "Password should be at least 6 characters") {
+          alert("Password should be at least 6 characters.");
+        }
+        return false;
       });
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
@@ -19,15 +33,20 @@ window.onload = function() {
             .sendEmailVerification()
             .then(function() {
               // Email sent.
-              window.alert("Please verify your email before proceeding.");
+              window.alert(
+                "To login, verify your email via the sign-up sent to " +
+                  email +
+                  "before proceeding."
+              );
+              //window.location.href = "../index.html";
             })
             .catch(function(error) {
               // An error happened.
-              window.alert("Error happened" + error.message);
+              console.log("Error happened: " + error.message);
             });
           var email_id = user.email;
           var email_verified = user.emailVerified;
-          window.alert("email_verified: " + email_verified);
+          console.log("Email Verified: " + email_verified);
           // insert username as well
           user
             .updateProfile({
@@ -35,7 +54,7 @@ window.onload = function() {
             })
             .then(function() {
               // Update successful.
-              window.alert("Successfully added username");
+              console.log("Successfully added username");
               //var user = firebase.auth().currentUser;
             })
             .catch(function(error) {
@@ -43,7 +62,6 @@ window.onload = function() {
               window.alert("Error adding username");
             });
 
-          window.location.href = "../index.html";
           return false;
         }
       } else {
@@ -65,4 +83,7 @@ window.onload = function() {
         document.getElementById("signup").click();
       }
     });
+  document.getElementById("goHome").addEventListener("click", function(event) {
+    window.location.href = "../index.html";
+  });
 };
