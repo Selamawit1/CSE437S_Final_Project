@@ -81,7 +81,7 @@ function sendEmail(mailList,id)
     "mailto:" +
     adminEmail +
 
-    "&subject=" +
+    "?&subject=" +
     escape("classkey"+currentClassKey+" postkey"+id) +
     "&body=" +
     escape(
