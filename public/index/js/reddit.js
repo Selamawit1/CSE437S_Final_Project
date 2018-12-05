@@ -339,16 +339,18 @@ function loadPostListings() {
                   " on " +
                   data.val().timestamp;
                 loadComments();
-
+                currentClassKey=getCookie("currentClassKey");
                 let rootRef = firebase.database().ref();
                 rootRef
                   .child("classes/" + currentClassKey + "/Moderators")
                   .once("value")
                   .then(function(snapshot) {
                     var idNum = 0;
-
+                    console.log("HEEYYYY");
                     snapshot.forEach(function(data) {
+                      console.log("HELLLOOO");
                       console.log(data.val());
+                      console.log(user.email);
                       if (data.val() == user.email) {
                         document.getElementById("flagDelete").append(deleteBtn);
                         deleteBtn.id = timestamp;
