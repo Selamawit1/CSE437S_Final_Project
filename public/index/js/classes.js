@@ -73,7 +73,8 @@ function renderUserClasses() {
         .on("value", function(snapshot) {
           //console.log(snapshot.val());
 
-          classKeys = Object.keys(snapshot.val());
+
+          if (snapshot.val() != null) classKeys = Object.keys(snapshot.val());
           var idNum = 0;
           snapshot.forEach(function(data) {
 
