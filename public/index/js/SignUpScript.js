@@ -70,7 +70,7 @@ window.onload = function() {
         }
       } else {
         // No user is signed in.
-        alert("Account not created. Please try again.");
+      //  alert("Account not created. Please try again.");
       }
     });
   };
