@@ -309,7 +309,7 @@ function loadPostListings() {
                 document.getElementById(
                   "postDetailsContent"
                 ).innerHTML = data.val().content;
-
+                /*
                 for (var word in illegalWords) {
                   console.log("search:" + word + data.val().content);
                   if (data.val().content.includes(word)) {
@@ -322,6 +322,7 @@ function loadPostListings() {
                     break;
                   }
                 }
+                */
 
                 if (data.val().fileName != null) {
                   console.log("fileURL is ");
@@ -339,7 +340,7 @@ function loadPostListings() {
                   " on " +
                   data.val().timestamp;
                 loadComments();
-                currentClassKey=getCookie("currentClassKey");
+                currentClassKey = getCookie("currentClassKey");
                 let rootRef = firebase.database().ref();
                 rootRef
                   .child("classes/" + currentClassKey + "/Moderators")
