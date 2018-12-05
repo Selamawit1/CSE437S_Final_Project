@@ -170,6 +170,7 @@ function deletePost(e) {
 
 // grab all posts from firebase then render
 function loadPostListings() {
+  document.getElementById("detailedView").style.display = "";
   currentClassKey = getCookie("currentClassKey");
   console.log("currentClassKey : " + currentClassKey);
   postKeys = []; // reset post keys
