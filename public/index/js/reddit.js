@@ -1,3 +1,14 @@
+var illegalWords = [
+  "piracy",
+  "borrowing",
+  "fraud",
+  "stealing",
+  "theft",
+  "counterfeiting",
+  "cribbing",
+  "lifting",
+  "theft"
+];
 var postKeys = [];
 var clickedListing = "";
 var scores = [];
@@ -78,13 +89,13 @@ function sendEmail(mailList, id) {
   var adminEmail = "";
   for (i = 0; i < mailList.length; i++) {
     console.log(mailList[i]);
-    adminEmail += ";" + mailList[i];
+    adminEmail += mailList[i] + ";";
   }
   var name = getCookie("currentClass");
   var link =
     "mailto:" +
     adminEmail +
-    "&subject=" +
+    "?&subject=" +
     escape("classname-" + name + " postnumber-" + id) +
     "&body=" +
     escape(
@@ -312,6 +323,21 @@ function loadPostListings() {
                 document.getElementById(
                   "postDetailsContent"
                 ).innerHTML = data.val().content;
+                /*
+                for (var word in illegalWords) {
+                  console.log("search:" + word + data.val().content);
+                  if (data.val().content.includes(word)) {
+                    document.getElementById(
+                      "postDetailsContent"
+                    ).innerHTML = data.val().content;
+                  } else {
+                    document.getElementById("postDetailsContent").innerHTML =
+                      "PLAIGARISM DETECTED";
+                    break;
+                  }
+                }
+                */
+
                 if (data.val().fileName != null) {
                   console.log("fileURL is ");
                   console.log(data.val().fileURL);
@@ -692,6 +718,15 @@ function getScores(callback) {
       });
       callback();
     });
+  /*
+  for (let index = 0; index < scores.length; index++) {
+    let rating = rating + scores[index];
+  }
+  let rating = rating / scores.length;
+  rootRef.child("classes/" + currentClassKey).update({
+    rating: rating
+  });
+  */
 }
 
 function getCookie(cname) {
