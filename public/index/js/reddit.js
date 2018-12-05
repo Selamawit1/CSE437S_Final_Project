@@ -433,12 +433,12 @@ function newPost() {
           const task = ref.child(name).put(file, metadata);
           fileName = file.name;
 
-        task.then(snapshot => snapshot.ref.getDownloadURL()).then(function(url) {
-            writeUserData(username, email, profileUrl, timestamp, title, content, fileName, url);
+          task.then(snapshot => snapshot.ref.getDownloadURL()).then(function(url) {
+            writeUserData(username,email,profileUrl,timestamp,title,content,fileName,url);
 
-          });
-          //
-          //console.log(fileURL);
+        });
+    //
+        //  console.log(fileURL);
         }
 
 
@@ -458,12 +458,14 @@ function newPost() {
       console.log("User is not logged in!");
     }
   });
-  //location.reload();
+
 }
 
 function writeUserData(username, email, profileUrl, timestamp, title, content, fileName, fileURL, currentClassKey) {
   currentClassKey=getCookie("currentClassKey");
+  console.log(currentClassKey);
   let rootRef = firebase.database().ref();
+  console.log(currentClassKey);
   let storesRef = rootRef.child("classes/" + currentClassKey + "/posts");
   console.log(currentClassKey);
   let newStoreRef = storesRef.push();
@@ -493,7 +495,7 @@ function writeUserData(username, email, profileUrl, timestamp, title, content, f
       }
     }
   );
-
+location.reload();
   //  document
   //  .getElementById("flagBtn");
   //  .addEventListener("click", newComment);
