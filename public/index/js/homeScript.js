@@ -1,14 +1,5 @@
 window.onload = function() {
   renderAllTextbooks();
-
-  // $("#contactBtn").click(function() {
-  //   let seller = document.getElementById("textbookSeller").value;
-  //   // send email or message? to seller as inquiry
-  //       window.location.assign("'mailto:seller@gmail.com?subject=WashU for You: Interest in your textbook Post!'");
-  //
-  // });
-
-
 }
 
 // renders all inputted textbooks
@@ -66,10 +57,4 @@ function renderAllTextbooks() {
 
     });
   });
-}
-
-function contactSeller() {
-  // For demonstration purposes, opens mail clients on user's desktop
-
-
 }
