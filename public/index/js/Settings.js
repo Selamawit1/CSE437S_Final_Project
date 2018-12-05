@@ -185,7 +185,7 @@ function moderatorForm() {
     }
     console.log(reasonVar);
     adminEmail =
-      "sntegegn13@ole.augie.edu; isabelle.xu88@gmail.com; jeremy.goldstein@wustl.edu";
+      "sntegegn13@ole.augie.edu;isabelle.xu88@gmail.com;jeremy.goldstein@wustl.edu";
     var link =
       "mailto:" +
       adminEmail +
@@ -224,6 +224,7 @@ function updatePass() {
     user.updatePassword(newPass).then(
       () => {
         console.log("Updating password successful");
+        alert("Successfully updated password!");
       },
       error => {
         // An error happened.
