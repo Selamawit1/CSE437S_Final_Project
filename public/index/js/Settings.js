@@ -35,7 +35,7 @@ $(window).load(function() {
               })
               .catch(function(error) {
                 // An error happened.
-                alert("Error encountered updating user profile image.");
+                //alert("Error encountered updating user profile image.");
               });
             var user = firebase.auth().currentUser;
 

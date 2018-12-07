@@ -276,6 +276,14 @@ function loadPostListings() {
             $("#" + post.id).click(function() {
               // get most recent score from listing
               getScores(function() {
+                var rating = 0;
+                for (let index = 0; index < scores.length; index++) {
+                   rating = rating + scores[index];
+                }
+                 rating = Math.round(rating / scores.length);
+                rootRef.child("classes/" + currentClassKey).update({
+                  rating: rating
+                });
                 let newScore = scores[parseInt(post.id.replace("post", ""))];
                 // DISPLAY CURRENT STATE OF VOTES
                 // CHECK IF UPVOTED yet
@@ -694,16 +702,10 @@ function getScores(callback) {
       });
       callback();
     });
-  /*
-  for (let index = 0; index < scores.length; index++) {
-    let rating = rating + scores[index];
-  }
-  let rating = rating / scores.length;
-  rootRef.child("classes/" + currentClassKey).update({
-    rating: rating
-  });
-  */
+
 }
+
+
 
 function getCookie(cname) {
   var name = cname + "=";
@@ -839,8 +841,13 @@ function checkIfVoted(type, vote, isDisplay, newScore) {
 }
 
 function searchPosts() {
-  document.getElementById("detailedView").style.display = "none";
   let searchQuery = document.getElementById("searchPostsQuery").value;
+  if(searchQuery == ""){
+  document.getElementById("detailedView").style.display = "";
+  }
+  else{
+    document.getElementById("detailedView").style.display = "none";
+  }
   for (let i = 0; i < numPosts; i++) {
     let post = document.getElementById("post" + i).firstElementChild
       .firstElementChild.innerText;

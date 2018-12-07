@@ -1,3 +1,5 @@
+let emailFlag = 0;
+
 window.onload = function() {
   var signup = function() {
     const email = document.getElementById("email").value;
@@ -39,9 +41,13 @@ window.onload = function() {
             .sendEmailVerification()
             .then(function() {
               // Email sent.
-              window.alert(
-                "To login, verify your email via the sign-up sent to your inbox before proceeding."
-              );
+              if (emailFlag == 0) {
+                window.alert(
+                  "To login, verify your email via the sign-up sent to your inbox before proceeding."
+                );
+                emailFlag = 1;
+              }
+
               //window.location.href = "../index.html";
             })
             .catch(function(error) {
@@ -70,7 +76,7 @@ window.onload = function() {
         }
       } else {
         // No user is signed in.
-      //  alert("Account not created. Please try again.");
+        //  alert("Account not created. Please try again.");
       }
     });
   };
